@@ -61,6 +61,6 @@ Expected ids, applied by the ingestion flows:
 
 - Naming of line `datasetId`s and the list of `lineCategory` codes (data model D9).
 - Codes and labels (D10): `renewalStatus` and `segment` values are drafts.
-- Storage of control results (D17): only `reviewStatus` for now.
+- Storage of control results (D17): only `reviewStatus` for now. It carries the reviewer (`reviewerId`, `reviewerName`, `reviewComment`) and the review time in `observedAt` (D20). The invoice header has no status: it is computed from its details.
 - Storage of invoice PDFs (D18): `sourceDocument` is a plain link.
 - Contracted prices (D15): not modelled until the price schedule (BPU) is available.

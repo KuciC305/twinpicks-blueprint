@@ -9,7 +9,10 @@ import {
 
 const entityType = 'Invoice';
 
-/** Invoice header: one entity per invoice number (D7). Per delivery point content is in InvoiceDetail. */
+/**
+ * Invoice header: one entity per invoice number (D7). Per delivery point content is in InvoiceDetail.
+ * No review status here: it is computed from the details when displayed (D20).
+ */
 export const InvoiceTemplate: StellioTemplate = {
     id: `urn:ngsi-ld:${entityType}:Template`,
     type: 'Template',
@@ -46,13 +49,6 @@ export const InvoiceTemplate: StellioTemplate = {
     },
     chorusStatus: {
         ...getSimpleTextProp({ title: 'Statut Chorus Pro' }),
-    },
-    // Derived from the reviewStatus of the details
-    reviewStatus: {
-        ...getEnumProp({
-            title: 'Statut de contrôle',
-            enum: ['toReview', 'validated', 'rejected'],
-        }),
     },
     supplier: {
         ...getRelationshipProp({

@@ -246,7 +246,7 @@
         },
         "startDate": {
             "type": "Property",
-            "value": "2026-10-12T12:14:09.858Z",
+            "value": "2026-10-14T13:46:48.421Z",
             "jsonSchema": {
                 "type": "Property",
                 "value": {
@@ -259,7 +259,7 @@
         },
         "endDate": {
             "type": "Property",
-            "value": "2026-10-12T12:14:09.858Z",
+            "value": "2026-10-14T13:46:48.421Z",
             "jsonSchema": {
                 "type": "Property",
                 "value": {
@@ -342,7 +342,7 @@
         },
         "startDate": {
             "type": "Property",
-            "value": "2026-10-12T12:14:09.859Z",
+            "value": "2026-10-14T13:46:48.421Z",
             "jsonSchema": {
                 "type": "Property",
                 "value": {
@@ -355,7 +355,7 @@
         },
         "endDate": {
             "type": "Property",
-            "value": "2026-10-12T12:14:09.859Z",
+            "value": "2026-10-14T13:46:48.421Z",
             "jsonSchema": {
                 "type": "Property",
                 "value": {
@@ -575,7 +575,7 @@
         },
         "startDate": {
             "type": "Property",
-            "value": "2026-10-12T12:14:09.860Z",
+            "value": "2026-10-14T13:46:48.422Z",
             "jsonSchema": {
                 "type": "Property",
                 "value": {
@@ -588,7 +588,7 @@
         },
         "endDate": {
             "type": "Property",
-            "value": "2026-10-12T12:14:09.860Z",
+            "value": "2026-10-14T13:46:48.422Z",
             "jsonSchema": {
                 "type": "Property",
                 "value": {
@@ -699,7 +699,7 @@
         },
         "issueDate": {
             "type": "Property",
-            "value": "2026-10-12T12:14:09.860Z",
+            "value": "2026-10-14T13:46:48.422Z",
             "jsonSchema": {
                 "type": "Property",
                 "value": {
@@ -712,7 +712,7 @@
         },
         "dueDate": {
             "type": "Property",
-            "value": "2026-10-12T12:14:09.860Z",
+            "value": "2026-10-14T13:46:48.422Z",
             "jsonSchema": {
                 "type": "Property",
                 "value": {
@@ -798,23 +798,6 @@
                 }
             }
         },
-        "reviewStatus": {
-            "type": "Property",
-            "value": "toReview",
-            "jsonSchema": {
-                "type": "Property",
-                "value": {
-                    "schemaType": "enum",
-                    "enum": [
-                        "toReview",
-                        "validated",
-                        "rejected"
-                    ],
-                    "title": "Statut de contrôle",
-                    "order": 51
-                }
-            }
-        },
         "supplier": {
             "type": "Relationship",
             "object": "urn:ngsi-ld:Organization:Template",
@@ -823,7 +806,7 @@
                 "value": {
                     "schemaType": "relationship",
                     "title": "Fournisseur",
-                    "order": 52
+                    "order": 51
                 }
             }
         },
@@ -835,7 +818,7 @@
                 "value": {
                     "schemaType": "relationship",
                     "title": "Compte de facturation",
-                    "order": 53
+                    "order": 52
                 }
             }
         },
@@ -847,7 +830,7 @@
                 "value": {
                     "schemaType": "relationship",
                     "title": "Facture corrigée (avoir)",
-                    "order": 54
+                    "order": 53
                 }
             }
         },
@@ -881,32 +864,32 @@
                     "friendlyAttributeName": "Nom",
                     "schemaType": "string",
                     "title": "Nom du détail de facture",
-                    "order": 55
+                    "order": 54
                 }
             }
         },
         "startDate": {
             "type": "Property",
-            "value": "2026-10-12T12:14:09.861Z",
+            "value": "2026-10-14T13:46:48.422Z",
             "jsonSchema": {
                 "type": "Property",
                 "value": {
                     "schemaType": "date",
                     "title": "Début de la période facturée",
-                    "order": 56,
+                    "order": 55,
                     "dateMode": "date"
                 }
             }
         },
         "endDate": {
             "type": "Property",
-            "value": "2026-10-12T12:14:09.861Z",
+            "value": "2026-10-14T13:46:48.422Z",
             "jsonSchema": {
                 "type": "Property",
                 "value": {
                     "schemaType": "date",
                     "title": "Fin de la période facturée",
-                    "order": 57,
+                    "order": 56,
                     "dateMode": "date"
                 }
             }
@@ -914,26 +897,26 @@
         "amount": {
             "startDate": {
                 "type": "Property",
-                "value": "2026-10-12T12:14:09.861Z",
+                "value": "2026-10-14T13:46:48.422Z",
                 "jsonSchema": {
                     "type": "Property",
                     "value": {
                         "schemaType": "date",
                         "title": "Début de période",
-                        "order": 59,
+                        "order": 58,
                         "dateMode": "date"
                     }
                 }
             },
             "endDate": {
                 "type": "Property",
-                "value": "2026-10-12T12:14:09.861Z",
+                "value": "2026-10-14T13:46:48.422Z",
                 "jsonSchema": {
                     "type": "Property",
                     "value": {
                         "schemaType": "date",
                         "title": "Fin de période",
-                        "order": 60,
+                        "order": 59,
                         "dateMode": "date"
                     }
                 }
@@ -952,7 +935,7 @@
                             "services"
                         ],
                         "title": "Bloc de facture",
-                        "order": 61
+                        "order": 60
                     }
                 }
             },
@@ -964,7 +947,7 @@
                     "value": {
                         "schemaType": "string",
                         "title": "Catégorie de ligne",
-                        "order": 62
+                        "order": 61
                     }
                 }
             },
@@ -976,7 +959,7 @@
                     "value": {
                         "schemaType": "string",
                         "title": "Facture annulée",
-                        "order": 63
+                        "order": 62
                     }
                 }
             },
@@ -989,7 +972,7 @@
                         "canSetUnitCode": true,
                         "schemaType": "number",
                         "title": "Quantité",
-                        "order": 64
+                        "order": 63
                     }
                 }
             },
@@ -1003,7 +986,7 @@
                         "schemaType": "number",
                         "minimum": 0,
                         "title": "Prix unitaire HT",
-                        "order": 65
+                        "order": 64
                     }
                 }
             },
@@ -1017,7 +1000,7 @@
                         "minimum": 0,
                         "maximum": 100,
                         "title": "Taux de TVA (%)",
-                        "order": 66
+                        "order": 65
                     }
                 }
             },
@@ -1028,7 +1011,7 @@
                 "value": {
                     "schemaType": "array",
                     "title": "Lignes de facture (montants HT)",
-                    "order": 67,
+                    "order": 66,
                     "items": {
                         "type": "Property",
                         "value": 0,
@@ -1039,7 +1022,7 @@
                                 "canSetObservedAt": true,
                                 "schemaType": "number",
                                 "title": "Montant HT",
-                                "order": 58
+                                "order": 57
                             }
                         }
                     }
@@ -1049,26 +1032,26 @@
         "consumption": {
             "startDate": {
                 "type": "Property",
-                "value": "2026-10-12T12:14:09.861Z",
+                "value": "2026-10-14T13:46:48.423Z",
                 "jsonSchema": {
                     "type": "Property",
                     "value": {
                         "schemaType": "date",
                         "title": "Début de période",
-                        "order": 69,
+                        "order": 68,
                         "dateMode": "date"
                     }
                 }
             },
             "endDate": {
                 "type": "Property",
-                "value": "2026-10-12T12:14:09.861Z",
+                "value": "2026-10-14T13:46:48.423Z",
                 "jsonSchema": {
                     "type": "Property",
                     "value": {
                         "schemaType": "date",
                         "title": "Fin de période",
-                        "order": 70,
+                        "order": 69,
                         "dateMode": "date"
                     }
                 }
@@ -1087,7 +1070,7 @@
                             "services"
                         ],
                         "title": "Bloc de facture",
-                        "order": 71
+                        "order": 70
                     }
                 }
             },
@@ -1099,7 +1082,7 @@
                     "value": {
                         "schemaType": "string",
                         "title": "Catégorie de ligne",
-                        "order": 72
+                        "order": 71
                     }
                 }
             },
@@ -1111,7 +1094,7 @@
                     "value": {
                         "schemaType": "string",
                         "title": "Facture annulée",
-                        "order": 73
+                        "order": 72
                     }
                 }
             },
@@ -1127,7 +1110,7 @@
                             "estimated"
                         ],
                         "title": "Type de relevé",
-                        "order": 74
+                        "order": 73
                     }
                 }
             },
@@ -1138,7 +1121,7 @@
                 "value": {
                     "schemaType": "array",
                     "title": "Consommations facturées",
-                    "order": 75,
+                    "order": 74,
                     "items": {
                         "type": "Property",
                         "value": 0,
@@ -1149,7 +1132,7 @@
                                 "canSetUnitCode": true,
                                 "schemaType": "number",
                                 "title": "Consommation",
-                                "order": 68
+                                "order": 67
                             }
                         }
                     }
@@ -1162,6 +1145,7 @@
             "jsonSchema": {
                 "type": "Property",
                 "value": {
+                    "canSetObservedAt": true,
                     "schemaType": "enum",
                     "enum": [
                         "toReview",
@@ -1169,7 +1153,43 @@
                         "rejected"
                     ],
                     "title": "Statut de contrôle",
-                    "order": 76
+                    "order": 75
+                }
+            },
+            "reviewerId": {
+                "type": "Property",
+                "value": "Identifiant du contrôleur (Keycloak)",
+                "jsonSchema": {
+                    "type": "Property",
+                    "value": {
+                        "schemaType": "string",
+                        "title": "Identifiant du contrôleur (Keycloak)",
+                        "order": 76
+                    }
+                }
+            },
+            "reviewerName": {
+                "type": "Property",
+                "value": "Nom du contrôleur",
+                "jsonSchema": {
+                    "type": "Property",
+                    "value": {
+                        "schemaType": "string",
+                        "title": "Nom du contrôleur",
+                        "order": 77
+                    }
+                }
+            },
+            "reviewComment": {
+                "type": "Property",
+                "value": "Commentaire de contrôle (obligatoire en cas de rejet)",
+                "jsonSchema": {
+                    "type": "Property",
+                    "value": {
+                        "schemaType": "string",
+                        "title": "Commentaire de contrôle (obligatoire en cas de rejet)",
+                        "order": 78
+                    }
                 }
             }
         },
@@ -1181,7 +1201,7 @@
                 "value": {
                     "schemaType": "relationship",
                     "title": "Facture",
-                    "order": 77
+                    "order": 79
                 }
             }
         },
@@ -1193,7 +1213,7 @@
                 "value": {
                     "schemaType": "relationship",
                     "title": "Point de livraison",
-                    "order": 78
+                    "order": 80
                 }
             }
         },
@@ -1205,7 +1225,7 @@
                 "value": {
                     "schemaType": "relationship",
                     "title": "Contrat de fourniture",
-                    "order": 79
+                    "order": 81
                 }
             }
         },

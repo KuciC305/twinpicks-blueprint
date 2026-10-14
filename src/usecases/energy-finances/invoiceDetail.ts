@@ -63,9 +63,19 @@ export const InvoiceDetailTemplate: StellioTemplate = {
             ],
         }),
     },
-    // Set by the control flow, then changed by the user in the control queue. Control results: D17.
+    // Set to toReview by the ingestion flow, then changed in the control queue (D20). observedAt = review time.
+    // Control results: D17.
     reviewStatus: {
-        ...getEnumProp({ title: 'Statut de contrôle', enum: ['toReview', 'validated', 'rejected'] }),
+        ...getEnumProp({ title: 'Statut de contrôle', enum: ['toReview', 'validated', 'rejected'], canSetObservedAt: true }),
+        reviewerId: {
+            ...getSimpleTextProp({ title: 'Identifiant du contrôleur (Keycloak)' }),
+        },
+        reviewerName: {
+            ...getSimpleTextProp({ title: 'Nom du contrôleur' }),
+        },
+        reviewComment: {
+            ...getSimpleTextProp({ title: 'Commentaire de contrôle (obligatoire en cas de rejet)' }),
+        },
     },
     isPartOf: {
         ...getRelationshipProp({
