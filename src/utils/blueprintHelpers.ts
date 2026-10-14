@@ -93,6 +93,30 @@ export const getIntegerProp = (
     };
 };
 
+/** Decimal number (amounts, kWh, kVA...). Use getIntegerProp only for counts. */
+export const getNumberProp = (
+    { title, minimum, maximum, ...rest }: IntegerWithoutSchemaType,
+    unitCode?: string
+): StellioTemplateProp => {
+    order++;
+    return {
+        type: 'Property',
+        value: 0,
+        unitCode,
+        jsonSchema: {
+            type: 'Property',
+            value: {
+                ...rest,
+                schemaType: 'number',
+                minimum: minimum,
+                maximum: maximum,
+                title: title,
+                order: order,
+            },
+        },
+    };
+};
+
 export const getBooleanProp = ({ title, ...rest }: BooleanWithoutSchemaType): StellioTemplateProp => {
     order++;
     return {

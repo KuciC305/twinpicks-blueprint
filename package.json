@@ -19,6 +19,8 @@
         "stl": "npx tsc && cd ./dist/usecases/street-lighting && node index.js && cd ../../..",
         "stlUpdate:all": "npx tsc && node --env-file=.env ./dist/utils/updateUseCaseConfig.js --directoryName=street-lighting --realms=stellio-dev,egm-showcase",
         "building": "npx tsc && cd ./dist/usecases/building-management && node index.js && cd ../../..",
+        "energyFinances": "npx tsc && cd ./dist/usecases/energy-finances && node index.js && cd ../../..",
+        "energyFinancesUpdate:all": "npx tsc && node --env-file=.env ./dist/utils/updateUseCaseConfig.js --directoryName=energy-finances --useCaseConfigId=urn:ngsi-ld:UseCaseConfig:EnergyFinances --realms=stellio-dev",
         "buildingUpdate:all": "npx tsc && node --env-file=.env ./dist/utils/updateUseCaseConfig.js --directoryName=building-management --realms=stellio-dev,egm-showcase,carf"
     },
     "devDependencies": {

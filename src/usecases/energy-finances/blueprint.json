@@ -1,0 +1,1229 @@
+[
+    {
+        "id": "urn:ngsi-ld:Organization:Template",
+        "type": "Template",
+        "name": {
+            "type": "Property",
+            "value": "Nom de l'organisation",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "friendlyAttributeName": "Nom",
+                    "schemaType": "string",
+                    "title": "Nom de l'organisation",
+                    "order": 1
+                }
+            }
+        },
+        "roles": {
+            "type": "Property",
+            "value": "supplier",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "enum",
+                    "enum": [
+                        "supplier",
+                        "distributor",
+                        "client",
+                        "buyer"
+                    ],
+                    "title": "Rôles",
+                    "order": 2,
+                    "allowMultiple": true
+                }
+            }
+        },
+        "siren": {
+            "type": "Property",
+            "value": "SIREN",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "pattern": "^[0-9]{9}$",
+                    "schemaType": "string",
+                    "title": "SIREN",
+                    "order": 3
+                }
+            }
+        },
+        "siret": {
+            "type": "Property",
+            "value": "SIRET",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "pattern": "^[0-9]{14}$",
+                    "schemaType": "string",
+                    "title": "SIRET",
+                    "order": 4
+                }
+            }
+        },
+        "jsonSchema": {
+            "type": "Property",
+            "value": {
+                "schemaType": "Organization",
+                "title": "Organisation",
+                "required": [
+                    "name",
+                    "roles"
+                ],
+                "description": "Fournisseur, distributeur, client ou acheteur (groupement de commandes). Une même organisation peut avoir plusieurs rôles.",
+                "minimum": 0
+            }
+        }
+    },
+    {
+        "id": "urn:ngsi-ld:DeliveryPoint:Template",
+        "type": "Template",
+        "name": {
+            "type": "Property",
+            "value": "Nom du point de livraison",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "friendlyAttributeName": "Nom",
+                    "schemaType": "string",
+                    "title": "Nom du point de livraison",
+                    "order": 5
+                }
+            }
+        },
+        "deliveryPointNumber": {
+            "type": "Property",
+            "value": "Numéro du point de livraison (PRM, PCE…)",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "friendlyAttributeName": "Numéro",
+                    "schemaType": "string",
+                    "title": "Numéro du point de livraison (PRM, PCE…)",
+                    "order": 6
+                }
+            }
+        },
+        "fluidType": {
+            "type": "Property",
+            "value": "electricity",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "enum",
+                    "enum": [
+                        "electricity",
+                        "gas",
+                        "water",
+                        "heat"
+                    ],
+                    "title": "Type de fluide",
+                    "order": 7
+                }
+            }
+        },
+        "segment": {
+            "type": "Property",
+            "value": "C5",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "enum",
+                    "enum": [
+                        "C5",
+                        "C4",
+                        "C3",
+                        "C2",
+                        "C1",
+                        "T1",
+                        "T2",
+                        "T3",
+                        "T4",
+                        "TP"
+                    ],
+                    "title": "Segment",
+                    "order": 8
+                }
+            }
+        },
+        "distributor": {
+            "type": "Relationship",
+            "object": "urn:ngsi-ld:Organization:Template",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "relationship",
+                    "title": "Distributeur (gestionnaire de réseau)",
+                    "order": 9
+                }
+            }
+        },
+        "relatedContract": {
+            "type": "Relationship",
+            "object": "urn:ngsi-ld:Contract:Template",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "array",
+                    "order": 10,
+                    "title": "Contrats de fourniture",
+                    "minimum": 0,
+                    "items": {
+                        "type": "Relationship",
+                        "object": "urn:ngsi-ld:Contract:Template",
+                        "jsonSchema": {
+                            "type": "Property",
+                            "value": {
+                                "schemaType": "string",
+                                "title": "Sélectionner un contrat"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "jsonSchema": {
+            "type": "Property",
+            "value": {
+                "schemaType": "DeliveryPoint",
+                "title": "Point de livraison",
+                "required": [
+                    "name",
+                    "deliveryPointNumber",
+                    "fluidType"
+                ],
+                "description": "Point de livraison d'un fluide (PRM électricité, PCE gaz, compteur eau). Identifiant attendu : {fluidType}:{numéro}, par exemple electricity:25438060712186.",
+                "minimum": 0,
+                "identifier": "deliveryPointNumber"
+            }
+        }
+    },
+    {
+        "id": "urn:ngsi-ld:FrameworkContract:Template",
+        "type": "Template",
+        "reference": {
+            "type": "Property",
+            "value": "Référence du marché",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "friendlyAttributeName": "Référence",
+                    "schemaType": "string",
+                    "title": "Référence du marché",
+                    "order": 11
+                }
+            }
+        },
+        "name": {
+            "type": "Property",
+            "value": "Nom du marché",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "friendlyAttributeName": "Nom",
+                    "schemaType": "string",
+                    "title": "Nom du marché",
+                    "order": 12
+                }
+            }
+        },
+        "fluidType": {
+            "type": "Property",
+            "value": "electricity",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "enum",
+                    "enum": [
+                        "electricity",
+                        "gas",
+                        "water",
+                        "heat"
+                    ],
+                    "title": "Type de fluide",
+                    "order": 13
+                }
+            }
+        },
+        "startDate": {
+            "type": "Property",
+            "value": "2026-10-12T12:14:09.858Z",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "date",
+                    "title": "Date de début",
+                    "order": 14,
+                    "dateMode": "date"
+                }
+            }
+        },
+        "endDate": {
+            "type": "Property",
+            "value": "2026-10-12T12:14:09.858Z",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "date",
+                    "title": "Date de fin",
+                    "order": 15,
+                    "dateMode": "date"
+                }
+            }
+        },
+        "supplier": {
+            "type": "Relationship",
+            "object": "urn:ngsi-ld:Organization:Template",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "relationship",
+                    "title": "Fournisseur",
+                    "order": 16
+                }
+            }
+        },
+        "buyer": {
+            "type": "Relationship",
+            "object": "urn:ngsi-ld:Organization:Template",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "relationship",
+                    "title": "Acheteur",
+                    "order": 17
+                }
+            }
+        },
+        "jsonSchema": {
+            "type": "Property",
+            "value": {
+                "schemaType": "FrameworkContract",
+                "title": "Marché (contrat cadre)",
+                "required": [
+                    "name",
+                    "reference",
+                    "fluidType",
+                    "supplier"
+                ],
+                "description": "Marché ou accord-cadre de fourniture d'un fluide, passé par un acheteur avec un fournisseur.",
+                "minimum": 0,
+                "identifier": "reference"
+            }
+        }
+    },
+    {
+        "id": "urn:ngsi-ld:Lot:Template",
+        "type": "Template",
+        "lotNumber": {
+            "type": "Property",
+            "value": "Numéro de lot",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "friendlyAttributeName": "Lot",
+                    "schemaType": "string",
+                    "title": "Numéro de lot",
+                    "order": 18
+                }
+            }
+        },
+        "name": {
+            "type": "Property",
+            "value": "Intitulé du lot",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "friendlyAttributeName": "Nom",
+                    "schemaType": "string",
+                    "title": "Intitulé du lot",
+                    "order": 19
+                }
+            }
+        },
+        "startDate": {
+            "type": "Property",
+            "value": "2026-10-12T12:14:09.859Z",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "date",
+                    "title": "Date de début",
+                    "order": 20,
+                    "dateMode": "date"
+                }
+            }
+        },
+        "endDate": {
+            "type": "Property",
+            "value": "2026-10-12T12:14:09.859Z",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "date",
+                    "title": "Date de fin",
+                    "order": 21,
+                    "dateMode": "date"
+                }
+            }
+        },
+        "renewalStatus": {
+            "type": "Property",
+            "value": "notStarted",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "enum",
+                    "enum": [
+                        "notStarted",
+                        "inProgress",
+                        "renewed"
+                    ],
+                    "title": "Renouvellement",
+                    "order": 22
+                }
+            }
+        },
+        "isPartOf": {
+            "type": "Relationship",
+            "object": "urn:ngsi-ld:FrameworkContract:Template",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "relationship",
+                    "title": "Marché",
+                    "order": 23
+                }
+            }
+        },
+        "jsonSchema": {
+            "type": "Property",
+            "value": {
+                "schemaType": "Lot",
+                "title": "Lot de marché",
+                "required": [
+                    "name",
+                    "lotNumber",
+                    "isPartOf"
+                ],
+                "description": "Lot d'un marché, avec ses propres dates et son statut de renouvellement.",
+                "minimum": 0
+            }
+        }
+    },
+    {
+        "id": "urn:ngsi-ld:BillingAccount:Template",
+        "type": "Template",
+        "name": {
+            "type": "Property",
+            "value": "Nom du compte de facturation",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "friendlyAttributeName": "Nom",
+                    "schemaType": "string",
+                    "title": "Nom du compte de facturation",
+                    "order": 24
+                }
+            }
+        },
+        "reference": {
+            "type": "Property",
+            "value": "Numéro du compte de facturation",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "friendlyAttributeName": "Référence",
+                    "schemaType": "string",
+                    "title": "Numéro du compte de facturation",
+                    "order": 25
+                }
+            }
+        },
+        "chorusSiret": {
+            "type": "Property",
+            "value": "SIRET destinataire (Chorus Pro)",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "pattern": "^[0-9]{14}$",
+                    "schemaType": "string",
+                    "title": "SIRET destinataire (Chorus Pro)",
+                    "order": 26
+                }
+            }
+        },
+        "legalCommitmentNumber": {
+            "type": "Property",
+            "value": "Numéro d'engagement juridique (EJ)",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "string",
+                    "title": "Numéro d'engagement juridique (EJ)",
+                    "order": 27
+                }
+            }
+        },
+        "serviceCode": {
+            "type": "Property",
+            "value": "Code service (CSE)",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "string",
+                    "title": "Code service (CSE)",
+                    "order": 28
+                }
+            }
+        },
+        "holder": {
+            "type": "Relationship",
+            "object": "urn:ngsi-ld:Organization:Template",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "relationship",
+                    "title": "Titulaire",
+                    "order": 29
+                }
+            }
+        },
+        "jsonSchema": {
+            "type": "Property",
+            "value": {
+                "schemaType": "BillingAccount",
+                "title": "Compte de facturation",
+                "required": [
+                    "name",
+                    "reference",
+                    "holder"
+                ],
+                "description": "Compte de facturation chez un fournisseur, avec les informations de routage Chorus Pro.",
+                "minimum": 0,
+                "identifier": "reference"
+            }
+        }
+    },
+    {
+        "id": "urn:ngsi-ld:Contract:Template",
+        "type": "Template",
+        "name": {
+            "type": "Property",
+            "value": "Nom du contrat",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "friendlyAttributeName": "Nom",
+                    "schemaType": "string",
+                    "title": "Nom du contrat",
+                    "order": 30
+                }
+            }
+        },
+        "reference": {
+            "type": "Property",
+            "value": "Référence du contrat",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "friendlyAttributeName": "Référence",
+                    "schemaType": "string",
+                    "title": "Référence du contrat",
+                    "order": 31
+                }
+            }
+        },
+        "priceType": {
+            "type": "Property",
+            "value": "market",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "enum",
+                    "enum": [
+                        "market",
+                        "regulated"
+                    ],
+                    "title": "Type de prix",
+                    "order": 32
+                }
+            }
+        },
+        "offerName": {
+            "type": "Property",
+            "value": "Nom de l'offre",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "string",
+                    "title": "Nom de l'offre",
+                    "order": 33
+                }
+            }
+        },
+        "supplierSiteGroup": {
+            "type": "Property",
+            "value": "Groupe de sites (fournisseur)",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "string",
+                    "title": "Groupe de sites (fournisseur)",
+                    "order": 34
+                }
+            }
+        },
+        "startDate": {
+            "type": "Property",
+            "value": "2026-10-12T12:14:09.860Z",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "date",
+                    "title": "Date de début de fourniture",
+                    "order": 35,
+                    "dateMode": "date"
+                }
+            }
+        },
+        "endDate": {
+            "type": "Property",
+            "value": "2026-10-12T12:14:09.860Z",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "date",
+                    "title": "Date de fin de fourniture",
+                    "order": 36,
+                    "dateMode": "date"
+                }
+            }
+        },
+        "isPartOf": {
+            "type": "Relationship",
+            "object": "urn:ngsi-ld:Lot:Template",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "relationship",
+                    "title": "Lot de marché",
+                    "order": 37
+                }
+            }
+        },
+        "supplier": {
+            "type": "Relationship",
+            "object": "urn:ngsi-ld:Organization:Template",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "relationship",
+                    "title": "Fournisseur",
+                    "order": 38
+                }
+            }
+        },
+        "billingAccount": {
+            "type": "Relationship",
+            "object": "urn:ngsi-ld:BillingAccount:Template",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "relationship",
+                    "title": "Compte de facturation",
+                    "order": 39
+                }
+            }
+        },
+        "jsonSchema": {
+            "type": "Property",
+            "value": {
+                "schemaType": "Contract",
+                "title": "Contrat de fourniture",
+                "required": [
+                    "name",
+                    "reference",
+                    "supplier",
+                    "startDate"
+                ],
+                "description": "Contrat de fourniture couvrant un ou plusieurs points de livraison (le lien est porté par le point de livraison), rattaché à un lot de marché quand il y en a un.",
+                "minimum": 0,
+                "identifier": "reference"
+            }
+        }
+    },
+    {
+        "id": "urn:ngsi-ld:Invoice:Template",
+        "type": "Template",
+        "name": {
+            "type": "Property",
+            "value": "Nom de la facture",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "friendlyAttributeName": "Nom",
+                    "schemaType": "string",
+                    "title": "Nom de la facture",
+                    "order": 40
+                }
+            }
+        },
+        "invoiceNumber": {
+            "type": "Property",
+            "value": "Numéro de facture",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "friendlyAttributeName": "Numéro",
+                    "schemaType": "string",
+                    "title": "Numéro de facture",
+                    "order": 41
+                }
+            }
+        },
+        "invoiceType": {
+            "type": "Property",
+            "value": "invoice",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "enum",
+                    "enum": [
+                        "invoice",
+                        "creditNote"
+                    ],
+                    "title": "Type de document",
+                    "order": 42
+                }
+            }
+        },
+        "issueDate": {
+            "type": "Property",
+            "value": "2026-10-12T12:14:09.860Z",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "date",
+                    "title": "Date d'émission",
+                    "order": 43,
+                    "dateMode": "date"
+                }
+            }
+        },
+        "dueDate": {
+            "type": "Property",
+            "value": "2026-10-12T12:14:09.860Z",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "date",
+                    "title": "Date d'échéance",
+                    "order": 44,
+                    "dateMode": "date"
+                }
+            }
+        },
+        "totalExclVAT": {
+            "type": "Property",
+            "value": 0,
+            "unitCode": "EUR",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "number",
+                    "title": "Montant total HT",
+                    "order": 45
+                }
+            }
+        },
+        "totalVAT": {
+            "type": "Property",
+            "value": 0,
+            "unitCode": "EUR",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "number",
+                    "title": "Montant total TVA",
+                    "order": 46
+                }
+            }
+        },
+        "totalInclVAT": {
+            "type": "Property",
+            "value": 0,
+            "unitCode": "EUR",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "number",
+                    "title": "Montant total TTC",
+                    "order": 47
+                }
+            }
+        },
+        "sourceDocument": {
+            "type": "Property",
+            "value": "Lien vers le document (PDF)",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "string",
+                    "title": "Lien vers le document (PDF)",
+                    "order": 48
+                }
+            }
+        },
+        "marketReference": {
+            "type": "Property",
+            "value": "Référence du marché indiquée sur la facture",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "string",
+                    "title": "Référence du marché indiquée sur la facture",
+                    "order": 49
+                }
+            }
+        },
+        "chorusStatus": {
+            "type": "Property",
+            "value": "Statut Chorus Pro",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "string",
+                    "title": "Statut Chorus Pro",
+                    "order": 50
+                }
+            }
+        },
+        "reviewStatus": {
+            "type": "Property",
+            "value": "toReview",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "enum",
+                    "enum": [
+                        "toReview",
+                        "validated",
+                        "rejected"
+                    ],
+                    "title": "Statut de contrôle",
+                    "order": 51
+                }
+            }
+        },
+        "supplier": {
+            "type": "Relationship",
+            "object": "urn:ngsi-ld:Organization:Template",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "relationship",
+                    "title": "Fournisseur",
+                    "order": 52
+                }
+            }
+        },
+        "billingAccount": {
+            "type": "Relationship",
+            "object": "urn:ngsi-ld:BillingAccount:Template",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "relationship",
+                    "title": "Compte de facturation",
+                    "order": 53
+                }
+            }
+        },
+        "corrects": {
+            "type": "Relationship",
+            "object": "urn:ngsi-ld:Invoice:Template",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "relationship",
+                    "title": "Facture corrigée (avoir)",
+                    "order": 54
+                }
+            }
+        },
+        "jsonSchema": {
+            "type": "Property",
+            "value": {
+                "schemaType": "Invoice",
+                "title": "Facture",
+                "required": [
+                    "name",
+                    "invoiceNumber",
+                    "invoiceType",
+                    "issueDate",
+                    "supplier"
+                ],
+                "description": "En-tête de facture ou d’avoir : numéro, totaux, document source. Le détail par point de livraison est dans les détails de facture.",
+                "minimum": 0,
+                "identifier": "invoiceNumber"
+            }
+        }
+    },
+    {
+        "id": "urn:ngsi-ld:InvoiceDetail:Template",
+        "type": "Template",
+        "name": {
+            "type": "Property",
+            "value": "Nom du détail de facture",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "friendlyAttributeName": "Nom",
+                    "schemaType": "string",
+                    "title": "Nom du détail de facture",
+                    "order": 55
+                }
+            }
+        },
+        "startDate": {
+            "type": "Property",
+            "value": "2026-10-12T12:14:09.861Z",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "date",
+                    "title": "Début de la période facturée",
+                    "order": 56,
+                    "dateMode": "date"
+                }
+            }
+        },
+        "endDate": {
+            "type": "Property",
+            "value": "2026-10-12T12:14:09.861Z",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "date",
+                    "title": "Fin de la période facturée",
+                    "order": 57,
+                    "dateMode": "date"
+                }
+            }
+        },
+        "amount": {
+            "startDate": {
+                "type": "Property",
+                "value": "2026-10-12T12:14:09.861Z",
+                "jsonSchema": {
+                    "type": "Property",
+                    "value": {
+                        "schemaType": "date",
+                        "title": "Début de période",
+                        "order": 59,
+                        "dateMode": "date"
+                    }
+                }
+            },
+            "endDate": {
+                "type": "Property",
+                "value": "2026-10-12T12:14:09.861Z",
+                "jsonSchema": {
+                    "type": "Property",
+                    "value": {
+                        "schemaType": "date",
+                        "title": "Fin de période",
+                        "order": 60,
+                        "dateMode": "date"
+                    }
+                }
+            },
+            "section": {
+                "type": "Property",
+                "value": "supply",
+                "jsonSchema": {
+                    "type": "Property",
+                    "value": {
+                        "schemaType": "enum",
+                        "enum": [
+                            "supply",
+                            "network",
+                            "taxes",
+                            "services"
+                        ],
+                        "title": "Bloc de facture",
+                        "order": 61
+                    }
+                }
+            },
+            "lineCategory": {
+                "type": "Property",
+                "value": "Catégorie de ligne",
+                "jsonSchema": {
+                    "type": "Property",
+                    "value": {
+                        "schemaType": "string",
+                        "title": "Catégorie de ligne",
+                        "order": 62
+                    }
+                }
+            },
+            "cancelsInvoice": {
+                "type": "Property",
+                "value": "Facture annulée",
+                "jsonSchema": {
+                    "type": "Property",
+                    "value": {
+                        "schemaType": "string",
+                        "title": "Facture annulée",
+                        "order": 63
+                    }
+                }
+            },
+            "quantity": {
+                "type": "Property",
+                "value": 0,
+                "jsonSchema": {
+                    "type": "Property",
+                    "value": {
+                        "canSetUnitCode": true,
+                        "schemaType": "number",
+                        "title": "Quantité",
+                        "order": 64
+                    }
+                }
+            },
+            "unitPrice": {
+                "type": "Property",
+                "value": 0,
+                "jsonSchema": {
+                    "type": "Property",
+                    "value": {
+                        "canSetUnitCode": true,
+                        "schemaType": "number",
+                        "minimum": 0,
+                        "title": "Prix unitaire HT",
+                        "order": 65
+                    }
+                }
+            },
+            "vatRate": {
+                "type": "Property",
+                "value": 0,
+                "jsonSchema": {
+                    "type": "Property",
+                    "value": {
+                        "schemaType": "number",
+                        "minimum": 0,
+                        "maximum": 100,
+                        "title": "Taux de TVA (%)",
+                        "order": 66
+                    }
+                }
+            },
+            "type": "Property",
+            "value": "placeholder",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "array",
+                    "title": "Lignes de facture (montants HT)",
+                    "order": 67,
+                    "items": {
+                        "type": "Property",
+                        "value": 0,
+                        "unitCode": "EUR",
+                        "jsonSchema": {
+                            "type": "Property",
+                            "value": {
+                                "canSetObservedAt": true,
+                                "schemaType": "number",
+                                "title": "Montant HT",
+                                "order": 58
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "consumption": {
+            "startDate": {
+                "type": "Property",
+                "value": "2026-10-12T12:14:09.861Z",
+                "jsonSchema": {
+                    "type": "Property",
+                    "value": {
+                        "schemaType": "date",
+                        "title": "Début de période",
+                        "order": 69,
+                        "dateMode": "date"
+                    }
+                }
+            },
+            "endDate": {
+                "type": "Property",
+                "value": "2026-10-12T12:14:09.861Z",
+                "jsonSchema": {
+                    "type": "Property",
+                    "value": {
+                        "schemaType": "date",
+                        "title": "Fin de période",
+                        "order": 70,
+                        "dateMode": "date"
+                    }
+                }
+            },
+            "section": {
+                "type": "Property",
+                "value": "supply",
+                "jsonSchema": {
+                    "type": "Property",
+                    "value": {
+                        "schemaType": "enum",
+                        "enum": [
+                            "supply",
+                            "network",
+                            "taxes",
+                            "services"
+                        ],
+                        "title": "Bloc de facture",
+                        "order": 71
+                    }
+                }
+            },
+            "lineCategory": {
+                "type": "Property",
+                "value": "Catégorie de ligne",
+                "jsonSchema": {
+                    "type": "Property",
+                    "value": {
+                        "schemaType": "string",
+                        "title": "Catégorie de ligne",
+                        "order": 72
+                    }
+                }
+            },
+            "cancelsInvoice": {
+                "type": "Property",
+                "value": "Facture annulée",
+                "jsonSchema": {
+                    "type": "Property",
+                    "value": {
+                        "schemaType": "string",
+                        "title": "Facture annulée",
+                        "order": 73
+                    }
+                }
+            },
+            "meterReading": {
+                "type": "Property",
+                "value": "measured",
+                "jsonSchema": {
+                    "type": "Property",
+                    "value": {
+                        "schemaType": "enum",
+                        "enum": [
+                            "measured",
+                            "estimated"
+                        ],
+                        "title": "Type de relevé",
+                        "order": 74
+                    }
+                }
+            },
+            "type": "Property",
+            "value": "placeholder",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "array",
+                    "title": "Consommations facturées",
+                    "order": 75,
+                    "items": {
+                        "type": "Property",
+                        "value": 0,
+                        "jsonSchema": {
+                            "type": "Property",
+                            "value": {
+                                "canSetObservedAt": true,
+                                "canSetUnitCode": true,
+                                "schemaType": "number",
+                                "title": "Consommation",
+                                "order": 68
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "reviewStatus": {
+            "type": "Property",
+            "value": "toReview",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "enum",
+                    "enum": [
+                        "toReview",
+                        "validated",
+                        "rejected"
+                    ],
+                    "title": "Statut de contrôle",
+                    "order": 76
+                }
+            }
+        },
+        "isPartOf": {
+            "type": "Relationship",
+            "object": "urn:ngsi-ld:Invoice:Template",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "relationship",
+                    "title": "Facture",
+                    "order": 77
+                }
+            }
+        },
+        "relatedDeliveryPoint": {
+            "type": "Relationship",
+            "object": "urn:ngsi-ld:DeliveryPoint:Template",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "relationship",
+                    "title": "Point de livraison",
+                    "order": 78
+                }
+            }
+        },
+        "relatedContract": {
+            "type": "Relationship",
+            "object": "urn:ngsi-ld:Contract:Template",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "relationship",
+                    "title": "Contrat de fourniture",
+                    "order": 79
+                }
+            }
+        },
+        "jsonSchema": {
+            "type": "Property",
+            "value": {
+                "schemaType": "InvoiceDetail",
+                "title": "Détail de facture",
+                "required": [
+                    "name",
+                    "isPartOf",
+                    "relatedDeliveryPoint",
+                    "startDate",
+                    "endDate"
+                ],
+                "description": "Partie d'une facture qui concerne un point de livraison : période, lignes de montants et de consommations, statut de contrôle.",
+                "minimum": 0
+            }
+        }
+    }
+]
