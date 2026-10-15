@@ -1,6 +1,7 @@
 import { StellioTemplate } from 'src/interfaces';
 import {
     getGeoPropertyProp,
+    getIntegerProp,
     getJsonPropertyProp,
     getMultiRelationshipProp,
     getRelationshipProp,
@@ -19,59 +20,26 @@ export const BuildingTemplate: StellioTemplate = {
         ...getSimpleTextProp({ title: 'Description du bâtiment' }),
     },
     floorArea: {
-        type: 'Property',
-        value: 0,
-        jsonSchema: {
-            type: 'Property',
-            value: {
-                schemaType: 'number',
-                title: 'Surface de plancher (m²)',
-                order: 40,
-                canSetUnitCode: true,
-            },
-        },
+        ...getIntegerProp({ title: 'Surface de plancher (m²)', canSetUnitCode: true }),
     },
     openingHours: {
-        type: 'JsonProperty',
+        ...getJsonPropertyProp({ formLabel: "Horaires d'ouverture et fermetures" }),
         json: {
             weekly: {
-                mon: [["08:00", "18:00"]],
-                tue: [["08:00", "18:00"]],
+                mon: [['08:00', '18:00']],
+                tue: [['08:00', '18:00']],
             },
             closures: [],
         },
-        jsonSchema: {
-            type: 'Property',
-            value: {
-                schemaType: 'json',
-                title: "Horaires d'ouverture et fermetures",
-                order: 41,
-            },
-        },
     },
     territory: {
-        type: 'Property',
-        value: 'Territoire',
-        jsonSchema: {
-            type: 'Property',
-            value: {
-                schemaType: 'string',
-                title: 'Territoire',
-                order: 42,
-            },
-        },
+        ...getSimpleTextProp({ title: 'Territoire' }),
     },
     hasWeatherInformation: {
-        type: 'Relationship',
-        object: 'urn:ngsi-ld:WeatherInformation:Template',
-        jsonSchema: {
-            type: 'Property',
-            value: {
-                schemaType: 'relationship',
-                title: 'Station météo (DJU)',
-                order: 43,
-            },
-        },
+        ...getRelationshipProp({
+            formLabel: 'Station météo (DJU)',
+            targetTemplateObjectId: 'urn:ngsi-ld:WeatherInformation:Template',
+        }),
     },
     hasUsage: {
         ...getMultiRelationshipProp({

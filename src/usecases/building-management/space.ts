@@ -2,7 +2,8 @@ import { StellioTemplate } from 'src/interfaces';
 import {
     getSimpleTextProp,
     getEnumProp,
-    getRelationshipProp,
+    getIntegerProp,
+    getJsonPropertyProp,
     getMultiRelationshipProp,
 } from '../../utils/blueprintHelpers';
 
@@ -24,105 +25,31 @@ export const SpaceTemplate: StellioTemplate = {
         }),
     },
     functionalZone: {
-        type: 'Property',
-        value: 'Bureaux',
-        jsonSchema: {
-            type: 'Property',
-            value: {
-                schemaType: 'string',
-                title: 'Zone fonctionnelle (BACS)',
-                order: 40,
-            },
-        },
+        ...getSimpleTextProp({ title: 'Zone fonctionnelle (BACS)' }),
     },
     floorArea: {
-        type: 'Property',
-        value: 0,
-        jsonSchema: {
-            type: 'Property',
-            value: {
-                schemaType: 'number',
-                title: 'Surface (m²)',
-                order: 41,
-                canSetUnitCode: true,
-            },
-        },
+        ...getIntegerProp({ title: 'Surface (m²)', canSetUnitCode: true }),
     },
     openingHours: {
-        type: 'JsonProperty',
+        ...getJsonPropertyProp({ formLabel: "Horaires propres à l'espace" }),
         json: {
             weekly: {
-                mon: [["08:00", "18:00"]],
+                mon: [['08:00', '18:00']],
             },
             closures: [],
         },
-        jsonSchema: {
-            type: 'Property',
-            value: {
-                schemaType: 'json',
-                title: "Horaires propres à l'espace",
-                order: 42,
-            },
-        },
     },
     occupancy: {
-        type: 'Property',
-        value: 0,
-        jsonSchema: {
-            type: 'Property',
-            value: {
-                schemaType: 'number',
-                title: 'Personnes détectées',
-                order: 43,
-                canSetObservedAt: true,
-                canSelfInit: true,
-            },
-        },
+        ...getIntegerProp({ title: 'Personnes détectées', canSetObservedAt: true, canSelfInit: true }),
     },
     temperature: {
-        type: 'Property',
-        value: 0,
-        jsonSchema: {
-            type: 'Property',
-            value: {
-                schemaType: 'number',
-                title: 'Température intérieure',
-                order: 44,
-                canSetObservedAt: true,
-                canSelfInit: true,
-            },
-        },
-        unitCode: 'CEL',
+        ...getIntegerProp({ title: 'Température intérieure', canSetObservedAt: true, canSelfInit: true }, 'CEL'),
     },
     temperatureSetpoint: {
-        type: 'Property',
-        value: 0,
-        jsonSchema: {
-            type: 'Property',
-            value: {
-                schemaType: 'number',
-                title: 'Consigne de température',
-                order: 45,
-                canSetObservedAt: true,
-                canSelfInit: true,
-            },
-        },
-        unitCode: 'CEL',
+        ...getIntegerProp({ title: 'Consigne de température', canSetObservedAt: true, canSelfInit: true }, 'CEL'),
     },
     co2: {
-        type: 'Property',
-        value: 0,
-        jsonSchema: {
-            type: 'Property',
-            value: {
-                schemaType: 'number',
-                title: 'CO2',
-                order: 46,
-                canSetObservedAt: true,
-                canSelfInit: true,
-            },
-        },
-        unitCode: '59',
+        ...getIntegerProp({ title: 'CO2', canSetObservedAt: true, canSelfInit: true }, '59'),
     },
     isPartOf: {
         ...getMultiRelationshipProp({

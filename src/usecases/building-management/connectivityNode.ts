@@ -1,5 +1,11 @@
 import { StellioTemplate } from 'src/interfaces';
-import { getEnumProp, getRelationshipProp, getSimpleTextProp } from '../../utils/blueprintHelpers';
+import {
+    getEnumProp,
+    getIntegerProp,
+    getMultiAttributeProp,
+    getRelationshipProp,
+    getSimpleTextProp,
+} from '../../utils/blueprintHelpers';
 
 const entityType = 'ConnectivityNode';
 
@@ -22,50 +28,20 @@ export const ConnectivityNodeTemplate: StellioTemplate = {
         }),
     },
     serviceDomain: {
-        type: 'Property',
-        value: 'lighting',
-        jsonSchema: {
-            type: 'Property',
-            value: {
-                schemaType: 'enum',
-                title: 'Usage mesuré',
-                order: 40,
-                enum: [
-                    'heatingCooling',
-                    'ventilation',
-                    'lighting',
-                    'water',
-                    'plugs',
-                    'business',
-                    'production',
-                ],
-            },
-        },
+        ...getEnumProp({
+            title: 'Usage mesuré',
+            enum: ['heatingCooling', 'ventilation', 'lighting', 'water', 'plugs', 'business', 'production'],
+        }),
     },
     index: {
-        type: 'Property',
-        value: 'placeholder',
-        jsonSchema: {
-            type: 'Property',
-            value: {
-                schemaType: 'array',
-                title: "Index du sous-compteur (sorties sous-comptées uniquement)",
-                order: 41,
-                items: {
-                    type: 'Property',
-                    value: 'placeholder',
-                    jsonSchema: {
-                        type: 'Property',
-                        value: {
-                            schemaType: 'integer',
-                            canSetObservedAt: true,
-                            canSetUnitCode: true,
-                            title: "Valeur d'index",
-                        },
-                    },
-                },
-            },
-        },
+        ...getMultiAttributeProp({
+            propertySchemaDefinition: getIntegerProp({
+                title: "Valeur d'index",
+                canSetObservedAt: true,
+                canSetUnitCode: true,
+            }),
+            formLabel: 'Index du sous-compteur (sorties sous-comptées uniquement)',
+        }),
     },
     isPartOf: {
         ...getRelationshipProp({
