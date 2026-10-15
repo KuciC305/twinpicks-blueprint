@@ -28,16 +28,18 @@ export const SpaceTemplate: StellioTemplate = {
         ...getSimpleTextProp({ title: 'Zone fonctionnelle (BACS)' }),
     },
     floorArea: {
-        ...getIntegerProp({ title: 'Surface (m²)', canSetUnitCode: true }),
+        ...getIntegerProp({ title: 'Surface (m²)' }, 'MTK'),
     },
     openingHours: {
-        ...getJsonPropertyProp({ formLabel: "Horaires propres à l'espace" }),
-        json: {
-            weekly: {
-                mon: [['08:00', '18:00']],
-            },
-            closures: [],
-        },
+        ...getJsonPropertyProp({
+            formLabel: "Horaires propres à l'espace",
+            json: JSON.stringify({
+                weekly: {
+                    mon: [['08:00', '18:00']],
+                },
+                closures: [],
+            }),
+        }),
     },
     occupancy: {
         ...getIntegerProp({ title: 'Personnes détectées', canSetObservedAt: true, canSelfInit: true }),

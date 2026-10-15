@@ -20,17 +20,19 @@ export const BuildingTemplate: StellioTemplate = {
         ...getSimpleTextProp({ title: 'Description du bâtiment' }),
     },
     floorArea: {
-        ...getIntegerProp({ title: 'Surface de plancher (m²)', canSetUnitCode: true }),
+        ...getIntegerProp({ title: 'Surface de plancher (m²)' }, 'MTK'),
     },
     openingHours: {
-        ...getJsonPropertyProp({ formLabel: "Horaires d'ouverture et fermetures" }),
-        json: {
-            weekly: {
-                mon: [['08:00', '18:00']],
-                tue: [['08:00', '18:00']],
-            },
-            closures: [],
-        },
+        ...getJsonPropertyProp({
+            formLabel: "Horaires d'ouverture et fermetures",
+            json: JSON.stringify({
+                weekly: {
+                    mon: [['08:00', '18:00']],
+                    tue: [['08:00', '18:00']],
+                },
+                closures: [],
+            }),
+        }),
     },
     territory: {
         ...getSimpleTextProp({ title: 'Territoire' }),

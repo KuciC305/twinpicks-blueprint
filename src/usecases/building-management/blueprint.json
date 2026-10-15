@@ -107,10 +107,10 @@
         "floorArea": {
             "type": "Property",
             "value": 0,
+            "unitCode": "MTK",
             "jsonSchema": {
                 "type": "Property",
                 "value": {
-                    "canSetUnitCode": true,
                     "schemaType": "integer",
                     "title": "Surface de plancher (m²)",
                     "order": 8
@@ -119,23 +119,7 @@
         },
         "openingHours": {
             "type": "JsonProperty",
-            "json": {
-                "weekly": {
-                    "mon": [
-                        [
-                            "08:00",
-                            "18:00"
-                        ]
-                    ],
-                    "tue": [
-                        [
-                            "08:00",
-                            "18:00"
-                        ]
-                    ]
-                },
-                "closures": []
-            },
+            "json": "{\"weekly\":{\"mon\":[[\"08:00\",\"18:00\"]],\"tue\":[[\"08:00\",\"18:00\"]]},\"closures\":[]}",
             "jsonSchema": {
                 "type": "Property",
                 "value": {
@@ -371,10 +355,10 @@
         "floorArea": {
             "type": "Property",
             "value": 0,
+            "unitCode": "MTK",
             "jsonSchema": {
                 "type": "Property",
                 "value": {
-                    "canSetUnitCode": true,
                     "schemaType": "integer",
                     "title": "Surface (m²)",
                     "order": 24
@@ -383,17 +367,7 @@
         },
         "openingHours": {
             "type": "JsonProperty",
-            "json": {
-                "weekly": {
-                    "mon": [
-                        [
-                            "08:00",
-                            "18:00"
-                        ]
-                    ]
-                },
-                "closures": []
-            },
+            "json": "{\"weekly\":{\"mon\":[[\"08:00\",\"18:00\"]]},\"closures\":[]}",
             "jsonSchema": {
                 "type": "Property",
                 "value": {
