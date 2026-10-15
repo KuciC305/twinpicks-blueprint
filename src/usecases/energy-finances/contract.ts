@@ -28,6 +28,10 @@ export const ContractTemplate: StellioTemplate = {
     supplierSiteGroup: {
         ...getSimpleTextProp({ title: 'Groupe de sites (fournisseur)' }),
     },
+    // Rows of the lot's price schedule that apply to this contract (D15, proposal)
+    pricingGroup: {
+        ...getSimpleTextProp({ title: 'Groupe de prix du bordereau (ex. C4, C5-BASE)' }),
+    },
     startDate: {
         ...getDateProp({ title: 'Date de début de fourniture' }),
     },

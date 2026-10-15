@@ -63,4 +63,5 @@ Expected ids, applied by the ingestion flows:
 - Codes and labels (D10): `renewalStatus` and `segment` values are drafts.
 - Storage of control results (D17): only `reviewStatus` for now. It carries the reviewer (`reviewerId`, `reviewerName`, `reviewComment`) and the review time in `observedAt` (D20). The invoice header has no status: it is computed from its details.
 - Storage of invoice PDFs (D18): `sourceDocument` is a plain link.
-- Contracted prices (D15): not modelled until the price schedule (BPU) is available.
+- Contracted prices (D15, proposal): `Lot.contractedPrice`, one value per price group, component, time class and year, and `Contract.pricingGroup` to pick the rows that apply. Modelled on published price schedules; to confirm on a real one.
+- Line categories (D9, proposal): `{component}[-{timeClass}]`, e.g. `energy-HPH`, `turpe-fixed`, `excise` (list in the data model).
