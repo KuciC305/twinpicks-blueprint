@@ -88,7 +88,7 @@ export const SpeciesTemplate: StellioTemplate = {
                 'Mammifere',
                 'Oiseau',
                 'Reptile',
-                'Ampibien',
+                'Amphibien',
                 'Poisson',
                 'Crustace',
                 'Mollusque',
