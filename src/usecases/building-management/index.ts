@@ -1,3 +1,5 @@
+declare const __dirname: string;
+
 import { SiteTemplate } from './site';
 import { BuildingTemplate } from './building';
 import { StoreyTemplate } from './storey';

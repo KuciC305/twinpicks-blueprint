@@ -18,6 +18,61 @@ export const BuildingTemplate: StellioTemplate = {
     description: {
         ...getSimpleTextProp({ title: 'Description du bâtiment' }),
     },
+    floorArea: {
+        type: 'Property',
+        value: 0,
+        jsonSchema: {
+            type: 'Property',
+            value: {
+                schemaType: 'number',
+                title: 'Surface de plancher (m²)',
+                order: 40,
+                canSetUnitCode: true,
+            },
+        },
+    },
+    openingHours: {
+        type: 'JsonProperty',
+        json: {
+            weekly: {
+                mon: [["08:00", "18:00"]],
+                tue: [["08:00", "18:00"]],
+            },
+            closures: [],
+        },
+        jsonSchema: {
+            type: 'Property',
+            value: {
+                schemaType: 'json',
+                title: "Horaires d'ouverture et fermetures",
+                order: 41,
+            },
+        },
+    },
+    territory: {
+        type: 'Property',
+        value: 'Territoire',
+        jsonSchema: {
+            type: 'Property',
+            value: {
+                schemaType: 'string',
+                title: 'Territoire',
+                order: 42,
+            },
+        },
+    },
+    hasWeatherInformation: {
+        type: 'Relationship',
+        object: 'urn:ngsi-ld:WeatherInformation:Template',
+        jsonSchema: {
+            type: 'Property',
+            value: {
+                schemaType: 'relationship',
+                title: 'Station météo (DJU)',
+                order: 43,
+            },
+        },
+    },
     hasUsage: {
         ...getMultiRelationshipProp({
             formLabel: 'Utilisation du bâtiment',
@@ -31,20 +86,12 @@ export const BuildingTemplate: StellioTemplate = {
             targetTemplateObjectId: 'urn:ngsi-ld:Site:Template',
         }),
     },
-
-    /**
-     * A GeoProperty in a Building will display the RNB selector component in TP
-     */
     location: {
         ...getGeoPropertyProp({
             formLabel: 'Sélectionner le bâtiment sur la carte',
             geometryType: 'Polygon',
         }),
     },
-    /**
-     *  The `rnb` JsonProperty must be present in the blueprint if required \
-     *  It won't be added to the entity otherwise
-     */
     rnb: {
         ...getJsonPropertyProp({ formLabel: 'Référentiel National des Bâtiments', canSelfInit: true }),
     },
