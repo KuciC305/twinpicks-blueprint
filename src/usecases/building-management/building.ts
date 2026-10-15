@@ -1,6 +1,7 @@
 import { StellioTemplate } from 'src/interfaces';
 import {
     getGeoPropertyProp,
+    getIntegerProp,
     getJsonPropertyProp,
     getMultiRelationshipProp,
     getRelationshipProp,
@@ -18,6 +19,30 @@ export const BuildingTemplate: StellioTemplate = {
     description: {
         ...getSimpleTextProp({ title: 'Description du bâtiment' }),
     },
+    floorArea: {
+        ...getIntegerProp({ title: 'Surface de plancher (m²)' }, 'MTK'),
+    },
+    openingHours: {
+        ...getJsonPropertyProp({
+            formLabel: "Horaires d'ouverture et fermetures",
+            json: JSON.stringify({
+                weekly: {
+                    mon: [['08:00', '18:00']],
+                    tue: [['08:00', '18:00']],
+                },
+                closures: [],
+            }),
+        }),
+    },
+    territory: {
+        ...getSimpleTextProp({ title: 'Territoire' }),
+    },
+    hasWeatherInformation: {
+        ...getRelationshipProp({
+            formLabel: 'Station météo (DJU)',
+            targetTemplateObjectId: 'urn:ngsi-ld:WeatherInformation:Template',
+        }),
+    },
     hasUsage: {
         ...getMultiRelationshipProp({
             formLabel: 'Utilisation du bâtiment',
@@ -31,20 +56,12 @@ export const BuildingTemplate: StellioTemplate = {
             targetTemplateObjectId: 'urn:ngsi-ld:Site:Template',
         }),
     },
-
-    /**
-     * A GeoProperty in a Building will display the RNB selector component in TP
-     */
     location: {
         ...getGeoPropertyProp({
             formLabel: 'Sélectionner le bâtiment sur la carte',
             geometryType: 'Polygon',
         }),
     },
-    /**
-     *  The `rnb` JsonProperty must be present in the blueprint if required \
-     *  It won't be added to the entity otherwise
-     */
     rnb: {
         ...getJsonPropertyProp({ formLabel: 'Référentiel National des Bâtiments', canSelfInit: true }),
     },
