@@ -34,9 +34,6 @@ export const BuildingTemplate: StellioTemplate = {
             }),
         }),
     },
-    territory: {
-        ...getSimpleTextProp({ title: 'Territoire' }),
-    },
     hasWeatherInformation: {
         ...getRelationshipProp({
             formLabel: 'Station météo (DJU)',
