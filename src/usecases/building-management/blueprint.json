@@ -501,6 +501,19 @@
                 }
             }
         },
+        "thresholds": {
+            "type": "JsonProperty",
+            "json": "{}",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "json",
+                    "order": 33,
+                    "title": "Seuils des détections (vide : valeurs par défaut)",
+                    "canSelfInit": true
+                }
+            }
+        },
         "jsonSchema": {
             "type": "Property",
             "value": {
@@ -528,7 +541,7 @@
                     "friendlyAttributeName": "Nom",
                     "schemaType": "string",
                     "title": "Nom du point de livraison",
-                    "order": 33
+                    "order": 34
                 }
             }
         },
@@ -540,7 +553,7 @@
                 "value": {
                     "schemaType": "string",
                     "title": "Description",
-                    "order": 34
+                    "order": 35
                 }
             }
         },
@@ -552,7 +565,7 @@
                 "value": {
                     "schemaType": "string",
                     "title": "Identifiant du point de livraison",
-                    "order": 35
+                    "order": 36
                 }
             }
         },
@@ -569,7 +582,7 @@
                         "Electricité"
                     ],
                     "title": "Type de fluide",
-                    "order": 36
+                    "order": 37
                 }
             }
         },
@@ -586,7 +599,7 @@
                             "estimé"
                         ],
                         "title": "Type de relevé",
-                        "order": 38
+                        "order": 39
                     }
                 }
             },
@@ -602,7 +615,7 @@
                             "fournisseur"
                         ],
                         "title": "Fourni par",
-                        "order": 39
+                        "order": 40
                     }
                 }
             },
@@ -613,7 +626,7 @@
                 "value": {
                     "schemaType": "array",
                     "title": "Index",
-                    "order": 40,
+                    "order": 41,
                     "items": {
                         "type": "Property",
                         "value": 0,
@@ -621,9 +634,10 @@
                             "type": "Property",
                             "value": {
                                 "canSetObservedAt": true,
+                                "canSetUnitCode": true,
                                 "schemaType": "integer",
                                 "title": "Valeur d'index",
-                                "order": 37
+                                "order": 38
                             }
                         }
                     }
@@ -638,7 +652,7 @@
                 "value": {
                     "schemaType": "relationship",
                     "title": "Est en train d'observer",
-                    "order": 41,
+                    "order": 42,
                     "listOfAllowedRelationships": [
                         "urn:ngsi-ld:Building:Template",
                         "urn:ngsi-ld:Site:Template"
@@ -654,7 +668,7 @@
                 "value": {
                     "schemaType": "relationship",
                     "title": "Alimente électriquement",
-                    "order": 42
+                    "order": 43
                 }
             }
         },
@@ -687,7 +701,7 @@
                     "friendlyAttributeName": "Nom",
                     "schemaType": "string",
                     "title": "Nom de l'armoire électrique",
-                    "order": 43
+                    "order": 44
                 }
             }
         },
@@ -699,7 +713,7 @@
                 "value": {
                     "schemaType": "string",
                     "title": "Description",
-                    "order": 44
+                    "order": 45
                 }
             }
         },
@@ -711,7 +725,7 @@
                 "value": {
                     "schemaType": "string",
                     "title": "Identifiant de l'armoire électrique",
-                    "order": 45
+                    "order": 46
                 }
             }
         },
@@ -723,7 +737,7 @@
                 "value": {
                     "schemaType": "relationship",
                     "title": "Est alimentée par",
-                    "order": 46,
+                    "order": 47,
                     "listOfAllowedRelationships": [
                         "urn:ngsi-ld:DeliveryPoint:Template",
                         "urn:ngsi-ld:ElectricalCabinet:Template"
@@ -739,7 +753,7 @@
                 "value": {
                     "schemaType": "relationship",
                     "title": "Local dans lequel est située l'armoire électrique",
-                    "order": 47
+                    "order": 48
                 }
             }
         },
@@ -770,7 +784,7 @@
                     "friendlyAttributeName": "Nom",
                     "schemaType": "string",
                     "title": "Nom de la sortie électrique",
-                    "order": 48
+                    "order": 49
                 }
             }
         },
@@ -782,7 +796,7 @@
                 "value": {
                     "schemaType": "string",
                     "title": "Description",
-                    "order": 49
+                    "order": 50
                 }
             }
         },
@@ -794,7 +808,7 @@
                 "value": {
                     "schemaType": "string",
                     "title": "Identifiant de la sortie électrique ",
-                    "order": 50
+                    "order": 51
                 }
             }
         },
@@ -814,7 +828,7 @@
                         "ABN"
                     ],
                     "title": "Phasage de la sortie (phase A, B ou C; phase inconnue X; Neutre N) ",
-                    "order": 51
+                    "order": 52
                 }
             }
         },
@@ -835,7 +849,7 @@
                         "production"
                     ],
                     "title": "Usage mesuré",
-                    "order": 52
+                    "order": 53
                 }
             }
         },
@@ -847,7 +861,7 @@
                 "value": {
                     "schemaType": "array",
                     "title": "Index du sous-compteur (sorties sous-comptées uniquement)",
-                    "order": 54,
+                    "order": 55,
                     "items": {
                         "type": "Property",
                         "value": 0,
@@ -858,7 +872,7 @@
                                 "canSetUnitCode": true,
                                 "schemaType": "integer",
                                 "title": "Valeur d'index",
-                                "order": 53
+                                "order": 54
                             }
                         }
                     }
@@ -873,7 +887,7 @@
                 "value": {
                     "schemaType": "relationship",
                     "title": "Appartient à l'armoire électrique",
-                    "order": 55
+                    "order": 56
                 }
             }
         },
@@ -890,6 +904,35 @@
                 "description": "Point de sortie électrique, possiblement protégé/contrôlé par d'autres équipements de l'armoire électrique",
                 "minimum": 0,
                 "identifier": "deliveryPointNumber"
+            }
+        }
+    },
+    {
+        "id": "urn:ngsi-ld:WeatherInformation:Template",
+        "type": "Template",
+        "temperature": {
+            "type": "Property",
+            "value": 0,
+            "unitCode": "CEL",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "canSetObservedAt": true,
+                    "canSelfInit": true,
+                    "schemaType": "integer",
+                    "title": "Température extérieure",
+                    "order": 57
+                }
+            }
+        },
+        "jsonSchema": {
+            "type": "Property",
+            "value": {
+                "schemaType": "WeatherInformation",
+                "title": "Information Météo",
+                "description": "Station météo dont la température extérieure sert aux DJU et aux chronologies des bâtiments (de préférence la station Météo-France retenue par OPERAT)",
+                "minimum": 0,
+                "canEntityBeCreated": false
             }
         }
     }

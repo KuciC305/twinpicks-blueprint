@@ -6,6 +6,7 @@ import { UsageTemplate } from './usage';
 import { DeliveryPointTemplate } from './deliveryPoint';
 import { ElectricalCabinetTemplate } from './electricalCabinet';
 import { ConnectivityNodeTemplate } from './connectivityNode';
+import { WeatherInformationTemplate } from './weatherInformation';
 
 import { generateBlueprintFile } from '../../utils';
 
@@ -18,6 +19,7 @@ const blueprint = [
     DeliveryPointTemplate,
     ElectricalCabinetTemplate,
     ConnectivityNodeTemplate,
+    WeatherInformationTemplate,
 ];
 
 const usecasePathName = __dirname.split(/dist[\\/]/)[1];

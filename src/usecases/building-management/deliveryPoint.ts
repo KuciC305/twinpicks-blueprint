@@ -29,7 +29,11 @@ export const DeliveryPointTemplate: StellioTemplate = {
     },
     index: {
         ...getMultiAttributeProp({
-            propertySchemaDefinition: getIntegerProp({ title: "Valeur d'index", canSetObservedAt: true }),
+            propertySchemaDefinition: getIntegerProp({
+                title: "Valeur d'index",
+                canSetObservedAt: true,
+                canSetUnitCode: true,
+            }),
             formLabel: 'Index',
             subProps: [
                 ['meterReading', getEnumProp({ title: 'Type de relevé', enum: ['mesuré', 'estimé'] })],
