@@ -1,0 +1,2208 @@
+[
+    {
+        "id": "urn:ngsi-ld:Site:Template",
+        "type": "Template",
+        "name": {
+            "type": "Property",
+            "value": "Nom du site",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "friendlyAttributeName": "Nom",
+                    "schemaType": "string",
+                    "title": "Nom du site",
+                    "order": 1
+                }
+            }
+        },
+        "postalAddress": {
+            "postalCode": {
+                "type": "Property",
+                "value": "Code postal",
+                "jsonSchema": {
+                    "type": "Property",
+                    "value": {
+                        "schemaType": "string",
+                        "title": "Code postal",
+                        "order": 2
+                    }
+                }
+            },
+            "addressLocality": {
+                "type": "Property",
+                "value": "Ville",
+                "jsonSchema": {
+                    "type": "Property",
+                    "value": {
+                        "schemaType": "string",
+                        "title": "Ville",
+                        "order": 3
+                    }
+                }
+            },
+            "addressCountry": {
+                "type": "Property",
+                "value": "Pays",
+                "jsonSchema": {
+                    "type": "Property",
+                    "value": {
+                        "schemaType": "string",
+                        "title": "Pays",
+                        "order": 4
+                    }
+                }
+            },
+            "type": "Property",
+            "value": "Adresse postale",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "string",
+                    "title": "Adresse postale",
+                    "order": 5
+                }
+            }
+        },
+        "jsonSchema": {
+            "type": "Property",
+            "value": {
+                "schemaType": "Site",
+                "title": "Site",
+                "required": [
+                    "name"
+                ],
+                "description": "Site regroupant un ou plusieurs bâtiments.",
+                "minimum": 1
+            }
+        }
+    },
+    {
+        "id": "urn:ngsi-ld:Building:Template",
+        "type": "Template",
+        "name": {
+            "type": "Property",
+            "value": "Nom du bâtiment",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "friendlyAttributeName": "Nom",
+                    "schemaType": "string",
+                    "title": "Nom du bâtiment",
+                    "order": 6
+                }
+            }
+        },
+        "description": {
+            "type": "Property",
+            "value": "Description du bâtiment",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "string",
+                    "title": "Description du bâtiment",
+                    "order": 7
+                }
+            }
+        },
+        "isPartOf": {
+            "type": "Relationship",
+            "object": "urn:ngsi-ld:Site:Template",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "relationship",
+                    "title": "Appartient au site",
+                    "order": 8
+                }
+            }
+        },
+        "location": {
+            "type": "GeoProperty",
+            "value": {
+                "type": "Polygon",
+                "coordinates": []
+            },
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "object",
+                    "order": 9,
+                    "title": "Sélectionner le bâtiment sur la carte"
+                }
+            }
+        },
+        "rnb": {
+            "type": "JsonProperty",
+            "json": "{}",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "json",
+                    "order": 10,
+                    "title": "Référentiel national des bâtiments",
+                    "canSelfInit": true
+                }
+            }
+        },
+        "jsonSchema": {
+            "type": "Property",
+            "value": {
+                "schemaType": "Building",
+                "title": "Bâtiment",
+                "required": [
+                    "name",
+                    "location",
+                    "isPartOf"
+                ],
+                "minimum": 1,
+                "description": "Bâtiment du parc, localisé et rattaché au RNB (son DPE est recherché dans la BDNB à partir de son identifiant RNB)."
+            }
+        }
+    },
+    {
+        "id": "urn:ngsi-ld:RegulatoryQualification:Template",
+        "type": "Template",
+        "name": {
+            "type": "Property",
+            "value": "Nom de la qualification",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "friendlyAttributeName": "Nom",
+                    "schemaType": "string",
+                    "title": "Nom de la qualification",
+                    "order": 11
+                }
+            }
+        },
+        "refBuilding": {
+            "type": "Relationship",
+            "object": "urn:ngsi-ld:Building:Template",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "relationship",
+                    "title": "Bâtiment qualifié",
+                    "order": 12
+                }
+            }
+        },
+        "tertiaryFloorArea": {
+            "type": "Property",
+            "value": 0,
+            "unitCode": "MTK",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "integer",
+                    "minimum": 0,
+                    "title": "Surface de plancher tertiaire (m²)",
+                    "order": 13
+                }
+            }
+        },
+        "activityCategory": {
+            "type": "Property",
+            "value": "offices",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "enum",
+                    "enum": [
+                        "offices",
+                        "education",
+                        "health",
+                        "retail",
+                        "hospitality",
+                        "logistics",
+                        "sport",
+                        "culture",
+                        "other"
+                    ],
+                    "title": "Catégorie d'activité simplifiée (comparaisons du tableau de bord)",
+                    "order": 14
+                }
+            }
+        },
+        "occupants": {
+            "type": "Property",
+            "value": 0,
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "integer",
+                    "minimum": 0,
+                    "title": "Effectif (personnes)",
+                    "order": 15
+                }
+            }
+        },
+        "weeklyOpeningHours": {
+            "type": "Property",
+            "value": 0,
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "integer",
+                    "minimum": 0,
+                    "maximum": 168,
+                    "title": "Heures d'ouverture par semaine",
+                    "order": 16
+                }
+            }
+        },
+        "operatId": {
+            "type": "Property",
+            "value": "Référence OPERAT de l'entité fonctionnelle assujettie (EFA)",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "string",
+                    "title": "Référence OPERAT de l'entité fonctionnelle assujettie (EFA)",
+                    "order": 17
+                }
+            }
+        },
+        "operatSubjectQuality": {
+            "type": "Property",
+            "value": "PROP_OCCUPANT",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "enum",
+                    "enum": [
+                        "PROP_OCCUPANT",
+                        "PROP",
+                        "PRENEUR_BAIL",
+                        "COPRO"
+                    ],
+                    "title": "Qualité de l'assujetti (PROP_OCCUPANT : propriétaire occupant, PROP : propriétaire non occupant, PRENEUR_BAIL : preneur à bail ou occupant, COPRO : syndicat de copropriété)",
+                    "order": 18
+                }
+            }
+        },
+        "operatSubjectCase": {
+            "type": "Property",
+            "value": "1A",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "enum",
+                    "enum": [
+                        "1A",
+                        "1B",
+                        "2",
+                        "3"
+                    ],
+                    "title": "Cas d'assujettissement (1A : bâtiment tertiaire mono-occupant, 1B : multi-occupant, 2 : parties d'un bâtiment mixte, 3 : ensemble de bâtiments d'un site)",
+                    "order": 19
+                }
+            }
+        },
+        "reportingStartMonth": {
+            "type": "Property",
+            "value": 0,
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "integer",
+                    "minimum": 1,
+                    "maximum": 12,
+                    "title": "Mois de début de la période de déclaration (1 à 12)",
+                    "order": 20
+                }
+            }
+        },
+        "reportingStartDay": {
+            "type": "Property",
+            "value": 0,
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "integer",
+                    "minimum": 1,
+                    "maximum": 31,
+                    "title": "Jour de début de la période de déclaration (1 à 31)",
+                    "order": 21
+                }
+            }
+        },
+        "isEstablishmentWithoutSiret": {
+            "type": "Property",
+            "value": false,
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "boolean",
+                    "title": "Établissement sans SIRET (État, collectivité ou entreprise sans SIRET)",
+                    "order": 22
+                }
+            }
+        },
+        "establishmentIdentifierType": {
+            "type": "Property",
+            "value": "SIRET",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "enum",
+                    "enum": [
+                        "SIRET",
+                        "RNA",
+                        "REF_ETAT",
+                        "AUTRE"
+                    ],
+                    "title": "Type d'identifiant de l'établissement assujetti",
+                    "order": 23
+                }
+            }
+        },
+        "establishmentOtherIdentifierName": {
+            "type": "Property",
+            "value": "Nom de l'identifiant de l'établissement assujetti (type AUTRE, ou PP pour un particulier)",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "string",
+                    "title": "Nom de l'identifiant de l'établissement assujetti (type AUTRE, ou PP pour un particulier)",
+                    "order": 24
+                }
+            }
+        },
+        "establishmentIdentifier": {
+            "type": "Property",
+            "value": "Identifiant de l'établissement assujetti",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "string",
+                    "title": "Identifiant de l'établissement assujetti",
+                    "order": 25
+                }
+            }
+        },
+        "owner1IdentifierType": {
+            "type": "Property",
+            "value": "SIREN",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "enum",
+                    "enum": [
+                        "SIREN",
+                        "RNA",
+                        "REF_ETAT",
+                        "AUTRE"
+                    ],
+                    "title": "Type d'identifiant du propriétaire",
+                    "order": 26
+                }
+            }
+        },
+        "owner1OtherIdentifierName": {
+            "type": "Property",
+            "value": "Nom de l'identifiant du propriétaire (type AUTRE, ou PP pour un particulier)",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "string",
+                    "title": "Nom de l'identifiant du propriétaire (type AUTRE, ou PP pour un particulier)",
+                    "order": 27
+                }
+            }
+        },
+        "owner1Identifier": {
+            "type": "Property",
+            "value": "Identifiant du propriétaire",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "string",
+                    "title": "Identifiant du propriétaire",
+                    "order": 28
+                }
+            }
+        },
+        "owner1OwnershipStartDate": {
+            "type": "Property",
+            "value": "2026-10-20T14:10:10.309Z",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "date",
+                    "title": "Date de début de propriété du propriétaire",
+                    "order": 29,
+                    "dateMode": "date"
+                }
+            }
+        },
+        "owner2IdentifierType": {
+            "type": "Property",
+            "value": "SIREN",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "enum",
+                    "enum": [
+                        "SIREN",
+                        "RNA",
+                        "REF_ETAT",
+                        "AUTRE"
+                    ],
+                    "title": "Type d'identifiant du second propriétaire",
+                    "order": 30
+                }
+            }
+        },
+        "owner2OtherIdentifierName": {
+            "type": "Property",
+            "value": "Nom de l'identifiant du second propriétaire (type AUTRE, ou PP pour un particulier)",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "string",
+                    "title": "Nom de l'identifiant du second propriétaire (type AUTRE, ou PP pour un particulier)",
+                    "order": 31
+                }
+            }
+        },
+        "owner2Identifier": {
+            "type": "Property",
+            "value": "Identifiant du second propriétaire",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "string",
+                    "title": "Identifiant du second propriétaire",
+                    "order": 32
+                }
+            }
+        },
+        "owner2OwnershipStartDate": {
+            "type": "Property",
+            "value": "2026-10-20T14:10:10.309Z",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "date",
+                    "title": "Date de début de propriété du second propriétaire",
+                    "order": 33,
+                    "dateMode": "date"
+                }
+            }
+        },
+        "isVacant": {
+            "type": "Property",
+            "value": false,
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "boolean",
+                    "title": "Locaux vacants (propriétaire non occupant ou copropriété)",
+                    "order": 34
+                }
+            }
+        },
+        "occupantIdentifierType": {
+            "type": "Property",
+            "value": "SIREN",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "enum",
+                    "enum": [
+                        "SIREN",
+                        "SIRET",
+                        "RNA",
+                        "REF_ETAT",
+                        "AUTRE"
+                    ],
+                    "title": "Type d'identifiant de l'occupant",
+                    "order": 35
+                }
+            }
+        },
+        "occupantOtherIdentifierName": {
+            "type": "Property",
+            "value": "Nom de l'identifiant de l'occupant (type AUTRE, ou PP pour un particulier)",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "string",
+                    "title": "Nom de l'identifiant de l'occupant (type AUTRE, ou PP pour un particulier)",
+                    "order": 36
+                }
+            }
+        },
+        "occupantIdentifier": {
+            "type": "Property",
+            "value": "Identifiant de l'occupant",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "string",
+                    "title": "Identifiant de l'occupant",
+                    "order": 37
+                }
+            }
+        },
+        "occupantName": {
+            "type": "Property",
+            "value": "Dénomination de l'occupant (établissement sans SIRET)",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "string",
+                    "title": "Dénomination de l'occupant (établissement sans SIRET)",
+                    "order": 38
+                }
+            }
+        },
+        "syndicateIdentifierType": {
+            "type": "Property",
+            "value": "SIRET",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "enum",
+                    "enum": [
+                        "SIRET",
+                        "RNA",
+                        "REF_ETAT",
+                        "AUTRE"
+                    ],
+                    "title": "Type d'identifiant du syndicat de copropriété",
+                    "order": 39
+                }
+            }
+        },
+        "syndicateOtherIdentifierName": {
+            "type": "Property",
+            "value": "Nom de l'identifiant du syndicat de copropriété (type AUTRE, ou PP pour un particulier)",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "string",
+                    "title": "Nom de l'identifiant du syndicat de copropriété (type AUTRE, ou PP pour un particulier)",
+                    "order": 40
+                }
+            }
+        },
+        "syndicateIdentifier": {
+            "type": "Property",
+            "value": "Identifiant du syndicat de copropriété",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "string",
+                    "title": "Identifiant du syndicat de copropriété",
+                    "order": 41
+                }
+            }
+        },
+        "mandatedProviderIdentifierType": {
+            "type": "Property",
+            "value": "SIRET",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "enum",
+                    "enum": [
+                        "SIRET",
+                        "RNA",
+                        "REF_ETAT",
+                        "AUTRE"
+                    ],
+                    "title": "Type d'identifiant du prestataire mandaté",
+                    "order": 42
+                }
+            }
+        },
+        "mandatedProviderOtherIdentifierName": {
+            "type": "Property",
+            "value": "Nom de l'identifiant du prestataire mandaté (type AUTRE, ou PP pour un particulier)",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "string",
+                    "title": "Nom de l'identifiant du prestataire mandaté (type AUTRE, ou PP pour un particulier)",
+                    "order": 43
+                }
+            }
+        },
+        "mandatedProviderIdentifier": {
+            "type": "Property",
+            "value": "Identifiant du prestataire mandaté",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "string",
+                    "title": "Identifiant du prestataire mandaté",
+                    "order": 44
+                }
+            }
+        },
+        "buildingUnits": {
+            "cadastralPrefix": {
+                "type": "Property",
+                "value": "Préfixe cadastral",
+                "jsonSchema": {
+                    "type": "Property",
+                    "value": {
+                        "schemaType": "string",
+                        "title": "Préfixe cadastral",
+                        "order": 46
+                    }
+                }
+            },
+            "cadastralSection": {
+                "type": "Property",
+                "value": "Section cadastrale",
+                "jsonSchema": {
+                    "type": "Property",
+                    "value": {
+                        "schemaType": "string",
+                        "title": "Section cadastrale",
+                        "order": 47
+                    }
+                }
+            },
+            "cadastralParcelNumber": {
+                "type": "Property",
+                "value": "Numéro de parcelle",
+                "jsonSchema": {
+                    "type": "Property",
+                    "value": {
+                        "schemaType": "string",
+                        "title": "Numéro de parcelle",
+                        "order": 48
+                    }
+                }
+            },
+            "lotNumber": {
+                "type": "Property",
+                "value": "Numéro de lot (0 sans lot)",
+                "jsonSchema": {
+                    "type": "Property",
+                    "value": {
+                        "schemaType": "string",
+                        "title": "Numéro de lot (0 sans lot)",
+                        "order": 49
+                    }
+                }
+            },
+            "type": "Property",
+            "value": "placeholder",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "array",
+                    "title": "Locaux de l'EFA (identifiant unique bâtimentaire, IUB)",
+                    "order": 50,
+                    "items": {
+                        "type": "Property",
+                        "value": "Dénomination du local",
+                        "jsonSchema": {
+                            "type": "Property",
+                            "value": {
+                                "schemaType": "string",
+                                "title": "Dénomination du local",
+                                "order": 45
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "linkedEfas": {
+            "allocatedFloorArea": {
+                "type": "Property",
+                "value": 0,
+                "unitCode": "MTK",
+                "jsonSchema": {
+                    "type": "Property",
+                    "value": {
+                        "schemaType": "integer",
+                        "minimum": 0,
+                        "title": "Surface allouée (m²)",
+                        "order": 52
+                    }
+                }
+            },
+            "type": "Property",
+            "value": "placeholder",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "array",
+                    "title": "EFA liées (3 au plus)",
+                    "order": 53,
+                    "items": {
+                        "type": "Property",
+                        "value": "Référence OPERAT de l'EFA liée",
+                        "jsonSchema": {
+                            "type": "Property",
+                            "value": {
+                                "schemaType": "string",
+                                "title": "Référence OPERAT de l'EFA liée",
+                                "order": 51
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "operatActivities": {
+            "floorArea": {
+                "type": "Property",
+                "value": 0,
+                "unitCode": "MTK",
+                "jsonSchema": {
+                    "type": "Property",
+                    "value": {
+                        "schemaType": "integer",
+                        "minimum": 0,
+                        "title": "Surface de plancher de l'activité (m², facultative pour une seule activité)",
+                        "order": 55
+                    }
+                }
+            },
+            "type": "Property",
+            "value": "placeholder",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "array",
+                    "title": "Sous-catégories d'activité OPERAT",
+                    "order": 56,
+                    "items": {
+                        "type": "Property",
+                        "value": "Code de la sous-catégorie d'activité OPERAT (SCAP…)",
+                        "jsonSchema": {
+                            "type": "Property",
+                            "value": {
+                                "schemaType": "string",
+                                "title": "Code de la sous-catégorie d'activité OPERAT (SCAP…)",
+                                "order": 54
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "weatherStation": {
+            "type": "Property",
+            "value": "Code Météo-France de la station météo la plus représentative (8 chiffres)",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "string",
+                    "title": "Code Météo-France de la station météo la plus représentative (8 chiffres)",
+                    "order": 57
+                }
+            }
+        },
+        "referenceYear": {
+            "type": "Property",
+            "value": 0,
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "integer",
+                    "minimum": 2010,
+                    "maximum": 2022,
+                    "title": "Année de référence (2010 à 2022)",
+                    "order": 58
+                }
+            }
+        },
+        "absoluteTarget2030": {
+            "type": "Property",
+            "value": 0,
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "integer",
+                    "minimum": 0,
+                    "title": "Objectif 2030 en valeur absolue (kWh/m²/an)",
+                    "order": 59
+                }
+            }
+        },
+        "deviationJustification": {
+            "type": "Property",
+            "value": "Justification des écarts et spécificités du site",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "string",
+                    "title": "Justification des écarts et spécificités du site",
+                    "order": 60
+                }
+            }
+        },
+        "jsonSchema": {
+            "type": "Property",
+            "value": {
+                "schemaType": "RegulatoryQualification",
+                "title": "Qualification réglementaire",
+                "required": [
+                    "name",
+                    "refBuilding"
+                ],
+                "minimum": 0,
+                "description": "Entité fonctionnelle assujettie (EFA) au décret tertiaire : surface, activités, effectif, identification OPERAT (assujetti, propriétaires, occupant, locaux), année de référence et objectifs."
+            }
+        }
+    },
+    {
+        "id": "urn:ngsi-ld:EnergyDeclaration:Template",
+        "type": "Template",
+        "name": {
+            "type": "Property",
+            "value": "Nom de la déclaration",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "friendlyAttributeName": "Nom",
+                    "schemaType": "string",
+                    "title": "Nom de la déclaration",
+                    "order": 61
+                }
+            }
+        },
+        "refBuilding": {
+            "type": "Relationship",
+            "object": "urn:ngsi-ld:Building:Template",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "relationship",
+                    "title": "Bâtiment déclaré",
+                    "order": 62
+                }
+            }
+        },
+        "declarationYear": {
+            "type": "Property",
+            "value": 0,
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "integer",
+                    "minimum": 2010,
+                    "title": "Année des consommations déclarées",
+                    "order": 63
+                }
+            }
+        },
+        "declaredFloorArea": {
+            "type": "Property",
+            "value": 0,
+            "unitCode": "MTK",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "integer",
+                    "minimum": 0,
+                    "title": "Surface déclarée (m²)",
+                    "order": 64
+                }
+            }
+        },
+        "consumptions": {
+            "energyType": {
+                "type": "Property",
+                "value": "electricity",
+                "jsonSchema": {
+                    "type": "Property",
+                    "value": {
+                        "schemaType": "enum",
+                        "enum": [
+                            "electricity",
+                            "naturalGas",
+                            "liquefiedNaturalGas",
+                            "propaneKg",
+                            "propaneM3",
+                            "butaneKg",
+                            "butaneM3",
+                            "heatingOil",
+                            "coalBriquettes",
+                            "hardCoal",
+                            "woodIndustrialChips",
+                            "woodForestChips",
+                            "woodPellets",
+                            "woodLogs",
+                            "districtHeating",
+                            "districtCooling",
+                            "nonRoadDiesel"
+                        ],
+                        "title": "Énergie",
+                        "order": 66
+                    }
+                }
+            },
+            "distribution": {
+                "type": "Property",
+                "value": "individual",
+                "jsonSchema": {
+                    "type": "Property",
+                    "value": {
+                        "schemaType": "enum",
+                        "enum": [
+                            "individual",
+                            "distributed",
+                            "common"
+                        ],
+                        "title": "Répartition (individual : individuelle, distributed : répartie, common : parties communes)",
+                        "order": 67
+                    }
+                }
+            },
+            "heatingQuantity": {
+                "type": "Property",
+                "value": 0,
+                "jsonSchema": {
+                    "type": "Property",
+                    "value": {
+                        "schemaType": "integer",
+                        "minimum": 0,
+                        "title": "Dont chauffage",
+                        "order": 68
+                    }
+                }
+            },
+            "coolingQuantity": {
+                "type": "Property",
+                "value": 0,
+                "jsonSchema": {
+                    "type": "Property",
+                    "value": {
+                        "schemaType": "integer",
+                        "minimum": 0,
+                        "title": "Dont refroidissement",
+                        "order": 69
+                    }
+                }
+            },
+            "type": "Property",
+            "value": "placeholder",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "array",
+                    "title": "Consommations par énergie",
+                    "order": 70,
+                    "items": {
+                        "type": "Property",
+                        "value": 0,
+                        "jsonSchema": {
+                            "type": "Property",
+                            "value": {
+                                "schemaType": "integer",
+                                "minimum": 0,
+                                "title": "Quantité consommée, dans l'unité de l'énergie (kWh, kg, litres, m³ ou stères)",
+                                "order": 65
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "evChargingPoints": {
+            "type": "Property",
+            "value": 0,
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "integer",
+                    "minimum": 0,
+                    "title": "Nombre de bornes de recharge de véhicules électriques",
+                    "order": 71
+                }
+            }
+        },
+        "evChargingConsumption": {
+            "type": "Property",
+            "value": 0,
+            "unitCode": "KWH",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "integer",
+                    "minimum": 0,
+                    "title": "Consommation d'électricité des bornes de recharge (IRVE, kWh)",
+                    "order": 72
+                }
+            }
+        },
+        "usageIndicators": {
+            "indicator": {
+                "type": "Property",
+                "value": "Code de l'indicateur (NB_H_OUVREES, T_OCC…)",
+                "jsonSchema": {
+                    "type": "Property",
+                    "value": {
+                        "schemaType": "string",
+                        "title": "Code de l'indicateur (NB_H_OUVREES, T_OCC…)",
+                        "order": 74
+                    }
+                }
+            },
+            "subCategory": {
+                "type": "Property",
+                "value": "Sous-catégorie d'activité concernée (SCAP…, facultative pour une seule activité)",
+                "jsonSchema": {
+                    "type": "Property",
+                    "value": {
+                        "schemaType": "string",
+                        "title": "Sous-catégorie d'activité concernée (SCAP…, facultative pour une seule activité)",
+                        "order": 75
+                    }
+                }
+            },
+            "type": "Property",
+            "value": "placeholder",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "array",
+                    "title": "Indicateurs d'intensité d'usage OPERAT",
+                    "order": 76,
+                    "items": {
+                        "type": "Property",
+                        "value": 0,
+                        "jsonSchema": {
+                            "type": "Property",
+                            "value": {
+                                "schemaType": "integer",
+                                "minimum": 0,
+                                "title": "Valeur de l'indicateur",
+                                "order": 73
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "adjustedConsumption": {
+            "type": "Property",
+            "value": 0,
+            "unitCode": "KWH",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "integer",
+                    "minimum": 0,
+                    "title": "Consommation ajustée climat et activité (kWh)",
+                    "order": 77
+                }
+            }
+        },
+        "dataSource": {
+            "type": "Property",
+            "value": "meters",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "enum",
+                    "enum": [
+                        "meters",
+                        "invoices",
+                        "manual"
+                    ],
+                    "title": "Sources des données (meters : compteurs Stellio, invoices : factures, manual : saisie manuelle)",
+                    "order": 78,
+                    "allowMultiple": true
+                }
+            }
+        },
+        "transmissionStatus": {
+            "type": "Property",
+            "value": "draft",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "enum",
+                    "enum": [
+                        "draft",
+                        "readyToSend",
+                        "sent",
+                        "accepted",
+                        "rejected"
+                    ],
+                    "title": "Statut de transmission OPERAT",
+                    "order": 79
+                }
+            }
+        },
+        "transmittedAt": {
+            "type": "Property",
+            "value": "2026-10-20T14:10:10.310Z",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "date",
+                    "title": "Date de transmission",
+                    "order": 80,
+                    "dateMode": "date"
+                }
+            }
+        },
+        "validationMessage": {
+            "type": "Property",
+            "value": "Retour de validation OPERAT",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "string",
+                    "title": "Retour de validation OPERAT",
+                    "order": 81
+                }
+            }
+        },
+        "certificateUrl": {
+            "type": "Property",
+            "value": "Lien vers l'attestation OPERAT",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "string",
+                    "title": "Lien vers l'attestation OPERAT",
+                    "order": 82
+                }
+            }
+        },
+        "operatDeclarationId": {
+            "type": "Property",
+            "value": 0,
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "integer",
+                    "minimum": 1,
+                    "title": "Identifiant de la déclaration dans OPERAT (renseigné par la soumission API)",
+                    "order": 83
+                }
+            }
+        },
+        "operatStatus": {
+            "type": "Property",
+            "value": "A_COMPLETER",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "enum",
+                    "enum": [
+                        "A_COMPLETER",
+                        "PRETE_A_VALIDER",
+                        "VALIDEE"
+                    ],
+                    "title": "Statut de la déclaration dans OPERAT (A_COMPLETER : à compléter, PRETE_A_VALIDER : prête à valider, VALIDEE : validée)",
+                    "order": 84
+                }
+            }
+        },
+        "jsonSchema": {
+            "type": "Property",
+            "value": {
+                "schemaType": "EnergyDeclaration",
+                "title": "Déclaration annuelle OPERAT",
+                "required": [
+                    "name",
+                    "refBuilding",
+                    "declarationYear",
+                    "transmissionStatus"
+                ],
+                "minimum": 0,
+                "description": "Consommations annuelles d'un bâtiment par énergie et par répartition, indicateurs d'intensité d'usage et suivi de leur transmission à la plateforme OPERAT."
+            }
+        }
+    },
+    {
+        "id": "urn:ngsi-ld:BuildingAutomationSystem:Template",
+        "type": "Template",
+        "name": {
+            "type": "Property",
+            "value": "Nom du système",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "friendlyAttributeName": "Nom",
+                    "schemaType": "string",
+                    "title": "Nom du système",
+                    "order": 85
+                }
+            }
+        },
+        "refBuilding": {
+            "type": "Relationship",
+            "object": "urn:ngsi-ld:Building:Template",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "relationship",
+                    "title": "Bâtiment équipé",
+                    "order": 86
+                }
+            }
+        },
+        "hvacPower": {
+            "type": "Property",
+            "value": 0,
+            "unitCode": "KWT",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "integer",
+                    "minimum": 0,
+                    "title": "Puissance nominale des systèmes de chauffage et climatisation (kW)",
+                    "order": 87
+                }
+            }
+        },
+        "bacsStatus": {
+            "type": "Property",
+            "value": "toQualify",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "enum",
+                    "enum": [
+                        "toQualify",
+                        "compliant",
+                        "toEquip",
+                        "exempt"
+                    ],
+                    "title": "Statut BACS (toQualify : à qualifier, compliant : conforme, toEquip : à équiper, exempt : exempté)",
+                    "order": 88
+                }
+            }
+        },
+        "automationFunctions": {
+            "type": "Property",
+            "value": "regulation",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "enum",
+                    "enum": [
+                        "regulation",
+                        "scheduling",
+                        "continuousMonitoring",
+                        "benchmarking",
+                        "lossDetection",
+                        "interoperability",
+                        "manualOverride"
+                    ],
+                    "title": "Fonctions d'automatisation présentes",
+                    "order": 89,
+                    "allowMultiple": true
+                }
+            }
+        },
+        "installationDate": {
+            "type": "Property",
+            "value": "2026-10-20T14:10:10.310Z",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "date",
+                    "title": "Date d'installation",
+                    "order": 90,
+                    "dateMode": "date"
+                }
+            }
+        },
+        "lastInspectionDate": {
+            "type": "Property",
+            "value": "2026-10-20T14:10:10.310Z",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "date",
+                    "title": "Date de la dernière inspection",
+                    "order": 91,
+                    "dateMode": "date"
+                }
+            }
+        },
+        "nextInspectionDate": {
+            "type": "Property",
+            "value": "2026-10-20T14:10:10.310Z",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "date",
+                    "title": "Date de la prochaine inspection",
+                    "order": 92,
+                    "dateMode": "date"
+                }
+            }
+        },
+        "jsonSchema": {
+            "type": "Property",
+            "value": {
+                "schemaType": "BuildingAutomationSystem",
+                "title": "Système d'automatisation et de contrôle (BACS)",
+                "required": [
+                    "name",
+                    "refBuilding",
+                    "hvacPower",
+                    "bacsStatus"
+                ],
+                "minimum": 0,
+                "description": "Système d'automatisation et de contrôle du bâtiment (décret BACS) : puissance des systèmes CVC, fonctions présentes et inspections."
+            }
+        }
+    },
+    {
+        "id": "urn:ngsi-ld:ComplianceEvidence:Template",
+        "type": "Template",
+        "name": {
+            "type": "Property",
+            "value": "Nom du justificatif",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "friendlyAttributeName": "Nom",
+                    "schemaType": "string",
+                    "title": "Nom du justificatif",
+                    "order": 93
+                }
+            }
+        },
+        "refBuilding": {
+            "type": "Relationship",
+            "object": "urn:ngsi-ld:Building:Template",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "relationship",
+                    "title": "Bâtiment concerné",
+                    "order": 94
+                }
+            }
+        },
+        "regulation": {
+            "type": "Property",
+            "value": "tertiaryDecree",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "enum",
+                    "enum": [
+                        "tertiaryDecree",
+                        "bacs",
+                        "dpe"
+                    ],
+                    "title": "Réglementation (tertiaryDecree : décret tertiaire, bacs : décret BACS, dpe : DPE)",
+                    "order": 95
+                }
+            }
+        },
+        "evidenceType": {
+            "type": "Property",
+            "value": "bacsInspectionReport",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "enum",
+                    "enum": [
+                        "bacsInspectionReport",
+                        "bacsExemptionCertificate",
+                        "efficiencyAudit",
+                        "operatCertificate",
+                        "dpeReport",
+                        "other"
+                    ],
+                    "title": "Type de justificatif",
+                    "order": 96
+                }
+            }
+        },
+        "issuedAt": {
+            "type": "Property",
+            "value": "2026-10-20T14:10:10.310Z",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "date",
+                    "title": "Date d'émission",
+                    "order": 97,
+                    "dateMode": "date"
+                }
+            }
+        },
+        "validUntil": {
+            "type": "Property",
+            "value": "2026-10-20T14:10:10.310Z",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "date",
+                    "title": "Date de fin de validité",
+                    "order": 98,
+                    "dateMode": "date"
+                }
+            }
+        },
+        "documentUrl": {
+            "type": "Property",
+            "value": "Lien vers le document",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "string",
+                    "title": "Lien vers le document",
+                    "order": 99
+                }
+            }
+        },
+        "jsonSchema": {
+            "type": "Property",
+            "value": {
+                "schemaType": "ComplianceEvidence",
+                "title": "Justificatif réglementaire",
+                "required": [
+                    "name",
+                    "refBuilding",
+                    "regulation",
+                    "evidenceType"
+                ],
+                "minimum": 0,
+                "description": "Preuve archivée de la conformité d'un bâtiment : compte-rendu d'inspection, certificat d'exemption, audit, attestation, DPE."
+            }
+        }
+    },
+    {
+        "id": "urn:ngsi-ld:DeliveryPoint:Template",
+        "type": "Template",
+        "name": {
+            "type": "Property",
+            "value": "Nom du point de livraison",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "friendlyAttributeName": "Nom",
+                    "schemaType": "string",
+                    "title": "Nom du point de livraison",
+                    "order": 100
+                }
+            }
+        },
+        "deliveryPointNumber": {
+            "type": "Property",
+            "value": "Identifiant du point de livraison",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "string",
+                    "title": "Identifiant du point de livraison",
+                    "order": 101
+                }
+            }
+        },
+        "fluidType": {
+            "type": "Property",
+            "value": "Electricité",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "enum",
+                    "enum": [
+                        "Electricité",
+                        "Gaz",
+                        "Eau",
+                        "Réseau de chaleur",
+                        "Réseau de froid",
+                        "Fioul"
+                    ],
+                    "title": "Type de fluide",
+                    "order": 102
+                }
+            }
+        },
+        "isObserving": {
+            "type": "Relationship",
+            "object": "urn:ngsi-ld",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "relationship",
+                    "title": "Est en train d'observer",
+                    "order": 103,
+                    "listOfAllowedRelationships": [
+                        "urn:ngsi-ld:Building:Template",
+                        "urn:ngsi-ld:Site:Template"
+                    ]
+                }
+            }
+        },
+        "jsonSchema": {
+            "type": "Property",
+            "value": {
+                "schemaType": "DeliveryPoint",
+                "title": "Point de livraison",
+                "required": [
+                    "name",
+                    "deliveryPointNumber",
+                    "fluidType",
+                    "isObserving"
+                ],
+                "description": "Compteur rattaché à un bâtiment ou à un site, source des consommations déclarées.",
+                "minimum": 0,
+                "identifier": "deliveryPointNumber"
+            }
+        }
+    },
+    {
+        "id": "urn:ngsi-ld:OperatStructure:Template",
+        "type": "Template",
+        "name": {
+            "type": "Property",
+            "value": "Nom de la structure assujettie",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "friendlyAttributeName": "Nom",
+                    "schemaType": "string",
+                    "title": "Nom de la structure assujettie",
+                    "order": 104
+                }
+            }
+        },
+        "structureNature": {
+            "type": "Property",
+            "value": "ET_MINISTERE",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "enum",
+                    "enum": [
+                        "ET_MINISTERE",
+                        "ET_SERVICE",
+                        "ET_OPERATEUR",
+                        "CO_REGION",
+                        "CO_DEPARTEMENT",
+                        "CO_COMMUNE",
+                        "CO_OCT",
+                        "EPCI_METROPOLE",
+                        "EPCI_URBAINE",
+                        "EPCI_AGGLO",
+                        "EPCI_COMMUNE",
+                        "EPCI_SYNDICAT",
+                        "ENT_ENTREPRISE",
+                        "ENT_ASSOCIATION",
+                        "ENT_LIBERAL",
+                        "PROP_SOCIETE",
+                        "PROP_PARTICULIER",
+                        "PROP_COPRO"
+                    ],
+                    "title": "Nature de la structure (référentiel OPERAT)",
+                    "order": 105
+                }
+            }
+        },
+        "identifierType": {
+            "type": "Property",
+            "value": "SIRET",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "enum",
+                    "enum": [
+                        "SIRET",
+                        "RNA",
+                        "AUTRE",
+                        "REF_ETAT",
+                        "PARTICULIER"
+                    ],
+                    "title": "Type d'identifiant de la structure",
+                    "order": 106
+                }
+            }
+        },
+        "otherIdentifierName": {
+            "type": "Property",
+            "value": "Nom de l'identifiant (type AUTRE : RCS, RPPS…)",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "string",
+                    "title": "Nom de l'identifiant (type AUTRE : RCS, RPPS…)",
+                    "order": 107
+                }
+            }
+        },
+        "identifier": {
+            "type": "Property",
+            "value": "Identifiant de la structure (SIRET du siège, RNA…)",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "string",
+                    "title": "Identifiant de la structure (SIRET du siège, RNA…)",
+                    "order": 108
+                }
+            }
+        },
+        "postalAddress": {
+            "postalCode": {
+                "type": "Property",
+                "value": "Code postal",
+                "jsonSchema": {
+                    "type": "Property",
+                    "value": {
+                        "schemaType": "string",
+                        "title": "Code postal",
+                        "order": 109
+                    }
+                }
+            },
+            "addressLocality": {
+                "type": "Property",
+                "value": "Commune",
+                "jsonSchema": {
+                    "type": "Property",
+                    "value": {
+                        "schemaType": "string",
+                        "title": "Commune",
+                        "order": 110
+                    }
+                }
+            },
+            "extendedAddress": {
+                "type": "Property",
+                "value": "Complément d'adresse",
+                "jsonSchema": {
+                    "type": "Property",
+                    "value": {
+                        "schemaType": "string",
+                        "title": "Complément d'adresse",
+                        "order": 111
+                    }
+                }
+            },
+            "type": "Property",
+            "value": "Numéro et voie",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "string",
+                    "title": "Numéro et voie",
+                    "order": 112
+                }
+            }
+        },
+        "legalRepresentativeEmail": {
+            "type": "Property",
+            "value": "Courriel du représentant légal",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "string",
+                    "title": "Courriel du représentant légal",
+                    "order": 113
+                }
+            }
+        },
+        "jsonSchema": {
+            "type": "Property",
+            "value": {
+                "schemaType": "OperatStructure",
+                "title": "Structure assujettie OPERAT",
+                "required": [
+                    "name",
+                    "structureNature",
+                    "identifierType",
+                    "identifier"
+                ],
+                "minimum": 0,
+                "maximum": 1,
+                "description": "Structure assujettie (entité juridique du cas d’usage) telle que déclarée sur OPERAT : son identifiant nomme les fichiers d’import."
+            }
+        }
+    },
+    {
+        "id": "urn:ngsi-ld:OperatAccount:Template",
+        "type": "Template",
+        "name": {
+            "type": "Property",
+            "value": "Nom de famille de l'utilisateur",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "friendlyAttributeName": "Nom",
+                    "schemaType": "string",
+                    "title": "Nom de famille de l'utilisateur",
+                    "order": 114
+                }
+            }
+        },
+        "givenName": {
+            "type": "Property",
+            "value": "Prénom",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "string",
+                    "title": "Prénom",
+                    "order": 115
+                }
+            }
+        },
+        "email": {
+            "type": "Property",
+            "value": "Courriel (identifiant de connexion à OPERAT)",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "string",
+                    "title": "Courriel (identifiant de connexion à OPERAT)",
+                    "order": 116
+                }
+            }
+        },
+        "telephone": {
+            "type": "Property",
+            "value": "Téléphone (10 chiffres)",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "string",
+                    "title": "Téléphone (10 chiffres)",
+                    "order": 117
+                }
+            }
+        },
+        "profile": {
+            "type": "Property",
+            "value": "REP_STRUCT",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "enum",
+                    "enum": [
+                        "REP_STRUCT",
+                        "REFERENT",
+                        "COR_STRUCT",
+                        "GEST_TECH",
+                        "GEST_IMMO",
+                        "EXPLOITANT",
+                        "OBSERVATEUR"
+                    ],
+                    "title": "Profil (REP_STRUCT : représentant légal, REFERENT, COR_STRUCT : correspondant, GEST_TECH : gestionnaire technique, GEST_IMMO : gestionnaire immobilier, EXPLOITANT, OBSERVATEUR)",
+                    "order": 118
+                }
+            }
+        },
+        "isMandated": {
+            "type": "Property",
+            "value": false,
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "boolean",
+                    "title": "Compte mandaté (utilisateur d’une autre structure que la structure assujettie)",
+                    "order": 119
+                }
+            }
+        },
+        "mandatedStructureNature": {
+            "type": "Property",
+            "value": "ET_MINISTERE",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "enum",
+                    "enum": [
+                        "ET_MINISTERE",
+                        "ET_SERVICE",
+                        "ET_OPERATEUR",
+                        "CO_REGION",
+                        "CO_DEPARTEMENT",
+                        "CO_COMMUNE",
+                        "CO_OCT",
+                        "EPCI_METROPOLE",
+                        "EPCI_URBAINE",
+                        "EPCI_AGGLO",
+                        "EPCI_COMMUNE",
+                        "EPCI_SYNDICAT",
+                        "ENT_ENTREPRISE",
+                        "ENT_ASSOCIATION",
+                        "ENT_LIBERAL",
+                        "PROP_SOCIETE",
+                        "PROP_PARTICULIER",
+                        "PROP_COPRO"
+                    ],
+                    "title": "Nature de la structure mandatée",
+                    "order": 120
+                }
+            }
+        },
+        "mandatedStructureIdentifierType": {
+            "type": "Property",
+            "value": "SIRET",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "enum",
+                    "enum": [
+                        "SIRET",
+                        "RNA",
+                        "AUTRE",
+                        "PARTICULIER",
+                        "REF_ETAT"
+                    ],
+                    "title": "Type d'identifiant de la structure mandatée",
+                    "order": 121
+                }
+            }
+        },
+        "mandatedStructureOtherIdentifierName": {
+            "type": "Property",
+            "value": "Nom de l'identifiant de la structure mandatée (type AUTRE)",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "string",
+                    "title": "Nom de l'identifiant de la structure mandatée (type AUTRE)",
+                    "order": 122
+                }
+            }
+        },
+        "mandatedStructureName": {
+            "type": "Property",
+            "value": "Nom de la structure mandatée (type AUTRE)",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "string",
+                    "title": "Nom de la structure mandatée (type AUTRE)",
+                    "order": 123
+                }
+            }
+        },
+        "mandatedStructureIdentifier": {
+            "type": "Property",
+            "value": "Identifiant de la structure mandatée",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "string",
+                    "title": "Identifiant de la structure mandatée",
+                    "order": 124
+                }
+            }
+        },
+        "mandatedStructureAddress": {
+            "postalCode": {
+                "type": "Property",
+                "value": "Code postal",
+                "jsonSchema": {
+                    "type": "Property",
+                    "value": {
+                        "schemaType": "string",
+                        "title": "Code postal",
+                        "order": 125
+                    }
+                }
+            },
+            "addressLocality": {
+                "type": "Property",
+                "value": "Commune",
+                "jsonSchema": {
+                    "type": "Property",
+                    "value": {
+                        "schemaType": "string",
+                        "title": "Commune",
+                        "order": 126
+                    }
+                }
+            },
+            "extendedAddress": {
+                "type": "Property",
+                "value": "Complément d'adresse",
+                "jsonSchema": {
+                    "type": "Property",
+                    "value": {
+                        "schemaType": "string",
+                        "title": "Complément d'adresse",
+                        "order": 127
+                    }
+                }
+            },
+            "type": "Property",
+            "value": "Adresse de la structure mandatée (numéro et voie)",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "string",
+                    "title": "Adresse de la structure mandatée (numéro et voie)",
+                    "order": 128
+                }
+            }
+        },
+        "hasNewsletterSubscription": {
+            "type": "Property",
+            "value": false,
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "boolean",
+                    "title": "Abonnement aux actualités OPERAT",
+                    "order": 129
+                }
+            }
+        },
+        "jsonSchema": {
+            "type": "Property",
+            "value": {
+                "schemaType": "OperatAccount",
+                "title": "Compte utilisateur OPERAT",
+                "required": [
+                    "name",
+                    "givenName",
+                    "email",
+                    "profile"
+                ],
+                "minimum": 0,
+                "description": "Compte utilisateur à créer sur OPERAT pour la structure assujettie, interne ou mandaté."
+            }
+        }
+    },
+    {
+        "id": "urn:ngsi-ld:TechnicalFile:Template",
+        "type": "Template",
+        "name": {
+            "type": "Property",
+            "value": "Nom du dossier technique",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "friendlyAttributeName": "Nom",
+                    "schemaType": "string",
+                    "title": "Nom du dossier technique",
+                    "order": 130
+                }
+            }
+        },
+        "refBuilding": {
+            "type": "Relationship",
+            "object": "urn:ngsi-ld:Building:Template",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "relationship",
+                    "title": "Bâtiment concerné",
+                    "order": 131
+                }
+            }
+        },
+        "technicalFileReference": {
+            "type": "Property",
+            "value": "Référence du dossier technique (30 caractères au plus)",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "string",
+                    "title": "Référence du dossier technique (30 caractères au plus)",
+                    "order": 132
+                }
+            }
+        },
+        "year": {
+            "type": "Property",
+            "value": 0,
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "integer",
+                    "minimum": 2020,
+                    "title": "Année du dossier technique",
+                    "order": 133
+                }
+            }
+        },
+        "modulatedTarget2030": {
+            "type": "Property",
+            "value": 0,
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "integer",
+                    "minimum": 0,
+                    "title": "Objectif 2030 en valeur absolue modulé (kWh/m²/an)",
+                    "order": 134
+                }
+            }
+        },
+        "hasTechnicalModulation": {
+            "type": "Property",
+            "value": false,
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "boolean",
+                    "title": "Modulation pour contraintes techniques",
+                    "order": 135
+                }
+            }
+        },
+        "hasArchitecturalModulation": {
+            "type": "Property",
+            "value": false,
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "boolean",
+                    "title": "Modulation pour contraintes architecturales ou patrimoniales",
+                    "order": 136
+                }
+            }
+        },
+        "hasEconomicModulation": {
+            "type": "Property",
+            "value": false,
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "boolean",
+                    "title": "Modulation pour disproportion économique",
+                    "order": 137
+                }
+            }
+        },
+        "architecturalConstraintType": {
+            "type": "Property",
+            "value": "Code du type de contrainte architecturale (CONTRAINTE_ARCHI_…)",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "string",
+                    "title": "Code du type de contrainte architecturale (CONTRAINTE_ARCHI_…)",
+                    "order": 138
+                }
+            }
+        },
+        "technicalConstraintType": {
+            "type": "Property",
+            "value": "Détail de la contrainte technique",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "string",
+                    "title": "Détail de la contrainte technique",
+                    "order": 139
+                }
+            }
+        },
+        "holder": {
+            "type": "Property",
+            "value": "PROPRIETAIRE_OCCUPANT",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "enum",
+                    "enum": [
+                        "PROPRIETAIRE_OCCUPANT",
+                        "PRENEUR_A_BAIL",
+                        "PROPRIETAIRE"
+                    ],
+                    "title": "Porteur de l'élaboration du dossier",
+                    "order": 140
+                }
+            }
+        },
+        "energyPerformanceStudySiren": {
+            "type": "Property",
+            "value": "SIREN de l'auteur de l'étude de performance énergétique et environnementale",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "string",
+                    "title": "SIREN de l'auteur de l'étude de performance énergétique et environnementale",
+                    "order": 141
+                }
+            }
+        },
+        "specificUsesStudySiren": {
+            "type": "Property",
+            "value": "SIREN de l'auteur de l'étude sur les usages spécifiques",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "string",
+                    "title": "SIREN de l'auteur de l'étude sur les usages spécifiques",
+                    "order": 142
+                }
+            }
+        },
+        "isSamplingStudy": {
+            "type": "Property",
+            "value": false,
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "boolean",
+                    "title": "Études énergétiques réalisées par échantillonnage",
+                    "order": 143
+                }
+            }
+        },
+        "technicalNoteSiren": {
+            "type": "Property",
+            "value": "SIREN de l'auteur de la note technique (modulation technique)",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "string",
+                    "title": "SIREN de l'auteur de la note technique (modulation technique)",
+                    "order": 144
+                }
+            }
+        },
+        "paybackCalculationSiren": {
+            "type": "Property",
+            "value": "SIREN de l'auteur de la note de calcul du temps de retour (modulation économique)",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "string",
+                    "title": "SIREN de l'auteur de la note de calcul du temps de retour (modulation économique)",
+                    "order": 145
+                }
+            }
+        },
+        "circumstantialOpinionSiren": {
+            "type": "Property",
+            "value": "SIREN de l'auteur de l'avis circonstancié (modulation architecturale)",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "string",
+                    "title": "SIREN de l'auteur de l'avis circonstancié (modulation architecturale)",
+                    "order": 146
+                }
+            }
+        },
+        "jsonSchema": {
+            "type": "Property",
+            "value": {
+                "schemaType": "TechnicalFile",
+                "title": "Dossier technique OPERAT",
+                "required": [
+                    "name",
+                    "refBuilding",
+                    "technicalFileReference",
+                    "year",
+                    "modulatedTarget2030",
+                    "holder"
+                ],
+                "minimum": 0,
+                "description": "Dossier technique justifiant la modulation de l'objectif 2030 d'une EFA (contraintes techniques, architecturales ou disproportion économique)."
+            }
+        }
+    }
+]
