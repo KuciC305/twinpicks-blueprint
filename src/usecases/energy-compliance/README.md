@@ -82,6 +82,8 @@ Enumerated values are codes, translated by the dashboard:
   `heatingOil`, `coalBriquettes`, `hardCoal`, `woodIndustrialChips`, `woodForestChips`, `woodPellets`, `woodLogs`, `districtHeating`,
   `districtCooling`, `nonRoadDiesel` (the 17 energies of OPERAT, quantities in their unit)
 - `consumptions.distribution`: `individual`, `distributed`, `common`
+- `fluidType`: `electricity`, `gas`, `water`, `districtHeating`, `districtCooling`, `heatingOil` (same codes as the
+  BuildingManagement delivery points)
 
 The OPERAT enumerations keep the codes of the OPERAT referentials, written as is in the import
 files: `operatSubjectQuality` (`PROP_OCCUPANT`, `PROP`, `PRENEUR_BAIL`, `COPRO`), `operatSubjectCase`

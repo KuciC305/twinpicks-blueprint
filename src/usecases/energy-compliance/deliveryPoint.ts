@@ -15,7 +15,7 @@ export const DeliveryPointTemplate: StellioTemplate = {
     fluidType: {
         ...getEnumProp({
             title: 'Type de fluide',
-            enum: ['Electricité', 'Gaz', 'Eau', 'Réseau de chaleur', 'Réseau de froid', 'Fioul'],
+            enum: ['electricity', 'gas', 'water', 'districtHeating', 'districtCooling', 'heatingOil'],
         }),
     },
     isObserving: {
