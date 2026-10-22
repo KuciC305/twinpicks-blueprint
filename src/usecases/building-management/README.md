@@ -91,6 +91,12 @@ Spaces are attached to storeys via `isPartOf`, not directly to the building, so 
 
 The `Usage` entity holds nomenclature fields (`code`, `source`, etc.). Buildings reference usages through `hasUsage`; spaces do not embed usage types in this version of the blueprint.
 
+`Usage.thresholds` (JsonProperty, `{}` at creation) holds the detection thresholds of the building management dashboard for the buildings of this usage, set from the dashboard "Thresholds" menu. It is partial: a missing threshold keeps its default value, and a building with several usages applies the strictest one. Keys: `co2Watch`, `co2Action` (ppm), `comfortTolerance`, `comfortMin`, `comfortMax` (°C), `closedConsumptionPercent`, `consumptionDriftPercent` (%), `sensorSilentAfterHours` (hours), `deliveryPointSilentAfterDays`, `subMeterSilentAfterDays` (days).
+
+### WeatherInformation
+
+`Building.hasWeatherInformation` points to a `WeatherInformation` entity (weather station, not created through the blueprint forms) whose outdoor `temperature` is used for the degree days (DJU) and the building timelines. Preferably the Météo-France station used by OPERAT.
+
 ## References
 
 ### Building
@@ -135,6 +141,7 @@ IEC CIM is the main reference for the electricity-network model. SAREF is used t
 | DeliveryPoint     | Point de livraison d’eau, de gaz ou d’électricité, avec ses relevés d’index.                                      |
 | ElectricalCabinet | Armoire électrique située dans un espace et alimentée par un point de livraison ou une autre armoire.             |
 | ConnectivityNode  | Sortie électrique d’une armoire, caractérisée notamment par son phasage.                                          |
+| WeatherInformation | Station météo fournissant la température extérieure (DJU, chronologies), alimentée hors formulaires.             |
 
 **Relations principales**
 Building → Site : un bâtiment isPartOf un site.
@@ -146,5 +153,6 @@ DeliveryPoint → ElectricalCabinet : un point de livraison isFeeding une armoir
 ElectricalCabinet → DeliveryPoint ou ElectricalCabinet : une armoire isFedBy un point de livraison ou une autre armoire.
 ElectricalCabinet → Space : une armoire isPartOf l’espace dans lequel elle est installée.
 ConnectivityNode → ElectricalCabinet : une sortie électrique isPartOf une armoire.
+Building → WeatherInformation : un bâtiment hasWeatherInformation la station météo qui lui sert de référence.
 
 La structure générale est donc : Site → Bâtiment → Niveau → Espace → Armoire électrique → Sortie électrique, avec en parallèle les usages et les points de livraison énergétique
