@@ -21,7 +21,7 @@ export const SpaceTemplate: StellioTemplate = {
     spaceType: {
         ...getEnumProp({
             title: `Type d'espace`,
-            enum: [`Espace`, `Pièce`, `Local`],
+            enum: ['space', 'room', 'technicalRoom'],
         }),
     },
     functionalZone: {
