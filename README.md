@@ -151,7 +151,7 @@ Import them from a template file like this:
 import {
     getSimpleTextProp,
     getEnumProp,
-    getIntegerProp,
+    getNumericProp,
     getBooleanProp,
     getDateProp,
     getGeoPropertyProp,
@@ -193,10 +193,13 @@ Most helpers accept extra `jsonSchema` options (`friendlyAttributeName`, `canSel
         }),
     },
     ```
-- **`getIntegerProp({ title, minimum, maximum, ...rest })`** — integer Property (`schemaType: 'integer'`), with optional min/max bounds.
+- **`getNumericProp({ title, schemaType, minimum, maximum, ...rest }, unitCode?)`** — number Property with optional min/max bounds. `schemaType` is `'integer'` (default) for whole numbers or `'number'` for decimals (amounts, prices, kWh…).
     ```js
     duration: {
-        ...getIntegerProp({ title: 'Duration (minutes)', minimum: 1, maximum: 120 }),
+        ...getNumericProp({ title: 'Duration (minutes)', minimum: 1, maximum: 120 }),
+    },
+    unitPrice: {
+        ...getNumericProp({ title: 'Unit price', schemaType: 'number', minimum: 0 }, 'EUR'),
     },
     ```
 - **`getBooleanProp({ title, ...rest })`** — boolean Property (`schemaType: 'boolean'`, default value `false`).

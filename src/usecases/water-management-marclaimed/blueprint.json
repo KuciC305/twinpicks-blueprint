@@ -1,0 +1,145 @@
+[
+    {
+        "id": "urn:ngsi-ld:ControlPoint:Template",
+        "type": "Template",
+        "name": {
+            "type": "Property",
+            "value": "Name of the control point",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "string",
+                    "title": "Name of the control point",
+                    "order": 1
+                }
+            }
+        },
+        "location": {
+            "type": "GeoProperty",
+            "value": {
+                "type": "Point",
+                "coordinates": []
+            },
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "object",
+                    "order": 2,
+                    "title": "Location of the control point"
+                }
+            }
+        },
+        "jsonSchema": {
+            "type": "Property",
+            "value": {
+                "schemaType": "ControlPoint",
+                "title": "Control point",
+                "required": [
+                    "name",
+                    "location"
+                ],
+                "description": "Digital twin of a control point",
+                "minimum": 0
+            }
+        }
+    },
+    {
+        "id": "urn:ngsi-ld:RiverBasin:Template",
+        "type": "Template",
+        "name": {
+            "type": "Property",
+            "value": "Name of the river basin",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "string",
+                    "title": "Name of the river basin",
+                    "order": 3
+                }
+            }
+        },
+        "location": {
+            "type": "GeoProperty",
+            "value": {
+                "type": "Polygon",
+                "coordinates": []
+            },
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "object",
+                    "order": 4,
+                    "title": "Location of the river basin"
+                }
+            }
+        },
+        "jsonSchema": {
+            "type": "Property",
+            "value": {
+                "schemaType": "RiverBasin",
+                "title": "River basin",
+                "required": [
+                    "name"
+                ],
+                "description": "Digital twin of a river basin",
+                "minimum": 0
+            }
+        }
+    },
+    {
+        "id": "urn:ngsi-ld:WaterBody:Template",
+        "type": "Template",
+        "name": {
+            "type": "Property",
+            "value": "Name of the water body",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "string",
+                    "title": "Name of the water body",
+                    "order": 5
+                }
+            }
+        },
+        "belongsTo": {
+            "type": "Relationship",
+            "object": "urn:ngsi-ld:RiverBasin:Template",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "relationship",
+                    "title": "River basin the water body belongs to",
+                    "order": 6
+                }
+            }
+        },
+        "location": {
+            "type": "GeoProperty",
+            "value": {
+                "type": "Polygon",
+                "coordinates": []
+            },
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "object",
+                    "order": 7,
+                    "title": "Location of the water body"
+                }
+            }
+        },
+        "jsonSchema": {
+            "type": "Property",
+            "value": {
+                "schemaType": "WaterBody",
+                "title": "Water body",
+                "required": [
+                    "name",
+                    "belongsTo"
+                ],
+                "description": "Digital twin of a water body",
+                "minimum": 0
+            }
+        }
+    }
+]

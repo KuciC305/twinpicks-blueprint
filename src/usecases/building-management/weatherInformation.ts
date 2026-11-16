@@ -1,5 +1,5 @@
 import { StellioTemplate } from 'src/interfaces';
-import { getIntegerProp } from '../../utils/blueprintHelpers';
+import { getNumericProp } from '../../utils/blueprintHelpers';
 
 const entityType = 'WeatherInformation';
 
@@ -7,7 +7,7 @@ export const WeatherInformationTemplate: StellioTemplate = {
     id: `urn:ngsi-ld:${entityType}:Template`,
     type: 'Template',
     temperature: {
-        ...getIntegerProp({ title: 'Température extérieure', canSetObservedAt: true, canSelfInit: true }, 'CEL'),
+        ...getNumericProp({ title: 'Température extérieure', canSetObservedAt: true, canSelfInit: true }, 'CEL'),
     },
     jsonSchema: {
         type: 'Property',

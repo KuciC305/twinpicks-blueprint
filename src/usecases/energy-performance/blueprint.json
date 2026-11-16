@@ -1,0 +1,446 @@
+[
+    {
+        "id": "urn:ngsi-ld:Building:Template",
+        "type": "Template",
+        "name": {
+            "type": "Property",
+            "value": "Nom du bâtiment",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "friendlyAttributeName": "Nom",
+                    "schemaType": "string",
+                    "title": "Nom du bâtiment",
+                    "order": 1
+                }
+            }
+        },
+        "floorArea": {
+            "type": "Property",
+            "value": 0,
+            "unitCode": "MTK",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "integer",
+                    "minimum": 0,
+                    "title": "Surface de plancher (m²)",
+                    "order": 2
+                }
+            }
+        },
+        "hasWeatherInformation": {
+            "type": "Relationship",
+            "object": "urn:ngsi-ld:WeatherInformation:Template",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "relationship",
+                    "title": "Station météo (DJU)",
+                    "order": 3
+                }
+            }
+        },
+        "jsonSchema": {
+            "type": "Property",
+            "value": {
+                "schemaType": "Building",
+                "title": "Bâtiment",
+                "required": [
+                    "name"
+                ],
+                "minimum": 0,
+                "description": "Bâtiment du patrimoine (créé dans la gestion du bâtiment). Surface et station météo servent à normaliser les consommations."
+            }
+        }
+    },
+    {
+        "id": "urn:ngsi-ld:WeatherInformation:Template",
+        "type": "Template",
+        "name": {
+            "type": "Property",
+            "value": "Nom de la station",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "friendlyAttributeName": "Nom",
+                    "schemaType": "string",
+                    "title": "Nom de la station",
+                    "order": 4
+                }
+            }
+        },
+        "location": {
+            "type": "GeoProperty",
+            "value": {
+                "type": "Point",
+                "coordinates": []
+            },
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "object",
+                    "order": 5,
+                    "title": "Position de la station"
+                }
+            }
+        },
+        "jsonSchema": {
+            "type": "Property",
+            "value": {
+                "schemaType": "WeatherInformation",
+                "title": "Station météo",
+                "required": [
+                    "name"
+                ],
+                "minimum": 0,
+                "description": "Station météo dont les températures donnent les degrés-jours (DJU) des bâtiments rattachés."
+            }
+        }
+    },
+    {
+        "id": "urn:ngsi-ld:EnergyAction:Template",
+        "type": "Template",
+        "name": {
+            "type": "Property",
+            "value": "Nom de l'action",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "friendlyAttributeName": "Nom",
+                    "schemaType": "string",
+                    "title": "Nom de l'action",
+                    "order": 6
+                }
+            }
+        },
+        "description": {
+            "type": "Property",
+            "value": "Description",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "string",
+                    "title": "Description",
+                    "order": 7
+                }
+            }
+        },
+        "refBuilding": {
+            "type": "Relationship",
+            "object": "urn:ngsi-ld:Building:Template",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "relationship",
+                    "title": "Bâtiment concerné",
+                    "order": 8
+                }
+            }
+        },
+        "refEnergyTarget": {
+            "type": "Relationship",
+            "object": "urn:ngsi-ld:EnergyTarget:Template",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "relationship",
+                    "title": "Objectifs visés",
+                    "order": 9
+                }
+            }
+        },
+        "actionCategory": {
+            "type": "Property",
+            "value": "lighting",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "enum",
+                    "enum": [
+                        "lighting",
+                        "heating",
+                        "cooling",
+                        "ventilation",
+                        "hotWater",
+                        "envelope",
+                        "controls",
+                        "schedules",
+                        "renewable",
+                        "behaviour",
+                        "other"
+                    ],
+                    "title": "Catégorie d'action",
+                    "order": 10
+                }
+            }
+        },
+        "status": {
+            "type": "Property",
+            "value": "proposed",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "enum",
+                    "enum": [
+                        "proposed",
+                        "planned",
+                        "inProgress",
+                        "done",
+                        "cancelled"
+                    ],
+                    "title": "Statut",
+                    "order": 11
+                }
+            }
+        },
+        "priority": {
+            "type": "Property",
+            "value": "high",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "enum",
+                    "enum": [
+                        "high",
+                        "medium",
+                        "low"
+                    ],
+                    "title": "Priorité",
+                    "order": 12
+                }
+            }
+        },
+        "fluidType": {
+            "type": "Property",
+            "value": "electricity",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "enum",
+                    "enum": [
+                        "electricity",
+                        "gas",
+                        "water",
+                        "heat"
+                    ],
+                    "title": "Fluides concernés",
+                    "order": 13,
+                    "allowMultiple": true
+                }
+            }
+        },
+        "startDate": {
+            "type": "Property",
+            "value": "2026-11-02T09:54:59.419Z",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "date",
+                    "title": "Début des travaux ou de la mise en œuvre",
+                    "order": 14,
+                    "dateMode": "date"
+                }
+            }
+        },
+        "endDate": {
+            "type": "Property",
+            "value": "2026-11-02T09:54:59.419Z",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "date",
+                    "title": "Fin des travaux / mise en service",
+                    "order": 15,
+                    "dateMode": "date"
+                }
+            }
+        },
+        "investmentCost": {
+            "type": "Property",
+            "value": 0,
+            "unitCode": "EUR",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "integer",
+                    "minimum": 0,
+                    "title": "Coût (€ HT)",
+                    "order": 16
+                }
+            }
+        },
+        "estimatedSaving": {
+            "type": "Property",
+            "value": 0,
+            "unitCode": "KWH",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "integer",
+                    "minimum": 0,
+                    "title": "Économie estimée (kWh/an)",
+                    "order": 17
+                }
+            }
+        },
+        "estimatedSavingPercent": {
+            "type": "Property",
+            "value": 0,
+            "unitCode": "P1",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "integer",
+                    "minimum": 0,
+                    "maximum": 100,
+                    "title": "Économie estimée (% de la consommation du bâtiment)",
+                    "order": 18
+                }
+            }
+        },
+        "jsonSchema": {
+            "type": "Property",
+            "value": {
+                "schemaType": "EnergyAction",
+                "title": "Action d'amélioration",
+                "required": [
+                    "name",
+                    "refBuilding",
+                    "actionCategory",
+                    "status"
+                ],
+                "minimum": 0,
+                "description": "Action du plan d'amélioration d'un bâtiment (travaux, réglages, comportements), avec son économie estimée. Le gain réel est mesuré par le tableau de bord."
+            }
+        }
+    },
+    {
+        "id": "urn:ngsi-ld:EnergyTarget:Template",
+        "type": "Template",
+        "name": {
+            "type": "Property",
+            "value": "Nom de l'objectif",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "friendlyAttributeName": "Nom",
+                    "schemaType": "string",
+                    "title": "Nom de l'objectif",
+                    "order": 19
+                }
+            }
+        },
+        "refBuilding": {
+            "type": "Relationship",
+            "object": "urn:ngsi-ld:Building:Template",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "relationship",
+                    "title": "Bâtiment concerné",
+                    "order": 20
+                }
+            }
+        },
+        "targetSource": {
+            "type": "Property",
+            "value": "internal",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "enum",
+                    "enum": [
+                        "internal",
+                        "tertiaryDecree"
+                    ],
+                    "title": "Origine de l'objectif",
+                    "order": 21
+                }
+            }
+        },
+        "referenceYear": {
+            "type": "Property",
+            "value": 0,
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "integer",
+                    "minimum": 2010,
+                    "maximum": 2100,
+                    "title": "Année de référence",
+                    "order": 22
+                }
+            }
+        },
+        "targetYear": {
+            "type": "Property",
+            "value": 0,
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "integer",
+                    "minimum": 2010,
+                    "maximum": 2100,
+                    "title": "Année cible",
+                    "order": 23
+                }
+            }
+        },
+        "reductionPercent": {
+            "type": "Property",
+            "value": 0,
+            "unitCode": "P1",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "integer",
+                    "minimum": 0,
+                    "maximum": 100,
+                    "title": "Réduction visée par rapport à l'année de référence (%)",
+                    "order": 24
+                }
+            }
+        },
+        "absoluteTarget": {
+            "type": "Property",
+            "value": 0,
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "integer",
+                    "minimum": 0,
+                    "title": "Objectif en valeur absolue (kWh/m²/an)",
+                    "order": 25
+                }
+            }
+        },
+        "climateAdjusted": {
+            "type": "Property",
+            "value": false,
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "boolean",
+                    "title": "Comparer à la consommation corrigée du climat (DJU)",
+                    "order": 26
+                }
+            }
+        },
+        "jsonSchema": {
+            "type": "Property",
+            "value": {
+                "schemaType": "EnergyTarget",
+                "title": "Objectif de consommation",
+                "required": [
+                    "name",
+                    "refBuilding",
+                    "referenceYear",
+                    "targetYear"
+                ],
+                "minimum": 0,
+                "description": "Objectif de consommation d'un bâtiment (toutes énergies) : réduction par rapport à une année de référence et/ou intensité maximale."
+            }
+        }
+    }
+]

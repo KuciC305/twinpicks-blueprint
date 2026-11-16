@@ -2,7 +2,7 @@ import { StellioTemplate } from 'src/interfaces';
 import {
     getSimpleTextProp,
     getEnumProp,
-    getIntegerProp,
+    getNumericProp,
     getGeoPropertyProp,
     getJsonPropertyProp,
     getMultiRelationshipProp,
@@ -29,30 +29,30 @@ export const SpaceTemplate: StellioTemplate = {
         ...getSimpleTextProp({ title: 'Zone fonctionnelle (BACS)' }),
     },
     floorArea: {
-        ...getIntegerProp({ title: 'Surface (m²)' }, 'MTK'),
+        ...getNumericProp({ title: 'Surface (m²)' }, 'MTK'),
     },
     openingHours: {
         ...getJsonPropertyProp({
             formLabel: "Horaires propres à l'espace",
-            json: JSON.stringify({
+            json: {
                 weekly: {
                     mon: [['08:00', '18:00']],
                 },
                 closures: [],
-            }),
+            },
         }),
     },
     occupancy: {
-        ...getIntegerProp({ title: 'Personnes détectées', canSetObservedAt: true, canSelfInit: true }),
+        ...getNumericProp({ title: 'Personnes détectées', canSetObservedAt: true, canSelfInit: true }),
     },
     temperature: {
-        ...getIntegerProp({ title: 'Température intérieure', canSetObservedAt: true, canSelfInit: true }, 'CEL'),
+        ...getNumericProp({ title: 'Température intérieure', canSetObservedAt: true, canSelfInit: true }, 'CEL'),
     },
     temperatureSetpoint: {
-        ...getIntegerProp({ title: 'Consigne de température', canSetObservedAt: true, canSelfInit: true }, 'CEL'),
+        ...getNumericProp({ title: 'Consigne de température', canSetObservedAt: true, canSelfInit: true }, 'CEL'),
     },
     co2: {
-        ...getIntegerProp({ title: 'CO2', canSetObservedAt: true, canSelfInit: true }, '59'),
+        ...getNumericProp({ title: 'CO2', canSetObservedAt: true, canSelfInit: true }, '59'),
     },
     location: {
         ...getGeoPropertyProp({

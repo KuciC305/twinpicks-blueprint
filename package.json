@@ -1,7 +1,7 @@
 {
     "name": "blueprints",
     "author": "junjou",
-    "version": "1.5.4",
+    "version": "1.5.5",
     "description": "blueprints for twinpicks",
     "scripts": {
         "tsc": "tsc",
@@ -16,10 +16,15 @@
         "eaee": "npx tsc && cd ./dist/usecases/eaee && node index.js && cd ../../..",
         "urbaquantum": "npx tsc && cd ./dist/usecases/water-management-urbaquantum && node index.js && cd ../../..",
         "urbaquantumUpdate": "npx tsc && node --env-file=.env ./dist/utils/updateUseCaseConfig.js --directoryName=water-management-urbaquantum --realms=urbaquantum",
+        "marclaimed": "npx tsc && cd ./dist/usecases/water-management-marclaimed && node index.js && cd ../../..",
         "stl": "npx tsc && cd ./dist/usecases/street-lighting && node index.js && cd ../../..",
         "stlUpdate:all": "npx tsc && node --env-file=.env ./dist/utils/updateUseCaseConfig.js --directoryName=street-lighting --realms=stellio-dev,egm-showcase",
         "building": "npx tsc && cd ./dist/usecases/building-management && node index.js && cd ../../..",
-        "buildingUpdate:all": "npx tsc && node --env-file=.env ./dist/utils/updateUseCaseConfig.js --directoryName=building-management --realms=stellio-dev,egm-showcase,carf"
+        "energyFinances": "npx tsc && cd ./dist/usecases/energy-finances && node index.js && cd ../../..",
+        "energyFinancesUpdate:all": "npx tsc && node --env-file=.env ./dist/utils/updateUseCaseConfig.js --directoryName=energy-finances --useCaseConfigId=urn:ngsi-ld:UseCaseConfig:EnergyFinances --realms=stellio-dev",
+        "energyPerformance": "npx tsc && cd ./dist/usecases/energy-performance && node index.js && cd ../../..",
+        "energyPerformanceUpdate:all": "npx tsc && node --env-file=.env ./dist/utils/updateUseCaseConfig.js --directoryName=energy-performance --useCaseConfigId=urn:ngsi-ld:UseCaseConfig:EnergyPerformance --realms=stellio-dev",
+        "buildingUpdate:all": "npx tsc && node --env-file=.env ./dist/utils/updateUseCaseConfig.js --directoryName=building-management --useCaseConfigId=urn:ngsi-ld:UseCaseConfig:BuildingManagement --realms=stellio-dev,egm-showcase,carf"
     },
     "devDependencies": {
         "@types/geojson": "^7946.0.10",

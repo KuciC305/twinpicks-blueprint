@@ -148,7 +148,7 @@ Building → Site : un bâtiment isPartOf un site.
 Building → Usage : un bâtiment hasUsage un ou plusieurs usages.
 Storey → Building : un niveau isPartOf un bâtiment.
 Space → Storey : un espace isPartOf un ou plusieurs niveaux.
-DeliveryPoint → Site ou Building : un point de livraison isObserving le site ou le bâtiment dont il mesure la consommation.
+DeliveryPoint → Site ou Building : un point de livraison a pour controlledAsset le site ou le bâtiment dont il mesure la consommation.
 ElectricalCabinet → DeliveryPoint ou ElectricalCabinet : une armoire isFedBy un point de livraison ou une autre armoire.
 ElectricalCabinet → Space : une armoire isPartOf l’espace dans lequel elle est installée.
 ConnectivityNode → ElectricalCabinet : une sortie électrique isPartOf une armoire.

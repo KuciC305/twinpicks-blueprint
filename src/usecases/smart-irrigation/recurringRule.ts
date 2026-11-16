@@ -2,7 +2,7 @@ import { StellioTemplate } from 'src/interfaces';
 import {
     getDateProp,
     getSimpleTextProp,
-    getIntegerProp,
+    getNumericProp,
     getRelationshipProp,
     getMultiRelationshipProp,
     getEnumProp,
@@ -38,7 +38,7 @@ export const RecurringRuleTemplate: StellioTemplate = {
     // #region Properties
     name: { ...getSimpleTextProp({ title: 'Nom de la règle récurrente' }) },
     startTime: { ...getDateProp({ title: 'Heure de départ', dateMode: 'time' }) },
-    duration: { ...getIntegerProp({ title: 'Durée (en minutes)', minimum: 1, maximum: 120 }) },
+    duration: { ...getNumericProp({ title: 'Durée (en minutes)', minimum: 1, maximum: 120 }) },
 
     activationDaysMode: {
         ...getEnumProp({ title: "Mode d'activation des jours", enum: ['Tous les deux jours', 'Jours spécifiques'] }),
@@ -57,7 +57,7 @@ export const RecurringRuleTemplate: StellioTemplate = {
     },
 
     repetitionRulePerDayCount: {
-        ...getIntegerProp({ title: 'Nombre de répétitions par jour', minimum: 1, maximum: 10 }),
+        ...getNumericProp({ title: 'Nombre de répétitions par jour', minimum: 1, maximum: 10 }),
     },
     repetitionRulePerDayFrequency: {
         type: 'Property',
@@ -72,7 +72,7 @@ export const RecurringRuleTemplate: StellioTemplate = {
         },
     },
     repetitionRulePerDayInterval: {
-        ...getIntegerProp({ title: 'Intervalle entre les répétitions (en minutes)', minimum: 1, maximum: 120 }),
+        ...getNumericProp({ title: 'Intervalle entre les répétitions (en minutes)', minimum: 1, maximum: 120 }),
     },
 
     irrigationArea: {

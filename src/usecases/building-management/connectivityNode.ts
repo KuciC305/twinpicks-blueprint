@@ -1,7 +1,7 @@
 import { StellioTemplate } from 'src/interfaces';
 import {
     getEnumProp,
-    getIntegerProp,
+    getNumericProp,
     getMultiAttributeProp,
     getRelationshipProp,
     getSimpleTextProp,
@@ -35,7 +35,7 @@ export const ConnectivityNodeTemplate: StellioTemplate = {
     },
     index: {
         ...getMultiAttributeProp({
-            propertySchemaDefinition: getIntegerProp({
+            propertySchemaDefinition: getNumericProp({
                 title: "Valeur d'index",
                 canSetObservedAt: true,
                 canSetUnitCode: true,

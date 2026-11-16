@@ -11,7 +11,7 @@ import {
     getSimpleTextProp,
     getDateProp,
     getEnumProp,
-    getIntegerProp,
+    getNumericProp,
     getGeoPropertyProp,
     getMultiAttributeProp,
 } from '../../utils/blueprintHelpers';
@@ -115,7 +115,7 @@ export const SpeciesTemplate: StellioTemplate = {
         displayName: getDisplayNameProp('Famille'),
     },
     cdRef: {
-        ...getIntegerProp({ title: 'Code de référence', minimum: 0, maximum: 999999 }),
+        ...getNumericProp({ title: 'Code de référence', minimum: 0, maximum: 999999 }),
         classification: getClassificationJsonProp(Structures.taxonomie),
         displayName: getDisplayNameProp('CD Ref'),
     },
@@ -424,7 +424,7 @@ export const SpeciesTemplate: StellioTemplate = {
 
     // #region ANALYSE DE L'INTENSITE DES IMPACTS ENVIRONNEMENTAUX
     scorePotentielDeProliferation: {
-        ...getIntegerProp({ title: 'Score du potentiel de prolifération', minimum: 0, maximum: 3 }),
+        ...getNumericProp({ title: 'Score du potentiel de prolifération', minimum: 0, maximum: 3 }),
         classification: getClassificationJsonProp(Structures.potentielDeProliferation),
         displayName: getDisplayNameProp('Score'),
     },
@@ -440,7 +440,7 @@ export const SpeciesTemplate: StellioTemplate = {
     },
 
     scoreColonisationHabitatsNaturels: {
-        ...getIntegerProp({ title: 'Score de colonisation des habitats naturels', minimum: 0, maximum: 3 }),
+        ...getNumericProp({ title: 'Score de colonisation des habitats naturels', minimum: 0, maximum: 3 }),
         classification: getClassificationJsonProp(Structures.colonisationHabitatsNaturels),
         displayName: getDisplayNameProp('Score'),
     },
@@ -459,7 +459,7 @@ export const SpeciesTemplate: StellioTemplate = {
     },
 
     scorePredation: {
-        ...getIntegerProp({ title: 'Score de prédation', minimum: 0, maximum: 3 }),
+        ...getNumericProp({ title: 'Score de prédation', minimum: 0, maximum: 3 }),
         classification: getClassificationJsonProp(Structures.predation),
         displayName: getDisplayNameProp('Score'),
     },
@@ -475,7 +475,7 @@ export const SpeciesTemplate: StellioTemplate = {
     },
 
     scoreCompetition: {
-        ...getIntegerProp({ title: 'Score de compétition', minimum: 0, maximum: 3 }),
+        ...getNumericProp({ title: 'Score de compétition', minimum: 0, maximum: 3 }),
         classification: getClassificationJsonProp(Structures.competition),
         displayName: getDisplayNameProp('Score'),
     },
@@ -491,7 +491,7 @@ export const SpeciesTemplate: StellioTemplate = {
     },
 
     scoreMaladies: {
-        ...getIntegerProp({ title: 'Score de maladies', minimum: 0, maximum: 3 }),
+        ...getNumericProp({ title: 'Score de maladies', minimum: 0, maximum: 3 }),
         classification: getClassificationJsonProp(Structures.maladies),
         displayName: getDisplayNameProp('Score'),
     },
@@ -507,7 +507,7 @@ export const SpeciesTemplate: StellioTemplate = {
     },
 
     scoreHybridation: {
-        ...getIntegerProp({ title: "Score d'hybridation", minimum: 0, maximum: 3 }),
+        ...getNumericProp({ title: "Score d'hybridation", minimum: 0, maximum: 3 }),
         classification: getClassificationJsonProp(Structures.hybridation),
         displayName: getDisplayNameProp('Score'),
     },
@@ -523,7 +523,7 @@ export const SpeciesTemplate: StellioTemplate = {
     },
 
     scoreCyclesNaturels: {
-        ...getIntegerProp({ title: 'Score de cycles naturels', minimum: 0, maximum: 3 }),
+        ...getNumericProp({ title: 'Score de cycles naturels', minimum: 0, maximum: 3 }),
         classification: getClassificationJsonProp(Structures.cyclesNaturels),
         displayName: getDisplayNameProp('Score'),
     },
@@ -539,7 +539,7 @@ export const SpeciesTemplate: StellioTemplate = {
     },
 
     scoreAlterationsPhysiques: {
-        ...getIntegerProp({ title: 'Score alterations physiques', minimum: 0, maximum: 3 }),
+        ...getNumericProp({ title: 'Score alterations physiques', minimum: 0, maximum: 3 }),
         classification: getClassificationJsonProp(Structures.alterationsPhysiques),
         displayName: getDisplayNameProp('Score'),
     },
@@ -555,7 +555,7 @@ export const SpeciesTemplate: StellioTemplate = {
     },
 
     scoreSuccessionEcologiques: {
-        ...getIntegerProp({ title: 'Score succession écologiques', minimum: 0, maximum: 3 }),
+        ...getNumericProp({ title: 'Score succession écologiques', minimum: 0, maximum: 3 }),
         classification: getClassificationJsonProp(Structures.successionEcologiques),
         displayName: getDisplayNameProp('Score'),
     },
@@ -571,7 +571,7 @@ export const SpeciesTemplate: StellioTemplate = {
     },
 
     scoreReseauxTrophiques: {
-        ...getIntegerProp({ title: 'Score réseaux trophiques', minimum: 0, maximum: 3 }),
+        ...getNumericProp({ title: 'Score réseaux trophiques', minimum: 0, maximum: 3 }),
         classification: getClassificationJsonProp(Structures.reseauxTrophiques),
         displayName: getDisplayNameProp('Score'),
     },
@@ -587,7 +587,7 @@ export const SpeciesTemplate: StellioTemplate = {
     },
 
     scoreISEIA: {
-        ...getIntegerProp({ title: 'Score ISEIA', minimum: 0, maximum: 12 }),
+        ...getNumericProp({ title: 'Score ISEIA', minimum: 0, maximum: 12 }),
         classification: getClassificationJsonProp(Structures.analyseIntensiteImpactsEnvironnementaux),
         displayName: getDisplayNameProp('Score ISEIA'),
     },
@@ -606,7 +606,7 @@ export const SpeciesTemplate: StellioTemplate = {
 
     // #region ANALYSE DE L'INTENSITE DES IMPACTS SOCIO-ECONOMIQUES SANITAIRES
     scoreImpactsSurEconomie: {
-        ...getIntegerProp({ title: "Score impacts sur l'économie", minimum: 0, maximum: 3 }),
+        ...getNumericProp({ title: "Score impacts sur l'économie", minimum: 0, maximum: 3 }),
         classification: getClassificationJsonProp(Structures.impactsSurEconomie),
         displayName: getDisplayNameProp('Score'),
     },
@@ -622,7 +622,7 @@ export const SpeciesTemplate: StellioTemplate = {
     },
 
     scoreImpactsSanitaires: {
-        ...getIntegerProp({ title: 'Score impacts sanitaires', minimum: 0, maximum: 3 }),
+        ...getNumericProp({ title: 'Score impacts sanitaires', minimum: 0, maximum: 3 }),
         classification: getClassificationJsonProp(Structures.impactsSanitaires),
         displayName: getDisplayNameProp('Score'),
     },
@@ -638,7 +638,7 @@ export const SpeciesTemplate: StellioTemplate = {
     },
 
     scoreAgriculture: {
-        ...getIntegerProp({ title: 'Score agriculture', minimum: 0, maximum: 3 }),
+        ...getNumericProp({ title: 'Score agriculture', minimum: 0, maximum: 3 }),
         classification: getClassificationJsonProp(Structures.agriculture),
         displayName: getDisplayNameProp('Score'),
     },
@@ -654,7 +654,7 @@ export const SpeciesTemplate: StellioTemplate = {
     },
 
     scoreForesterie: {
-        ...getIntegerProp({ title: 'Score foresterie', minimum: 0, maximum: 3 }),
+        ...getNumericProp({ title: 'Score foresterie', minimum: 0, maximum: 3 }),
         classification: getClassificationJsonProp(Structures.foresterie),
         displayName: getDisplayNameProp('Score'),
     },
@@ -670,7 +670,7 @@ export const SpeciesTemplate: StellioTemplate = {
     },
 
     scoreAquaculture: {
-        ...getIntegerProp({ title: 'Score aquaculture', minimum: 0, maximum: 3 }),
+        ...getNumericProp({ title: 'Score aquaculture', minimum: 0, maximum: 3 }),
         classification: getClassificationJsonProp(Structures.aquaculture),
         displayName: getDisplayNameProp('Score'),
     },
@@ -686,7 +686,7 @@ export const SpeciesTemplate: StellioTemplate = {
     },
 
     scoreIndustrie: {
-        ...getIntegerProp({ title: 'Score industrie', minimum: 0, maximum: 3 }),
+        ...getNumericProp({ title: 'Score industrie', minimum: 0, maximum: 3 }),
         classification: getClassificationJsonProp(Structures.industrie),
         displayName: getDisplayNameProp('Score'),
     },
@@ -702,7 +702,7 @@ export const SpeciesTemplate: StellioTemplate = {
     },
 
     scorePatrimoine: {
-        ...getIntegerProp({ title: 'Score patrimoine', minimum: 0, maximum: 3 }),
+        ...getNumericProp({ title: 'Score patrimoine', minimum: 0, maximum: 3 }),
         classification: getClassificationJsonProp(Structures.patrimoine),
         displayName: getDisplayNameProp('Score'),
     },
@@ -718,7 +718,7 @@ export const SpeciesTemplate: StellioTemplate = {
     },
 
     scoreSecurite: {
-        ...getIntegerProp({ title: 'Score sécurité', minimum: 0, maximum: 3 }),
+        ...getNumericProp({ title: 'Score sécurité', minimum: 0, maximum: 3 }),
         classification: getClassificationJsonProp(Structures.securite),
         displayName: getDisplayNameProp('Score'),
     },
@@ -734,7 +734,7 @@ export const SpeciesTemplate: StellioTemplate = {
     },
 
     scoreLoisirs: {
-        ...getIntegerProp({ title: 'Score loisirs', minimum: 0, maximum: 3 }),
+        ...getNumericProp({ title: 'Score loisirs', minimum: 0, maximum: 3 }),
         classification: getClassificationJsonProp(Structures.loisirs),
         displayName: getDisplayNameProp('Score'),
     },
@@ -750,7 +750,7 @@ export const SpeciesTemplate: StellioTemplate = {
     },
 
     scoreAmenites: {
-        ...getIntegerProp({ title: 'Score aménities', minimum: 0, maximum: 3 }),
+        ...getNumericProp({ title: 'Score aménities', minimum: 0, maximum: 3 }),
         classification: getClassificationJsonProp(Structures.amenites),
         displayName: getDisplayNameProp('Score'),
     },
@@ -766,7 +766,7 @@ export const SpeciesTemplate: StellioTemplate = {
     },
 
     scoreISSIA: {
-        ...getIntegerProp({ title: 'Score ISSIA', minimum: 0, maximum: 12 }),
+        ...getNumericProp({ title: 'Score ISSIA', minimum: 0, maximum: 12 }),
         classification: getClassificationJsonProp(Structures.impactSurBienEtreHumain),
         displayName: getDisplayNameProp('Score ISSIA'),
     },

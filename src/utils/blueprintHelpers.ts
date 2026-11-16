@@ -21,7 +21,8 @@ let order = 0;
 
 type StringWithoutSchemaType = Omit<PropertyStringJsonSchema, 'schemaType'>;
 type EnumWithoutSchemaType = Omit<PropertyEnumJsonSchema, 'schemaType'>;
-type IntegerWithoutSchemaType = Omit<PropertyIntegerJsonSchema, 'schemaType'>;
+type NumericWithOptionalSchemaType = Omit<PropertyIntegerJsonSchema, 'schemaType'> &
+    Partial<Pick<PropertyIntegerJsonSchema, 'schemaType'>>;
 type BooleanWithoutSchemaType = Omit<PropertyBooleanJsonSchema, 'schemaType'>;
 type DateWithoutSchemaType = Omit<PropertyDateJsonSchema, 'schemaType'>;
 type ArrayWithoutSchemaType = Omit<PropertyArrayJsonSchema, 'schemaType'>;
@@ -70,8 +71,9 @@ export const getEnumProp = ({
     };
 };
 
-export const getIntegerProp = (
-    { title, minimum, maximum, ...rest }: IntegerWithoutSchemaType,
+/** Number Property: `schemaType` 'integer' (default) for counts, 'number' for decimals (amounts, kWh, prices...) */
+export const getNumericProp = (
+    { title, schemaType = 'integer', minimum, maximum, ...rest }: NumericWithOptionalSchemaType,
     unitCode?: string
 ): StellioTemplateProp => {
     order++;
@@ -83,7 +85,7 @@ export const getIntegerProp = (
             type: 'Property',
             value: {
                 ...rest,
-                schemaType: 'integer',
+                schemaType,
                 minimum: minimum,
                 maximum: maximum,
                 title: title,
@@ -257,7 +259,7 @@ export const getGeoPropertyProp = ({
 
 type GetJsonPropertyPropParams = {
     formLabel: string;
-    json?: string;
+    json?: object;
 } & JsonPropertyWithoutSchemaType;
 export const getJsonPropertyProp = ({
     formLabel,

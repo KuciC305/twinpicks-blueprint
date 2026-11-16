@@ -1,5 +1,5 @@
 import { StellioTemplate } from 'src/interfaces';
-import { getIntegerProp, getRelationshipProp, getSimpleTextProp } from '../../utils/blueprintHelpers';
+import { getNumericProp, getRelationshipProp, getSimpleTextProp } from '../../utils/blueprintHelpers';
 
 const entityType = 'Storey';
 
@@ -13,13 +13,13 @@ export const StoreyTemplate: StellioTemplate = {
         ...getSimpleTextProp({ title: 'Description' }),
     },
     level: {
-        ...getIntegerProp({ title: 'Niveau' }),
+        ...getNumericProp({ title: 'Niveau' }),
     },
     elevation: {
-        ...getIntegerProp({ title: 'Altitude du sol (m, relative au rez-de-chaussée)' }, 'MTR'),
+        ...getNumericProp({ title: 'Altitude du sol (m, relative au rez-de-chaussée)', schemaType: 'number' }, 'MTR'),
     },
     height: {
-        ...getIntegerProp({ title: 'Hauteur sous plafond (m)' }, 'MTR'),
+        ...getNumericProp({ title: 'Hauteur sous plafond (m)', schemaType: 'number' }, 'MTR'),
     },
     isPartOf: {
         ...getRelationshipProp({

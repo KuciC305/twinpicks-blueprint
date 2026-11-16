@@ -1,6 +1,6 @@
 import { StellioTemplate } from 'src/interfaces';
 
-import { getIntegerProp, getEnumProp, getMultiRelationshipProp } from '../../utils/blueprintHelpers';
+import { getNumericProp, getEnumProp, getMultiRelationshipProp } from '../../utils/blueprintHelpers';
 
 export const ToolRequirementsTemplate: StellioTemplate = {
     id: `urn:ngsi-ld:ToolRequirements:Template`,
@@ -54,14 +54,14 @@ export const ToolRequirementsTemplate: StellioTemplate = {
     },
 
     maxBbch: {
-        ...getIntegerProp({
+        ...getNumericProp({
             title: 'max BBCH stage the the operation can be done at',
             minimum: 0,
             maximum: 100,
         }),
     },
     minBbch: {
-        ...getIntegerProp({
+        ...getNumericProp({
             title: 'minimal BBCH stage the the operation can be done at',
             minimum: 0,
             maximum: 100,
