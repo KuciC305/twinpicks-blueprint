@@ -280,7 +280,7 @@
             "jsonSchema": {
                 "type": "Property",
                 "value": {
-                    "schemaType": "number",
+                    "schemaType": "integer",
                     "title": "Altitude du sol (m, relative au rez-de-chaussée)",
                     "order": 18
                 }
@@ -293,7 +293,7 @@
             "jsonSchema": {
                 "type": "Property",
                 "value": {
-                    "schemaType": "number",
+                    "schemaType": "integer",
                     "title": "Hauteur sous plafond (m)",
                     "order": 19
                 }

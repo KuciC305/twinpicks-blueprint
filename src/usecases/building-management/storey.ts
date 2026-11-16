@@ -16,10 +16,10 @@ export const StoreyTemplate: StellioTemplate = {
         ...getNumericProp({ title: 'Niveau' }),
     },
     elevation: {
-        ...getNumericProp({ title: 'Altitude du sol (m, relative au rez-de-chaussée)', schemaType: 'number' }, 'MTR'),
+        ...getNumericProp({ title: 'Altitude du sol (m, relative au rez-de-chaussée)' }, 'MTR'),
     },
     height: {
-        ...getNumericProp({ title: 'Hauteur sous plafond (m)', schemaType: 'number' }, 'MTR'),
+        ...getNumericProp({ title: 'Hauteur sous plafond (m)' }, 'MTR'),
     },
     isPartOf: {
         ...getRelationshipProp({
