@@ -15,6 +15,12 @@ export const StoreyTemplate: StellioTemplate = {
     level: {
         ...getIntegerProp({ title: 'Niveau' }),
     },
+    elevation: {
+        ...getIntegerProp({ title: 'Altitude du sol (m, relative au rez-de-chaussée)' }, 'MTR'),
+    },
+    height: {
+        ...getIntegerProp({ title: 'Hauteur sous plafond (m)' }, 'MTR'),
+    },
     isPartOf: {
         ...getRelationshipProp({
             formLabel: 'Appartient au bâtiment',

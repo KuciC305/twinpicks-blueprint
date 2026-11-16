@@ -47,12 +47,6 @@ export const DeliveryPointTemplate: StellioTemplate = {
             listOfAllowedRelationships: ['urn:ngsi-ld:Building:Template', 'urn:ngsi-ld:Site:Template'],
         }),
     },
-    isFeeding: {
-        ...getRelationshipProp({
-            formLabel: 'Alimente électriquement',
-            targetTemplateObjectId: 'urn:ngsi-ld:ElectricalCabinet:Template',
-        }),
-    },
     jsonSchema: {
         type: 'Property',
         value: {
