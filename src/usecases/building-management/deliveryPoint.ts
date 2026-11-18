@@ -24,16 +24,20 @@ export const DeliveryPointTemplate: StellioTemplate = {
     fluidType: {
         ...getEnumProp({
             title: 'Type de fluide',
-            enum: ['Eau', 'Gaz', 'Electricité'],
+            enum: ['electricity', 'gas', 'water'],
         }),
     },
     index: {
         ...getMultiAttributeProp({
-            propertySchemaDefinition: getNumericProp({ title: "Valeur d'index", canSetObservedAt: true }),
+            propertySchemaDefinition: getNumericProp({
+                title: "Valeur d'index",
+                canSetObservedAt: true,
+                canSetUnitCode: true,
+            }),
             formLabel: 'Index',
             subProps: [
-                ['meterReading', getEnumProp({ title: 'Type de relevé', enum: ['mesuré', 'estimé'] })],
-                ['providedBy', getEnumProp({ title: 'Fourni par', enum: ['distributeur', 'fournisseur'] })],
+                ['meterReading', getEnumProp({ title: 'Type de relevé', enum: ['measured', 'estimated'] })],
+                ['providedBy', getEnumProp({ title: 'Fourni par', enum: ['distributor', 'supplier'] })],
             ],
         }),
     },
@@ -41,12 +45,6 @@ export const DeliveryPointTemplate: StellioTemplate = {
         ...getRelationshipProp({
             formLabel: 'Actif contrôlé',
             listOfAllowedRelationships: ['urn:ngsi-ld:Building:Template', 'urn:ngsi-ld:Site:Template'],
-        }),
-    },
-    isFeeding: {
-        ...getRelationshipProp({
-            formLabel: 'Alimente électriquement',
-            targetTemplateObjectId: 'urn:ngsi-ld:ElectricalCabinet:Template',
         }),
     },
     jsonSchema: {

@@ -3,6 +3,7 @@ import {
     getSimpleTextProp,
     getEnumProp,
     getNumericProp,
+    getGeoPropertyProp,
     getJsonPropertyProp,
     getMultiRelationshipProp,
 } from '../../utils/blueprintHelpers';
@@ -21,7 +22,7 @@ export const SpaceTemplate: StellioTemplate = {
     spaceType: {
         ...getEnumProp({
             title: `Type d'espace`,
-            enum: [`Espace`, `Pièce`, `Local`],
+            enum: ['space', 'room', 'technicalRoom'],
         }),
     },
     functionalZone: {
@@ -52,6 +53,12 @@ export const SpaceTemplate: StellioTemplate = {
     },
     co2: {
         ...getNumericProp({ title: 'CO2', canSetObservedAt: true, canSelfInit: true }, '59'),
+    },
+    location: {
+        ...getGeoPropertyProp({
+            formLabel: "Contour de l'espace (WGS84, plan géoréférencé)",
+            geometryType: 'Polygon',
+        }),
     },
     isPartOf: {
         ...getMultiRelationshipProp({
