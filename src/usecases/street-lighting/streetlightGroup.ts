@@ -6,7 +6,7 @@ import {
     getMultiRelationshipProp,
     getRelationshipProp,
     getSimpleTextProp,
-    getIntegerProp,
+    getNumericProp,
 } from '../../utils/blueprintHelpers';
 
 const entityType = 'StreetlightGroup';
@@ -33,7 +33,7 @@ export const StreetlightGroupTemplate: StellioTemplate = {
         ...getSimpleTextProp({ title: 'Identifiant du circuit' }),
     },
     illuminanceLevel: {
-        ...getIntegerProp({ title: "Niveau d'éclairement relatif du groupe (0 à 1)", minimum: 0, maximum: 1 }),
+        ...getNumericProp({ title: "Niveau d'éclairement relatif du groupe (0 à 1)", minimum: 0, maximum: 1 }),
     },
     dateLastSwitchingOn: {
         ...getDateProp({ title: 'Date de la dernière mise sous tension' }),

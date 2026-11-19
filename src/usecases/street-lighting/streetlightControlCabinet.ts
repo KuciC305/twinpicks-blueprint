@@ -5,7 +5,7 @@ import {
     getGeoPropertyProp,
     getMultiRelationshipProp,
     getSimpleTextProp,
-    getIntegerProp,
+    getNumericProp,
     getMultiAttributeProp,
 } from '../../utils/blueprintHelpers';
 
@@ -68,16 +68,16 @@ export const StreetlightControlCabinetTemplate: StellioTemplate = {
         ...getDateProp({ title: 'Date de début du comptage énergétique' }),
     },
     maximumPowerAvailable: {
-        ...getIntegerProp({ title: 'Puissance maximale disponible (kW)', minimum: 0 }),
+        ...getNumericProp({ title: 'Puissance maximale disponible (kW)', minimum: 0 }),
     },
     energyCost: {
-        ...getIntegerProp({ title: "Coût de l'énergie consommée", minimum: 0 }),
+        ...getNumericProp({ title: "Coût de l'énergie consommée", minimum: 0 }),
     },
     totalActivePower: {
-        ...getIntegerProp({ title: 'Puissance active totale (kW)', minimum: 0 }),
+        ...getNumericProp({ title: 'Puissance active totale (kW)', minimum: 0 }),
     },
     totalReactivePower: {
-        ...getIntegerProp({ title: 'Puissance réactive totale (kVAr)', minimum: 0 }),
+        ...getNumericProp({ title: 'Puissance réactive totale (kVAr)', minimum: 0 }),
     },
     observation: {
         ...getMultiAttributeProp({

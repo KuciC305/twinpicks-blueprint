@@ -2,7 +2,7 @@ import { StellioTemplate } from 'src/interfaces';
 import {
     getSimpleTextProp,
     getDateProp,
-    getIntegerProp,
+    getNumericProp,
     getRelationshipProp,
     getMultiAttributeProp,
 } from '../../utils/blueprintHelpers';
@@ -25,19 +25,19 @@ export const InvoiceTemplate: StellioTemplate = {
         ...getDateProp({ title: 'Date de fin' }),
     },
     oldIndex: {
-        ...getIntegerProp({ title: 'Ancien index', minimum: 0 }),
+        ...getNumericProp({ title: 'Ancien index', minimum: 0 }),
     },
     newIndex: {
-        ...getIntegerProp({ title: 'Nouvel index', minimum: 0 }),
+        ...getNumericProp({ title: 'Nouvel index', minimum: 0 }),
     },
     totalCostHT: {
-        ...getIntegerProp({ title: 'Montant total HT', minimum: 0 }),
+        ...getNumericProp({ title: 'Montant total HT', minimum: 0 }),
     },
     totalCostTTC: {
-        ...getIntegerProp({ title: 'Montant total TTC', minimum: 0 }),
+        ...getNumericProp({ title: 'Montant total TTC', minimum: 0 }),
     },
     taxes: {
-        ...getIntegerProp({ title: 'Montant des taxes', minimum: 0 }),
+        ...getNumericProp({ title: 'Montant des taxes', minimum: 0 }),
     },
     invoiceLines: {
         ...getMultiAttributeProp({
@@ -45,9 +45,9 @@ export const InvoiceTemplate: StellioTemplate = {
             formLabel: 'Lignes de facture',
             subProps: [
                 ['item', getSimpleTextProp({ title: 'Article' })],
-                ['quantity', getIntegerProp({ title: 'Quantité', minimum: 0 })],
+                ['quantity', getNumericProp({ title: 'Quantité', minimum: 0 })],
                 ['unit', getSimpleTextProp({ title: 'Unité' })],
-                ['unitCost', getIntegerProp({ title: 'Coût unitaire', minimum: 0 })],
+                ['unitCost', getNumericProp({ title: 'Coût unitaire', minimum: 0 })],
             ],
         }),
     },

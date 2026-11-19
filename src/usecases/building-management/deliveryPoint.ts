@@ -4,7 +4,7 @@ import {
     getMultiAttributeProp,
     getSimpleTextProp,
     getRelationshipProp,
-    getIntegerProp,
+    getNumericProp,
 } from '../../utils/blueprintHelpers';
 
 const entityType = 'DeliveryPoint';
@@ -24,29 +24,27 @@ export const DeliveryPointTemplate: StellioTemplate = {
     fluidType: {
         ...getEnumProp({
             title: 'Type de fluide',
-            enum: ['Eau', 'Gaz', 'Electricité'],
+            enum: ['electricity', 'gas', 'water'],
         }),
     },
     index: {
         ...getMultiAttributeProp({
-            propertySchemaDefinition: getIntegerProp({ title: "Valeur d'index", canSetObservedAt: true }),
+            propertySchemaDefinition: getNumericProp({
+                title: "Valeur d'index",
+                canSetObservedAt: true,
+                canSetUnitCode: true,
+            }),
             formLabel: 'Index',
             subProps: [
-                ['meterReading', getEnumProp({ title: 'Type de relevé', enum: ['mesuré', 'estimé'] })],
-                ['providedBy', getEnumProp({ title: 'Fourni par', enum: ['distributeur', 'fournisseur'] })],
+                ['meterReading', getEnumProp({ title: 'Type de relevé', enum: ['measured', 'estimated'] })],
+                ['providedBy', getEnumProp({ title: 'Fourni par', enum: ['distributor', 'supplier'] })],
             ],
         }),
     },
-    isObserving: {
+    controlledAsset: {
         ...getRelationshipProp({
-            formLabel: "Est en train d'observer",
+            formLabel: 'Actif contrôlé',
             listOfAllowedRelationships: ['urn:ngsi-ld:Building:Template', 'urn:ngsi-ld:Site:Template'],
-        }),
-    },
-    isFeeding: {
-        ...getRelationshipProp({
-            formLabel: 'Alimente électriquement',
-            targetTemplateObjectId: 'urn:ngsi-ld:ElectricalCabinet:Template',
         }),
     },
     jsonSchema: {
@@ -54,7 +52,7 @@ export const DeliveryPointTemplate: StellioTemplate = {
         value: {
             schemaType: entityType,
             title: 'Point de livraison',
-            required: ['name', 'deliveryPointNumber', 'fluidType', 'isObserving'],
+            required: ['name', 'deliveryPointNumber', 'fluidType', 'controlledAsset'],
             description: `Point de livraison regroupant le type d'énergie, les données du distributeur et celles du fournisseur.`,
             minimum: 0,
             identifier: 'deliveryPointNumber',

@@ -1,5 +1,5 @@
 import { StellioTemplate } from 'src/interfaces';
-import { getEnumProp, getGeoPropertyProp, getIntegerProp, getSimpleTextProp } from '../../utils/blueprintHelpers';
+import { getEnumProp, getGeoPropertyProp, getNumericProp, getSimpleTextProp } from '../../utils/blueprintHelpers';
 
 const entityType = 'ControlPoint';
 
@@ -13,28 +13,28 @@ export const ControlPointTemplate: StellioTemplate = {
         ...getGeoPropertyProp({ formLabel: 'Location of the control point', geometryType: 'Point' }),
     },
     inflow: {
-        ...getIntegerProp({ title: 'Inflow' }, 'MTQ'),
+        ...getNumericProp({ title: 'Inflow' }, 'MTQ'),
     },
     waterLevel: {
-        ...getIntegerProp({ title: 'Water level' }, 'MTR'),
+        ...getNumericProp({ title: 'Water level' }, 'MTR'),
     },
     source: {
         ...getEnumProp({ title: 'Source of the control point', enum: ['sensor', 'lab', 'citizen'] }),
     },
     ph: {
-        ...getIntegerProp({ title: 'pH value of the control point', minimum: 0, maximum: 14 }),
+        ...getNumericProp({ title: 'pH value of the control point', minimum: 0, maximum: 14 }),
     },
     temperature: {
-        ...getIntegerProp({ title: 'Temperature of the control point', minimum: -20, maximum: 100 }),
+        ...getNumericProp({ title: 'Temperature of the control point', minimum: -20, maximum: 100 }),
     },
     conductivity: {
-        ...getIntegerProp({ title: 'Conductivity of the control point', minimum: 0, maximum: 1000 }),
+        ...getNumericProp({ title: 'Conductivity of the control point', minimum: 0, maximum: 1000 }),
     },
     dissolvedOxygen: {
-        ...getIntegerProp({ title: 'Dissolved oxygen of the control point', minimum: 0, maximum: 1000 }),
+        ...getNumericProp({ title: 'Dissolved oxygen of the control point', minimum: 0, maximum: 1000 }),
     },
     turbidity: {
-        ...getIntegerProp({ title: 'Turbidity of the control point', minimum: 0, maximum: 1000 }),
+        ...getNumericProp({ title: 'Turbidity of the control point', minimum: 0, maximum: 1000 }),
     },
     jsonSchema: {
         type: 'Property',

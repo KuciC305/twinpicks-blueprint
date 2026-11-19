@@ -5,7 +5,7 @@ import {
     getGeoPropertyProp,
     getRelationshipProp,
     getSimpleTextProp,
-    getIntegerProp,
+    getNumericProp,
 } from '../../utils/blueprintHelpers';
 
 const entityType = 'Streetlight';
@@ -74,7 +74,7 @@ export const StreetlightTemplate: StellioTemplate = {
         }),
     },
     lanternHeight: {
-        ...getIntegerProp({ title: 'Hauteur de la lanterne (m)', minimum: 0 }),
+        ...getNumericProp({ title: 'Hauteur de la lanterne (m)', minimum: 0 }),
     },
     streetPoleNum: {
         ...getSimpleTextProp({ title: 'Numéro de mât' }),

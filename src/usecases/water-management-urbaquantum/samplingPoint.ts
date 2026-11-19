@@ -1,5 +1,5 @@
 import { StellioTemplate } from 'src/interfaces';
-import { getEnumProp, getGeoPropertyProp, getIntegerProp, getSimpleTextProp } from '../../utils/blueprintHelpers';
+import { getEnumProp, getGeoPropertyProp, getNumericProp, getSimpleTextProp } from '../../utils/blueprintHelpers';
 
 const entityType = 'SamplingPoint';
 
@@ -16,7 +16,7 @@ export const SamplingPointTemplate: StellioTemplate = {
         ...getEnumProp({ title: 'Source of the sampling point', enum: ['sensor', 'lab', 'citizen'] }),
     },
     sampleVolume: {
-        ...getIntegerProp({ title: 'Sample volume of the sampling point' }),
+        ...getNumericProp({ title: 'Sample volume of the sampling point' }),
     },
     usage: {
         ...getEnumProp({
