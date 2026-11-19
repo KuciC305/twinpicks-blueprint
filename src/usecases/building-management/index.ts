@@ -7,6 +7,7 @@ import { DeliveryPointTemplate } from './deliveryPoint';
 import { ElectricalCabinetTemplate } from './electricalCabinet';
 import { ConnectivityNodeTemplate } from './connectivityNode';
 import { WeatherInformationTemplate } from './weatherInformation';
+import { WeeklyScheduleTemplate } from './weeklySchedule';
 
 import { generateBlueprintFile } from '../../utils';
 
@@ -20,6 +21,7 @@ const blueprint = [
     ElectricalCabinetTemplate,
     ConnectivityNodeTemplate,
     WeatherInformationTemplate,
+    WeeklyScheduleTemplate,
 ];
 
 const usecasePathName = __dirname.split(/dist[\\/]/)[1];

@@ -22,21 +22,15 @@ export const BuildingTemplate: StellioTemplate = {
     floorArea: {
         ...getNumericProp({ title: 'Surface de plancher (m²)' }, 'MTK'),
     },
-    openingHours: {
-        ...getJsonPropertyProp({
-            formLabel: "Horaires d'ouverture et fermetures",
-            json: {
-                weekly: {
-                    mon: [['08:00', '18:00']],
-                    tue: [['08:00', '18:00']],
-                },
-                closures: [],
-            },
+    hasSchedule: {
+        ...getRelationshipProp({
+            formLabel: "Horaires d'ouverture du bâtiment (planning hebdomadaire)",
+            targetTemplateObjectId: 'urn:ngsi-ld:WeeklySchedule:Template',
         }),
     },
     hasWeatherInformation: {
         ...getRelationshipProp({
-            formLabel: 'Station météo (DJU)',
+            formLabel: 'Station météo de référence (DJU, station OPERAT)',
             targetTemplateObjectId: 'urn:ngsi-ld:WeatherInformation:Template',
         }),
     },

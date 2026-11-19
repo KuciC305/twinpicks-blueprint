@@ -117,31 +117,15 @@
                 }
             }
         },
-        "openingHours": {
-            "type": "JsonProperty",
-            "json": {
-                "weekly": {
-                    "mon": [
-                        [
-                            "08:00",
-                            "18:00"
-                        ]
-                    ],
-                    "tue": [
-                        [
-                            "08:00",
-                            "18:00"
-                        ]
-                    ]
-                },
-                "closures": []
-            },
+        "hasSchedule": {
+            "type": "Relationship",
+            "object": "urn:ngsi-ld:WeeklySchedule:Template",
             "jsonSchema": {
                 "type": "Property",
                 "value": {
-                    "schemaType": "json",
-                    "order": 9,
-                    "title": "Horaires d'ouverture et fermetures"
+                    "schemaType": "relationship",
+                    "title": "Horaires d'ouverture du bâtiment (planning hebdomadaire)",
+                    "order": 9
                 }
             }
         },
@@ -152,7 +136,7 @@
                 "type": "Property",
                 "value": {
                     "schemaType": "relationship",
-                    "title": "Station météo (DJU)",
+                    "title": "Station météo de référence (DJU, station OPERAT)",
                     "order": 10
                 }
             }
@@ -365,7 +349,7 @@
                         "room",
                         "technicalRoom"
                     ],
-                    "title": "Type d'espace",
+                    "title": "Type d'espace (space : espace ; room : pièce ; technicalRoom : local technique)",
                     "order": 23
                 }
             }
@@ -395,25 +379,15 @@
                 }
             }
         },
-        "openingHours": {
-            "type": "JsonProperty",
-            "json": {
-                "weekly": {
-                    "mon": [
-                        [
-                            "08:00",
-                            "18:00"
-                        ]
-                    ]
-                },
-                "closures": []
-            },
+        "hasSchedule": {
+            "type": "Relationship",
+            "object": "urn:ngsi-ld:WeeklySchedule:Template",
             "jsonSchema": {
                 "type": "Property",
                 "value": {
-                    "schemaType": "json",
-                    "order": 26,
-                    "title": "Horaires propres à l'espace"
+                    "schemaType": "relationship",
+                    "title": "Horaires d'ouverture de l'espace (planning hebdomadaire) : si l'espace est ouvert, le bâtiment l'est aussi",
+                    "order": 26
                 }
             }
         },
@@ -499,7 +473,7 @@
                 "value": {
                     "schemaType": "array",
                     "order": 32,
-                    "title": "Niveaux de l'espace",
+                    "title": "Niveau(x) de l'espace",
                     "items": {
                         "type": "Relationship",
                         "object": "urn:ngsi-ld:Storey:Template",
@@ -533,38 +507,42 @@
         "type": "Template",
         "name": {
             "type": "Property",
-            "value": "Nom de l'usage",
+            "value": "Bureaux",
             "jsonSchema": {
                 "type": "Property",
                 "value": {
                     "friendlyAttributeName": "Nom",
-                    "schemaType": "string",
-                    "title": "Nom de l'usage",
+                    "schemaType": "enum",
+                    "enum": [
+                        "Bureaux",
+                        "Enseignement",
+                        "Commerce",
+                        "Santé",
+                        "Hébergement",
+                        "Logement",
+                        "Restauration",
+                        "Sport et loisirs",
+                        "Culture",
+                        "Laboratoire",
+                        "Industrie et ateliers",
+                        "Entrepôt et logistique",
+                        "Parking",
+                        "Autre"
+                    ],
+                    "title": "Type d'usage du bâtiment",
                     "order": 33
                 }
             }
         },
-        "code": {
+        "description": {
             "type": "Property",
-            "value": "Code de l'usage",
+            "value": "Précisions sur l'usage (optionnel)",
             "jsonSchema": {
                 "type": "Property",
                 "value": {
                     "schemaType": "string",
-                    "title": "Code de l'usage",
+                    "title": "Précisions sur l'usage (optionnel)",
                     "order": 34
-                }
-            }
-        },
-        "nomenclatureSource": {
-            "type": "Property",
-            "value": "Source de nomenclature",
-            "jsonSchema": {
-                "type": "Property",
-                "value": {
-                    "schemaType": "string",
-                    "title": "Source de nomenclature",
-                    "order": 35
                 }
             }
         },
@@ -575,7 +553,7 @@
                 "type": "Property",
                 "value": {
                     "schemaType": "json",
-                    "order": 36,
+                    "order": 35,
                     "title": "Seuils des détections (vide : valeurs par défaut)",
                     "canSelfInit": true
                 }
@@ -587,12 +565,11 @@
                 "schemaType": "Usage",
                 "title": "Usage",
                 "required": [
-                    "name",
-                    "code"
+                    "name"
                 ],
-                "description": "Usage d'un bâtiment ou d'un asset, issu d'une nomenclature de référence.",
+                "description": "Usage d'un bâtiment, choisi parmi une liste d'usages généraux.",
                 "minimum": 0,
-                "identifier": "code"
+                "identifier": "name"
             }
         }
     },
@@ -608,7 +585,7 @@
                     "friendlyAttributeName": "Nom",
                     "schemaType": "string",
                     "title": "Nom du point de livraison",
-                    "order": 37
+                    "order": 36
                 }
             }
         },
@@ -620,7 +597,7 @@
                 "value": {
                     "schemaType": "string",
                     "title": "Description",
-                    "order": 38
+                    "order": 37
                 }
             }
         },
@@ -632,7 +609,7 @@
                 "value": {
                     "schemaType": "string",
                     "title": "Identifiant du point de livraison",
-                    "order": 39
+                    "order": 38
                 }
             }
         },
@@ -648,8 +625,8 @@
                         "gas",
                         "water"
                     ],
-                    "title": "Type de fluide",
-                    "order": 40
+                    "title": "Type de fluide (electricity : électricité ; gas : gaz ; water : eau)",
+                    "order": 39
                 }
             }
         },
@@ -665,8 +642,8 @@
                             "measured",
                             "estimated"
                         ],
-                        "title": "Type de relevé",
-                        "order": 42
+                        "title": "Type de relevé (measured : mesuré ; estimated : estimé)",
+                        "order": 41
                     }
                 }
             },
@@ -681,8 +658,8 @@
                             "distributor",
                             "supplier"
                         ],
-                        "title": "Fourni par",
-                        "order": 43
+                        "title": "Fourni par (distributor : distributeur ; supplier : fournisseur)",
+                        "order": 42
                     }
                 }
             },
@@ -693,7 +670,7 @@
                 "value": {
                     "schemaType": "array",
                     "title": "Index",
-                    "order": 44,
+                    "order": 43,
                     "items": {
                         "type": "Property",
                         "value": 0,
@@ -703,8 +680,60 @@
                                 "canSetObservedAt": true,
                                 "canSetUnitCode": true,
                                 "schemaType": "integer",
-                                "title": "Valeur d'index",
-                                "order": 41
+                                "title": "Valeur d'index cumulée (énergie, volume d'eau ou de gaz ; unité selon unitCode)",
+                                "order": 40
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "consumption": {
+            "type": "Property",
+            "value": "placeholder",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "array",
+                    "title": "Consommations par période (compteurs sans index, ex. Linky)",
+                    "order": 45,
+                    "items": {
+                        "type": "Property",
+                        "value": 0,
+                        "jsonSchema": {
+                            "type": "Property",
+                            "value": {
+                                "canSetObservedAt": true,
+                                "canSetUnitCode": true,
+                                "schemaType": "number",
+                                "title": "Énergie, volume d’eau ou de gaz consommé sur la période (unité selon unitCode)",
+                                "order": 44
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "maxPower": {
+            "type": "Property",
+            "value": "placeholder",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "array",
+                    "title": "Puissances maximales par période",
+                    "order": 47,
+                    "items": {
+                        "type": "Property",
+                        "value": 0,
+                        "jsonSchema": {
+                            "type": "Property",
+                            "value": {
+                                "canSetObservedAt": true,
+                                "canSetUnitCode": true,
+                                "schemaType": "number",
+                                "title": "Puissance maximale atteinte sur la période (unité selon unitCode)",
+                                "order": 46
                             }
                         }
                     }
@@ -713,13 +742,13 @@
         },
         "controlledAsset": {
             "type": "Relationship",
-            "object": "urn:ngsi-ld",
+            "object": "urn:ngsi-ld:Building:Template",
             "jsonSchema": {
                 "type": "Property",
                 "value": {
                     "schemaType": "relationship",
                     "title": "Actif contrôlé",
-                    "order": 45,
+                    "order": 48,
                     "listOfAllowedRelationships": [
                         "urn:ngsi-ld:Building:Template",
                         "urn:ngsi-ld:Site:Template"
@@ -756,7 +785,7 @@
                     "friendlyAttributeName": "Nom",
                     "schemaType": "string",
                     "title": "Nom de l'armoire électrique",
-                    "order": 46
+                    "order": 49
                 }
             }
         },
@@ -768,7 +797,7 @@
                 "value": {
                     "schemaType": "string",
                     "title": "Description",
-                    "order": 47
+                    "order": 50
                 }
             }
         },
@@ -780,22 +809,22 @@
                 "value": {
                     "schemaType": "string",
                     "title": "Identifiant de l'armoire électrique",
-                    "order": 48
+                    "order": 51
                 }
             }
         },
         "isFedBy": {
             "type": "Relationship",
-            "object": "urn:ngsi-ld",
+            "object": "urn:ngsi-ld:DeliveryPoint:Template",
             "jsonSchema": {
                 "type": "Property",
                 "value": {
                     "schemaType": "relationship",
-                    "title": "Est alimentée par",
-                    "order": 49,
+                    "title": "Est alimentée par (point de livraison, ou sortie électrique d'une armoire amont)",
+                    "order": 52,
                     "listOfAllowedRelationships": [
                         "urn:ngsi-ld:DeliveryPoint:Template",
-                        "urn:ngsi-ld:ElectricalCabinet:Template"
+                        "urn:ngsi-ld:ConnectivityNode:Template"
                     ]
                 }
             }
@@ -808,7 +837,7 @@
                 "value": {
                     "schemaType": "relationship",
                     "title": "Local dans lequel est située l'armoire électrique",
-                    "order": 50
+                    "order": 53
                 }
             }
         },
@@ -839,7 +868,7 @@
                     "friendlyAttributeName": "Nom",
                     "schemaType": "string",
                     "title": "Nom de la sortie électrique",
-                    "order": 51
+                    "order": 54
                 }
             }
         },
@@ -851,7 +880,7 @@
                 "value": {
                     "schemaType": "string",
                     "title": "Description",
-                    "order": 52
+                    "order": 55
                 }
             }
         },
@@ -863,7 +892,7 @@
                 "value": {
                     "schemaType": "string",
                     "title": "Identifiant de la sortie électrique ",
-                    "order": 53
+                    "order": 56
                 }
             }
         },
@@ -883,7 +912,7 @@
                         "ABN"
                     ],
                     "title": "Phasage de la sortie (phase A, B ou C; phase inconnue X; Neutre N) ",
-                    "order": 54
+                    "order": 57
                 }
             }
         },
@@ -903,8 +932,8 @@
                         "business",
                         "production"
                     ],
-                    "title": "Usage mesuré",
-                    "order": 55
+                    "title": "Usage mesuré (heatingCooling : chauffage et climatisation ; ventilation ; lighting : éclairage ; water : eau et ECS ; plugs : prises et usages généraux ; business : activités métier ; production : production locale)",
+                    "order": 58
                 }
             }
         },
@@ -916,7 +945,7 @@
                 "value": {
                     "schemaType": "array",
                     "title": "Index du sous-compteur (sorties sous-comptées uniquement)",
-                    "order": 57,
+                    "order": 60,
                     "items": {
                         "type": "Property",
                         "value": 0,
@@ -926,8 +955,34 @@
                                 "canSetObservedAt": true,
                                 "canSetUnitCode": true,
                                 "schemaType": "integer",
-                                "title": "Valeur d'index",
-                                "order": 56
+                                "title": "Valeur d'index cumulée (énergie ; unité selon unitCode)",
+                                "order": 59
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "consumption": {
+            "type": "Property",
+            "value": "placeholder",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "array",
+                    "title": "Consommations par période du sous-compteur (sans index)",
+                    "order": 62,
+                    "items": {
+                        "type": "Property",
+                        "value": 0,
+                        "jsonSchema": {
+                            "type": "Property",
+                            "value": {
+                                "canSetObservedAt": true,
+                                "canSetUnitCode": true,
+                                "schemaType": "number",
+                                "title": "Énergie consommée sur la période (unité selon unitCode)",
+                                "order": 61
                             }
                         }
                     }
@@ -942,7 +997,7 @@
                 "value": {
                     "schemaType": "relationship",
                     "title": "Appartient à l'armoire électrique",
-                    "order": 58
+                    "order": 63
                 }
             }
         },
@@ -965,6 +1020,47 @@
     {
         "id": "urn:ngsi-ld:WeatherInformation:Template",
         "type": "Template",
+        "name": {
+            "type": "Property",
+            "value": "Nom de la station",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "friendlyAttributeName": "Nom",
+                    "schemaType": "string",
+                    "title": "Nom de la station",
+                    "order": 64
+                }
+            }
+        },
+        "operatStationCode": {
+            "type": "Property",
+            "value": "Code de la station météo de référence OPERAT (Météo-France, 8 chiffres)",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "pattern": "^[0-9]{8}$",
+                    "schemaType": "string",
+                    "title": "Code de la station météo de référence OPERAT (Météo-France, 8 chiffres)",
+                    "order": 65
+                }
+            }
+        },
+        "location": {
+            "type": "GeoProperty",
+            "value": {
+                "type": "Point",
+                "coordinates": []
+            },
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "object",
+                    "order": 66,
+                    "title": "Position de la station"
+                }
+            }
+        },
         "temperature": {
             "type": "Property",
             "value": 0,
@@ -976,7 +1072,7 @@
                     "canSelfInit": true,
                     "schemaType": "integer",
                     "title": "Température extérieure",
-                    "order": 59
+                    "order": 67
                 }
             }
         },
@@ -988,6 +1084,108 @@
                 "description": "Station météo dont la température extérieure sert aux DJU et aux chronologies des bâtiments (de préférence la station Météo-France retenue par OPERAT)",
                 "minimum": 0,
                 "canEntityBeCreated": false
+            }
+        }
+    },
+    {
+        "id": "urn:ngsi-ld:WeeklySchedule:Template",
+        "type": "Template",
+        "name": {
+            "type": "Property",
+            "value": "Nom du planning",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "friendlyAttributeName": "Nom",
+                    "schemaType": "string",
+                    "title": "Nom du planning",
+                    "order": 68
+                }
+            }
+        },
+        "timeSlots": {
+            "days": {
+                "type": "Property",
+                "value": 1,
+                "jsonSchema": {
+                    "type": "Property",
+                    "value": {
+                        "schemaType": "enum",
+                        "enum": [
+                            1,
+                            2,
+                            3,
+                            4,
+                            5,
+                            6,
+                            7
+                        ],
+                        "title": "Jours",
+                        "order": 70,
+                        "allowMultiple": true
+                    }
+                }
+            },
+            "startTime": {
+                "type": "Property",
+                "value": "Heure de début (HH:mm)",
+                "jsonSchema": {
+                    "type": "Property",
+                    "value": {
+                        "pattern": "^([01][0-9]|2[0-3]):[0-5][0-9]$",
+                        "schemaType": "string",
+                        "title": "Heure de début (HH:mm)",
+                        "order": 71
+                    }
+                }
+            },
+            "endTime": {
+                "type": "Property",
+                "value": "Heure de fin (HH:mm)",
+                "jsonSchema": {
+                    "type": "Property",
+                    "value": {
+                        "pattern": "^([01][0-9]|2[0-3]):[0-5][0-9]$",
+                        "schemaType": "string",
+                        "title": "Heure de fin (HH:mm)",
+                        "order": 72
+                    }
+                }
+            },
+            "type": "Property",
+            "value": "placeholder",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "array",
+                    "title": "Créneaux horaires",
+                    "order": 73,
+                    "items": {
+                        "type": "Property",
+                        "value": "Libellé du créneau (optionnel)",
+                        "jsonSchema": {
+                            "type": "Property",
+                            "value": {
+                                "schemaType": "string",
+                                "title": "Libellé du créneau (optionnel)",
+                                "order": 69
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "jsonSchema": {
+            "type": "Property",
+            "value": {
+                "schemaType": "WeeklySchedule",
+                "title": "Planning hebdomadaire",
+                "minimum": 0,
+                "required": [
+                    "name",
+                    "timeSlots"
+                ],
+                "description": "Planning hebdomadaire composé d'un ou plusieurs créneaux horaires"
             }
         }
     }

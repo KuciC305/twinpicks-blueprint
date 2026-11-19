@@ -26,16 +26,18 @@ Site
 
 Relationships in the blueprint (NGSI-LD attribute names):
 
-| Entity | Relationship | Target | Notes |
-|--------|--------------|--------|--------|
-| `Site` | `hasPart` | `Building` | One or more buildings per site |
-| `Building` | `hasUsage` | `Usage` | Optional classification of building use (nomenclature) |
-| `Storey` | `isPartOf` | `Building` | Floor / level within a building (`level` integer for ordering) |
-| `Space` | `isPartOf` | `Storey` | One or more storeys per space (array relationship) |
+| Entity     | Relationship  | Target           | Notes                                                           |
+| ---------- | ------------- | ---------------- | --------------------------------------------------------------- |
+| `Site`     | `hasPart`     | `Building`       | One or more buildings per site                                  |
+| `Building` | `hasUsage`    | `Usage`          | Uses of the building, chosen among a list of general uses       |
+| `Building` | `hasSchedule` | `WeeklySchedule` | Opening hours of the building                                   |
+| `Space`    | `hasSchedule` | `WeeklySchedule` | Opening hours of the space: when it is open, so is the building |
+| `Storey`   | `isPartOf`    | `Building`       | Floor / level within a building (`level` integer for ordering)  |
+| `Space`    | `isPartOf`    | `Storey`         | One or more storeys per space (array relationship)              |
 
 BOT often expresses containment with `bot:hasStorey` / `bot:hasSpace` on the parent. This blueprint uses the inverse `isPartOf` on children (and `Site.hasPart` on the site) as an NGSI-LD-oriented pattern consistent across spatial and electrical entities.
 
-A `Building` may also reference one or more `Usage` entities through `hasUsage`, for example to describe the primary activity or nomenclature code of the building without duplicating usage definitions on each space.
+A `Building` may also reference one or more `Usage` entities through `hasUsage`, for example to describe the primary activity of the building (a general use) without duplicating usage definitions on each space.
 
 A `Room` is represented as a particular kind of `Space`. BOT and SAREF4BLDG do not define `Room` as a separate core class, while IFC represents rooms through `IfcSpace` and its attributes or classifications.
 
@@ -58,7 +60,7 @@ For the first version, the following simplified model is retained:
 ```text
 DeliveryPoint (PDL)
         │
-        │ isFedBy (parent may be DeliveryPoint or upstream ElectricalCabinet)
+        │ isFedBy (parent: DeliveryPoint, or ConnectivityNode of an upstream ElectricalCabinet)
         ▼
 ElectricalCabinet ──isPartOf──► Space
         ▲
@@ -87,15 +89,39 @@ The blueprint `Space` entity is aligned with:
 
 Spaces are attached to storeys via `isPartOf`, not directly to the building, so the spatial tree matches BOT’s building → storey → space hierarchy.
 
+### Geometry
+
+`Building.location` is the footprint of the building and `Space.location` the outline of a space (GeoProperty, Polygon, WGS84 coordinates, e.g. from a georeferenced plan). `Storey.elevation` (height of the floor above the ground floor, m) and `Storey.height` (floor to ceiling height, m) stack the storeys. Together they let the dashboard draw the spaces on a map and on a pseudo-3D model; a space without a usable outline is not drawn.
+
+### Electrical network
+
+`ElectricalCabinet.isFedBy` points to a `DeliveryPoint`, or to a `ConnectivityNode` (output) of an upstream cabinet for a division board. The same goes for `DeliveryPoint.controlledAsset` (a `Building`, or a `Site`): the form accepts every allowed target (`listOfAllowedRelationships`), while the graph of the blueprint only draws the main one (`targetTemplateObjectId`: the delivery point for `isFedBy`, the building for `controlledAsset`). An output carries a `serviceDomain` (`heatingCooling`, `ventilation`, `lighting`, `water`, `plugs`, `business`, `production`), so that a cabinet can group outputs of several uses, and the `index` or `consumption` of its sub-meter when it is sub-metered (see below).
+
 ### Usage
 
-The `Usage` entity holds nomenclature fields (`code`, `source`, etc.). Buildings reference usages through `hasUsage`; spaces do not embed usage types in this version of the blueprint.
+`Usage.name` is chosen among general uses (`Bureaux`, `Enseignement`, `Commerce`, `Santé`, `Hébergement`, `Logement`, `Restauration`, `Sport et loisirs`, `Culture`, `Laboratoire`, `Industrie et ateliers`, `Entrepôt et logistique`, `Parking`, `Autre`), inspired by the OPERAT activity categories but without their codes: the list is not tied to a French regulation. `description` gives optional details. Thresholds are stored on the `Usage` entity (shared by the buildings of this use). Buildings reference usages through `hasUsage`; spaces do not embed usage types in this version of the blueprint.
 
 `Usage.thresholds` (JsonProperty, `{}` at creation) holds the detection thresholds of the building management dashboard for the buildings of this usage, set from the dashboard "Thresholds" menu. It is partial: a missing threshold keeps its default value, and a building with several usages applies the strictest one. Keys: `co2Watch`, `co2Action` (ppm), `comfortTolerance`, `comfortMin`, `comfortMax` (°C), `closedConsumptionPercent`, `consumptionDriftPercent` (%), `sensorSilentAfterHours` (hours), `deliveryPointSilentAfterDays`, `subMeterSilentAfterDays` (days).
 
+### Opening hours
+
+`Building.hasSchedule` and `Space.hasSchedule` point to a `WeeklySchedule` (`name`, `timeSlots`). Each time slot is an instance of the multi-attribute `timeSlots` with the sub-properties `days` (1 = Monday … 7 = Sunday), `startTime` and `endTime` (HH:mm, local time). Each instance needs its own `datasetId` (e.g. `urn:ngsi-ld:Dataset:timeSlot:1`): the broker refuses several default instances. A building is open as soon as it or one of its spaces is, which the dashboard computes from the union of their slots. The template is the same as the one of the air quality blueprint (`air-quality-monitoring/weeklySchedule.ts`): keep both identical so that the schedules are shared between the dashboards. The former `openingHours` JsonProperty of `Building` and `Space` was removed; the dashboard still reads it on older entities.
+
+### Measures of the meters
+
+`DeliveryPoint` and `ConnectivityNode` (sub-meter) report their readings in one of these multi-attributes, the unit being the `unitCode` of each reading (e.g. `KWH`, `WHR`, `LTR`):
+
+| Attribute     | On                                  | Meaning                                                                                                                                     |
+| ------------- | ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| `index`       | `DeliveryPoint`, `ConnectivityNode` | Cumulative index. The building management dashboard prefers it: consumption of a period = difference of index.                              |
+| `consumption` | `DeliveryPoint`, `ConnectivityNode` | Energy (or volume) of each period, for meters without index (e.g. Linky `daily_consumption`). The dashboard sums the values of each period. |
+| `maxPower`    | `DeliveryPoint`                     | Maximum power of each period. Written for the energy finances dashboard; not read by the building management one.                           |
+
+The `datasetId` names the series, as the energy finances dashboard reads them: `urn:ngsi-ld:Dataset:Enedis:energy:P1D` (daily energy, electricity), `urn:ngsi-ld:Dataset:GRDF:energy:P1D` (gas), `urn:ngsi-ld:Dataset:Enedis:maxPower:P1D` (daily maximum power). A meter must report a given period in a single series: the building management dashboard adds up every series of `consumption`. None of these attributes is required (`required` of the entity).
+
 ### WeatherInformation
 
-`Building.hasWeatherInformation` points to a `WeatherInformation` entity (weather station, not created through the blueprint forms) whose outdoor `temperature` is used for the degree days (DJU) and the building timelines. Preferably the Météo-France station used by OPERAT.
+`Building.hasWeatherInformation` points to a `WeatherInformation` entity (weather station, not created through the blueprint forms) whose outdoor `temperature` is used for the degree days (DJU) and the building timelines. Preferably the Météo-France station used by OPERAT: `operatStationCode` (8 digits) identifies it, and the dashboard uses the one of the department of the building (postal code of its `Site`) when the building has no `hasWeatherInformation`.
 
 ## References
 
@@ -130,18 +156,21 @@ IEC CIM is the main reference for the electricity-network model. SAREF is used t
 - [IEC CIM — ConnectivityNodeContainer](https://ontology.tno.nl/IEC_CIM/cim_ConnectivityNodeContainer.html).
 
 ## Model overview
+
 ### French
-| Entité            | Description courte                                                                                                |
-| ----------------- | ----------------------------------------------------------------------------------------------------------------- |
-| Site              | Ensemble immobilier regroupant un ou plusieurs bâtiments, identifié par son nom et son adresse.                   |
-| Building          | Jumeau numérique d’un bâtiment, localisé géographiquement et éventuellement associé au RNB et à plusieurs usages. |
-| Storey            | Niveau ou étage appartenant à un bâtiment.                                                                        |
-| Space             | Espace, pièce ou local rattaché à un ou plusieurs niveaux.                                                        |
-| Usage             | Type d’utilisation normalisé d’un bâtiment ou d’un équipement, défini par un nom et un code.                      |
-| DeliveryPoint     | Point de livraison d’eau, de gaz ou d’électricité, avec ses relevés d’index.                                      |
-| ElectricalCabinet | Armoire électrique située dans un espace et alimentée par un point de livraison ou une autre armoire.             |
-| ConnectivityNode  | Sortie électrique d’une armoire, caractérisée notamment par son phasage.                                          |
-| WeatherInformation | Station météo fournissant la température extérieure (DJU, chronologies), alimentée hors formulaires.             |
+
+| Entité             | Description courte                                                                                                            |
+| ------------------ | ----------------------------------------------------------------------------------------------------------------------------- |
+| Site               | Ensemble immobilier regroupant un ou plusieurs bâtiments, identifié par son nom et son adresse.                               |
+| Building           | Jumeau numérique d’un bâtiment, localisé géographiquement et éventuellement associé au RNB et à plusieurs usages.             |
+| Storey             | Niveau ou étage appartenant à un bâtiment.                                                                                    |
+| Space              | Espace, pièce ou local rattaché à un ou plusieurs niveaux.                                                                    |
+| Usage              | Usage d’un bâtiment, choisi parmi une liste d’usages généraux (nom), avec des seuils de détection optionnels.                 |
+| DeliveryPoint      | Point de livraison d’eau, de gaz ou d’électricité, avec ses relevés (index, consommations par période, puissances maximales). |
+| ElectricalCabinet  | Armoire électrique située dans un espace et alimentée par un point de livraison ou une autre armoire.                         |
+| ConnectivityNode   | Sortie électrique d’une armoire, caractérisée par son phasage et l’usage mesuré, avec ses relevés si elle est sous-comptée.   |
+| WeeklySchedule     | Planning hebdomadaire (créneaux par jours de la semaine), utilisé pour les horaires d’ouverture.                              |
+| WeatherInformation | Station météo fournissant la température extérieure (DJU, chronologies), alimentée hors formulaires.                          |
 
 **Relations principales**
 Building → Site : un bâtiment isPartOf un site.
@@ -149,9 +178,10 @@ Building → Usage : un bâtiment hasUsage un ou plusieurs usages.
 Storey → Building : un niveau isPartOf un bâtiment.
 Space → Storey : un espace isPartOf un ou plusieurs niveaux.
 DeliveryPoint → Site ou Building : un point de livraison a pour controlledAsset le site ou le bâtiment dont il mesure la consommation.
-ElectricalCabinet → DeliveryPoint ou ElectricalCabinet : une armoire isFedBy un point de livraison ou une autre armoire.
+ElectricalCabinet → DeliveryPoint ou ConnectivityNode : une armoire isFedBy un point de livraison ou une sortie électrique d’une armoire amont.
 ElectricalCabinet → Space : une armoire isPartOf l’espace dans lequel elle est installée.
 ConnectivityNode → ElectricalCabinet : une sortie électrique isPartOf une armoire.
+Building → WeeklySchedule, Space → WeeklySchedule : hasSchedule, les horaires d’ouverture (un bâtiment est ouvert dès qu’un de ses espaces l’est).
 Building → WeatherInformation : un bâtiment hasWeatherInformation la station météo qui lui sert de référence.
 
 La structure générale est donc : Site → Bâtiment → Niveau → Espace → Armoire électrique → Sortie électrique, avec en parallèle les usages et les points de livraison énergétique

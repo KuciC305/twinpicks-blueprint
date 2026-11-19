@@ -1,19 +1,38 @@
 import { StellioTemplate } from 'src/interfaces';
-import { getJsonPropertyProp, getSimpleTextProp } from '../../utils/blueprintHelpers';
+import { getEnumProp, getJsonPropertyProp, getSimpleTextProp } from '../../utils/blueprintHelpers';
 
 const entityType = 'Usage';
+
+/** General uses of a building, inspired by the OPERAT activity categories without their codes */
+const usageNames = [
+    'Bureaux',
+    'Enseignement',
+    'Commerce',
+    'Santé',
+    'Hébergement',
+    'Logement',
+    'Restauration',
+    'Sport et loisirs',
+    'Culture',
+    'Laboratoire',
+    'Industrie et ateliers',
+    'Entrepôt et logistique',
+    'Parking',
+    'Autre',
+];
 
 export const UsageTemplate: StellioTemplate = {
     id: `urn:ngsi-ld:${entityType}:Template`,
     type: 'Template',
     name: {
-        ...getSimpleTextProp({ title: "Nom de l'usage", friendlyAttributeName: 'Nom' }),
+        ...getEnumProp({
+            title: "Type d'usage du bâtiment",
+            enum: usageNames,
+            friendlyAttributeName: 'Nom',
+        }),
     },
-    code: {
-        ...getSimpleTextProp({ title: "Code de l'usage" }),
-    },
-    nomenclatureSource: {
-        ...getSimpleTextProp({ title: 'Source de nomenclature' }),
+    description: {
+        ...getSimpleTextProp({ title: "Précisions sur l'usage (optionnel)" }),
     },
     /**
      * Seuils des détections du tableau de bord pour les bâtiments de cet usage, partiels : un seuil
@@ -29,19 +48,15 @@ export const UsageTemplate: StellioTemplate = {
         }),
     },
 
-    /**
-     * A complete enumeration or build on some external reference database/broker is required for such  
-     */
-
     jsonSchema: {
         type: 'Property',
         value: {
             schemaType: entityType,
             title: 'Usage',
-            required: ['name', 'code'],
-            description: "Usage d'un bâtiment ou d'un asset, issu d'une nomenclature de référence.",
+            required: ['name'],
+            description: "Usage d'un bâtiment, choisi parmi une liste d'usages généraux.",
             minimum: 0,
-            identifier: 'code',
+            identifier: 'name',
         },
     },
 };

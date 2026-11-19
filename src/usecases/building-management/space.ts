@@ -4,7 +4,7 @@ import {
     getEnumProp,
     getNumericProp,
     getGeoPropertyProp,
-    getJsonPropertyProp,
+    getRelationshipProp,
     getMultiRelationshipProp,
 } from '../../utils/blueprintHelpers';
 
@@ -21,7 +21,7 @@ export const SpaceTemplate: StellioTemplate = {
     },
     spaceType: {
         ...getEnumProp({
-            title: `Type d'espace`,
+            title: `Type d'espace (space : espace ; room : pièce ; technicalRoom : local technique)`,
             enum: ['space', 'room', 'technicalRoom'],
         }),
     },
@@ -31,15 +31,11 @@ export const SpaceTemplate: StellioTemplate = {
     floorArea: {
         ...getNumericProp({ title: 'Surface (m²)' }, 'MTK'),
     },
-    openingHours: {
-        ...getJsonPropertyProp({
-            formLabel: "Horaires propres à l'espace",
-            json: {
-                weekly: {
-                    mon: [['08:00', '18:00']],
-                },
-                closures: [],
-            },
+    hasSchedule: {
+        ...getRelationshipProp({
+            formLabel:
+                "Horaires d'ouverture de l'espace (planning hebdomadaire) : si l'espace est ouvert, le bâtiment l'est aussi",
+            targetTemplateObjectId: 'urn:ngsi-ld:WeeklySchedule:Template',
         }),
     },
     occupancy: {
@@ -62,7 +58,7 @@ export const SpaceTemplate: StellioTemplate = {
     },
     isPartOf: {
         ...getMultiRelationshipProp({
-            formLabel: "Niveaux de l'espace",
+            formLabel: "Niveau(x) de l'espace",
             formLabelPerItem: 'Choisir un niveau',
             targetTemplateObjectId: 'urn:ngsi-ld:Storey:Template',
         }),

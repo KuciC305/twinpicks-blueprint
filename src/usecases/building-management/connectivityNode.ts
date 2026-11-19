@@ -29,18 +29,29 @@ export const ConnectivityNodeTemplate: StellioTemplate = {
     },
     serviceDomain: {
         ...getEnumProp({
-            title: 'Usage mesuré',
+            title: 'Usage mesuré (heatingCooling : chauffage et climatisation ; ventilation ; lighting : éclairage ; water : eau et ECS ; plugs : prises et usages généraux ; business : activités métier ; production : production locale)',
             enum: ['heatingCooling', 'ventilation', 'lighting', 'water', 'plugs', 'business', 'production'],
         }),
     },
     index: {
         ...getMultiAttributeProp({
             propertySchemaDefinition: getNumericProp({
-                title: "Valeur d'index",
+                title: "Valeur d'index cumulée (énergie ; unité selon unitCode)",
                 canSetObservedAt: true,
                 canSetUnitCode: true,
             }),
             formLabel: 'Index du sous-compteur (sorties sous-comptées uniquement)',
+        }),
+    },
+    consumption: {
+        ...getMultiAttributeProp({
+            propertySchemaDefinition: getNumericProp({
+                title: 'Énergie consommée sur la période (unité selon unitCode)',
+                schemaType: 'number',
+                canSetObservedAt: true,
+                canSetUnitCode: true,
+            }),
+            formLabel: 'Consommations par période du sous-compteur (sans index)',
         }),
     },
     isPartOf: {
@@ -51,7 +62,7 @@ export const ConnectivityNodeTemplate: StellioTemplate = {
     },
 
     /**
-     * Les attributs activeEnergy, activePower, etc. Doivent être associés aux phases via le datasetId (ex.: "datasetId": "urn:ngsi-ld:Dataset:phase:B"). A vérifier si cela est fait via la connection des capteurs actuels (et homogène pour tous les capteurs) ou si cela doit être défini quelquepart.
+     * Les attributs de mesure (index, consumption, etc.) Doivent être associés aux phases via le datasetId (ex.: "datasetId": "urn:ngsi-ld:Dataset:phase:B"). A vérifier si cela est fait via la connection des capteurs actuels (et homogène pour tous les capteurs) ou si cela doit être défini quelquepart.
      */
     /**
      * La modélisation des éléments de contrôle (ex. une horloge programmable) devra être ajouté

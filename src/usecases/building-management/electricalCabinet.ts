@@ -17,11 +17,10 @@ export const ElectricalCabinetTemplate: StellioTemplate = {
     },
     isFedBy: {
         ...getRelationshipProp({
-            formLabel: 'Est alimentée par',
-            listOfAllowedRelationships: [
-                'urn:ngsi-ld:DeliveryPoint:Template',
-                'urn:ngsi-ld:ElectricalCabinet:Template',
-            ],
+            formLabel: "Est alimentée par (point de livraison, ou sortie électrique d'une armoire amont)",
+            // The graph of the blueprint draws the link to the delivery point, the form also accepts an output
+            targetTemplateObjectId: 'urn:ngsi-ld:DeliveryPoint:Template',
+            listOfAllowedRelationships: ['urn:ngsi-ld:DeliveryPoint:Template', 'urn:ngsi-ld:ConnectivityNode:Template'],
         }),
     },
     isPartOf: {
