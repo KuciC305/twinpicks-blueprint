@@ -43,32 +43,40 @@ A `Room` is represented as a particular kind of `Space`. BOT and SAREF4BLDG do n
 
 > **Compatibility note:** This approach differs from the current `Room` representation used in QAI. The mapping or migration strategy between QAI `Room` entities and blueprint `Space` entities must therefore be defined.
 
-## Electricity Network
+## Utility Networks
 
-The initial implementation focuses on the electricity network while remaining as generic as possible so that the approach can later be adapted to water, gas, and other utility networks.
+The supply network of a site or building is described as a tree of `ConnectivityNode` entities, whatever the fluid (electricity, water, gas, heat). The electricity side follows the IEC Common Information Model (CIM) as the main reference; SAREF may complement it for devices and appliances.
 
-The objective is to describe the delivery tree starting from a `DeliveryPoint`. For electricity networks, the IEC Common Information Model (CIM) is used as the main reference. SAREF may complement this model when representing devices and appliances.
-
-The supply network of a site or building starts with a `DeliveryPoint`, which supplies an `ElectricalCabinet`. The cabinet is located in a `Space` (`ElectricalCabinet.isPartOf` → `Space`) and groups breakers, timers, meters, and related equipment. Electrical outlets are modeled as `ConnectivityNode` entities linked to the cabinet through `ConnectivityNode.isPartOf` → `ElectricalCabinet`.
-
-IEC CIM distinguishes between the physical asset view and the electrical connectivity view. A cabinet may be represented as a physical `AssetContainer`, whereas connectivity is represented through equipment, terminals, and connectivity nodes. Linking `ConnectivityNode` to `ElectricalCabinet` (and optionally onward to `Terminal` or `ACLineSegment`) is a useful NGSI-LD simplification, but it is not a strict inheritance of the complete CIM model.
-
-A more complete approach would introduce an `EquipmentContainer` associated with the `ElectricalCabinet`, with the `EquipmentContainer` containing one or more `ConnectivityNode` entities. This intermediate entity could be introduced later.
-
-For the first version, the following simplified model is retained:
+- A `DeliveryPoint` (PDL, PCE, water meter of the distributor…) is the root of the tree.
+- A `ConnectivityNode` is a point of the network that may be counted: the input of a cabinet, an output (breaker, pipe), a virtual meter. The link is carried by the node: `ConnectivityNode.isFedBy` → the `DeliveryPoint` or the upstream `ConnectivityNode` that feeds it.
+- A `Cabinet` is only the physical box (electrical cabinet, water or gas dispatch…). It carries the location (`isPartOf` → `Space`, and a `location` point) of the nodes it contains (`ConnectivityNode.isPartOf` → `Cabinet`), and no supply link.
 
 ```text
 DeliveryPoint (PDL)
-        │
-        │ isFedBy (parent: DeliveryPoint, or ConnectivityNode of an upstream ElectricalCabinet)
-        ▼
-ElectricalCabinet ──isPartOf──► Space
-        ▲
-        │ isPartOf
-ConnectivityNode (phaseCode: AN, BN, CN, …)
+     ▲
+     │ isFedBy
+ConnectivityNode "input of cabinet A" ──isPartOf──► Cabinet A ──isPartOf──► Space
+     ▲
+     │ isFedBy
+ConnectivityNode "output A1" ──isPartOf──► Cabinet A      (sub-metered: index / consumption)
+     ▲
+     │ isFedBy
+ConnectivityNode "input of cabinet B" ──isPartOf──► Cabinet B
+     ▲          ▲
+     │ isFedBy  │ isFedBy
+   "B1"       "B2"                                         (isPartOf Cabinet B)
 ```
 
-A `ConnectivityNode` may later be connected, through terminals and conducting equipment where appropriate, to an `ACLineSegment`, another `ElectricalCabinet`, or other components of the electrical network.
+Why the link is on the node and not on the cabinet:
+
+- A cabinet fed by "an output of an upstream cabinet" does not say which output: the sub-meters of the downstream cabinet cannot be placed under their meter, and they are subtracted twice from the remainder of the delivery point. With a delivery point of 1000 kWh and an output A1 of 600 kWh feeding a cabinet B whose outputs B1 and B2 are 350 and 200 kWh, subtracting every sub-meter gives 1000 − (600 + 350 + 200) = −150 kWh, whereas only A1 is directly below the delivery point (remainder 1000 − 600 = 400 kWh, and 600 − (350 + 200) = 50 kWh for A1).
+- The tree stays the same for water, gas and heat: a garden-hose dispatch is one node for the incoming pipe and N nodes for the outgoing ones, all in the same `Cabinet`.
+- Two meters one below the other in the same cabinet are told apart, and a virtual meter (sum or difference of other meters, e.g. a substation) belongs to no cabinet: `isPartOf` is optional.
+- Putting the input node inside the cabinet keeps room for equipment between two meters, and each node feeds as many nodes as needed.
+
+The remainder of a node is its own measure minus the measures of the nearest counted nodes below it: a node without `index` nor `consumption` is only crossed, and its children count for the first counted ancestor.
+
+A `ConnectivityNode` may later be connected, through terminals and conducting equipment where appropriate, to an `ACLineSegment` or other components of the electrical network. IEC CIM distinguishes the physical asset view from the connectivity view: `Cabinet` plays the role of the container (`EquipmentContainer`) and `ConnectivityNode` the one of the connectivity node; the links are a useful NGSI-LD simplification, not the complete CIM model.
 
 ## Model Alignment
 
@@ -93,9 +101,9 @@ Spaces are attached to storeys via `isPartOf`, not directly to the building, so 
 
 `Building.location` is the footprint of the building and `Space.location` the outline of a space (GeoProperty, Polygon, WGS84 coordinates, e.g. from a georeferenced plan). `Storey.elevation` (height of the floor above the ground floor, m) and `Storey.height` (floor to ceiling height, m) stack the storeys. Together they let the dashboard draw the spaces on a map and on a pseudo-3D model; a space without a usable outline is not drawn.
 
-### Electrical network
+### Utility network
 
-`ElectricalCabinet.isFedBy` points to a `DeliveryPoint`, or to a `ConnectivityNode` (output) of an upstream cabinet for a division board. The same goes for `DeliveryPoint.controlledAsset` (a `Building`, or a `Site`): the form accepts every allowed target (`listOfAllowedRelationships`), while the graph of the blueprint only draws the main one (`targetTemplateObjectId`: the delivery point for `isFedBy`, the building for `controlledAsset`). An output carries a `serviceDomain` (`heatingCooling`, `ventilation`, `lighting`, `water`, `plugs`, `business`, `production`), so that a cabinet can group outputs of several uses, and the `index` or `consumption` of its sub-meter when it is sub-metered (see below).
+`ConnectivityNode.isFedBy` points to a `DeliveryPoint` or to the upstream `ConnectivityNode`. `ConnectivityNode.isPartOf` (a `Cabinet`) is optional, as is the `phaseCode` (electricity only). `ConnectivityNode.controlledAsset` is what the node feeds (a `Space`, a `Building` or a `Site`), like `DeliveryPoint.controlledAsset` (a `Building`, or a `Site`): the form accepts every allowed target (`listOfAllowedRelationships`), while the graph of the blueprint only draws the main one (`targetTemplateObjectId`: the delivery point for `isFedBy`, the space for the node's `controlledAsset`, the building for the delivery point's one). A node carries a `fluidType` (`electricity`, `gas`, `water`, `heat`), a `serviceDomain` (`heatingCooling`, `ventilation`, `lighting`, `water`, `plugs`, `business`, `production`), a `communicationStatus` (`communicating`, `interrupted`) and the `index` or `consumption` of its meter when it is counted (see below). `Cabinet` replaces the former `ElectricalCabinet`, which carried an `isFedBy` and was electricity only.
 
 ### Usage
 
@@ -109,7 +117,7 @@ Spaces are attached to storeys via `isPartOf`, not directly to the building, so 
 
 ### Measures of the meters
 
-`DeliveryPoint` and `ConnectivityNode` (sub-meter) report their readings in one of these multi-attributes, the unit being the `unitCode` of each reading (e.g. `KWH`, `WHR`, `LTR`):
+`DeliveryPoint` and `ConnectivityNode` (meter) report their readings in one of these multi-attributes, the unit being the `unitCode` of each reading (e.g. `KWH`, `WHR`, `LTR`):
 
 | Attribute     | On                                  | Meaning                                                                                                                                     |
 | ------------- | ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -167,8 +175,8 @@ IEC CIM is the main reference for the electricity-network model. SAREF is used t
 | Space              | Espace, pièce ou local rattaché à un ou plusieurs niveaux.                                                                    |
 | Usage              | Usage d’un bâtiment, choisi parmi une liste d’usages généraux (nom), avec des seuils de détection optionnels.                 |
 | DeliveryPoint      | Point de livraison d’eau, de gaz ou d’électricité, avec ses relevés (index, consommations par période, puissances maximales). |
-| ElectricalCabinet  | Armoire électrique située dans un espace et alimentée par un point de livraison ou une autre armoire.                         |
-| ConnectivityNode   | Sortie électrique d’une armoire, caractérisée par son phasage et l’usage mesuré, avec ses relevés si elle est sous-comptée.   |
+| Cabinet            | Armoire ou coffret (électrique, eau, gaz…) situé dans un espace, qui localise les points de connexion qu’il contient.          |
+| ConnectivityNode   | Point de connexion d’un réseau (entrée ou sortie d’armoire, compteur virtuel), alimenté par un point de livraison ou un autre point, avec ses relevés s’il est compté. |
 | WeeklySchedule     | Planning hebdomadaire (créneaux par jours de la semaine), utilisé pour les horaires d’ouverture.                              |
 | WeatherInformation | Station météo fournissant la température extérieure (DJU, chronologies), alimentée hors formulaires.                          |
 
@@ -178,10 +186,11 @@ Building → Usage : un bâtiment hasUsage un ou plusieurs usages.
 Storey → Building : un niveau isPartOf un bâtiment.
 Space → Storey : un espace isPartOf un ou plusieurs niveaux.
 DeliveryPoint → Site ou Building : un point de livraison a pour controlledAsset le site ou le bâtiment dont il mesure la consommation.
-ElectricalCabinet → DeliveryPoint ou ConnectivityNode : une armoire isFedBy un point de livraison ou une sortie électrique d’une armoire amont.
-ElectricalCabinet → Space : une armoire isPartOf l’espace dans lequel elle est installée.
-ConnectivityNode → ElectricalCabinet : une sortie électrique isPartOf une armoire.
+ConnectivityNode → DeliveryPoint ou ConnectivityNode : un point de connexion isFedBy le point de livraison ou le point de connexion amont qui l’alimente (l’entrée d’une armoire aval est alimentée par une sortie de l’armoire amont).
+ConnectivityNode → Cabinet : un point de connexion isPartOf l’armoire qui le contient (facultatif : absent pour un compteur virtuel).
+ConnectivityNode → Space, Building ou Site : un point de connexion a pour controlledAsset ce qu’il alimente.
+Cabinet → Space : une armoire isPartOf l’espace dans lequel elle est installée.
 Building → WeeklySchedule, Space → WeeklySchedule : hasSchedule, les horaires d’ouverture (un bâtiment est ouvert dès qu’un de ses espaces l’est).
 Building → WeatherInformation : un bâtiment hasWeatherInformation la station météo qui lui sert de référence.
 
-La structure générale est donc : Site → Bâtiment → Niveau → Espace → Armoire électrique → Sortie électrique, avec en parallèle les usages et les points de livraison énergétique
+La structure générale est donc : Site → Bâtiment → Niveau → Espace → Armoire → Point de connexion, avec en parallèle les usages et les points de livraison énergétique

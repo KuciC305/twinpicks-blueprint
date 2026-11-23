@@ -4,7 +4,7 @@ import { StoreyTemplate } from './storey';
 import { SpaceTemplate } from './space';
 import { UsageTemplate } from './usage';
 import { DeliveryPointTemplate } from './deliveryPoint';
-import { ElectricalCabinetTemplate } from './electricalCabinet';
+import { CabinetTemplate } from './cabinet';
 import { ConnectivityNodeTemplate } from './connectivityNode';
 import { WeatherInformationTemplate } from './weatherInformation';
 import { WeeklyScheduleTemplate } from './weeklySchedule';
@@ -18,7 +18,7 @@ const blueprint = [
     SpaceTemplate,
     UsageTemplate,
     DeliveryPointTemplate,
-    ElectricalCabinetTemplate,
+    CabinetTemplate,
     ConnectivityNodeTemplate,
     WeatherInformationTemplate,
     WeeklyScheduleTemplate,
