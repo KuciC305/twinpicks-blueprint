@@ -232,7 +232,7 @@
         },
         "startDate": {
             "type": "Property",
-            "value": "2026-11-02T09:54:59.419Z",
+            "value": "2026-11-20T15:15:31.148Z",
             "jsonSchema": {
                 "type": "Property",
                 "value": {
@@ -245,7 +245,7 @@
         },
         "endDate": {
             "type": "Property",
-            "value": "2026-11-02T09:54:59.419Z",
+            "value": "2026-11-20T15:15:31.148Z",
             "jsonSchema": {
                 "type": "Property",
                 "value": {
@@ -284,21 +284,6 @@
                 }
             }
         },
-        "estimatedSavingPercent": {
-            "type": "Property",
-            "value": 0,
-            "unitCode": "P1",
-            "jsonSchema": {
-                "type": "Property",
-                "value": {
-                    "schemaType": "integer",
-                    "minimum": 0,
-                    "maximum": 100,
-                    "title": "Économie estimée (% de la consommation du bâtiment)",
-                    "order": 18
-                }
-            }
-        },
         "jsonSchema": {
             "type": "Property",
             "value": {
@@ -327,7 +312,7 @@
                     "friendlyAttributeName": "Nom",
                     "schemaType": "string",
                     "title": "Nom de l'objectif",
-                    "order": 19
+                    "order": 18
                 }
             }
         },
@@ -339,7 +324,7 @@
                 "value": {
                     "schemaType": "relationship",
                     "title": "Bâtiment concerné",
-                    "order": 20
+                    "order": 19
                 }
             }
         },
@@ -355,7 +340,7 @@
                         "tertiaryDecree"
                     ],
                     "title": "Origine de l'objectif",
-                    "order": 21
+                    "order": 20
                 }
             }
         },
@@ -369,7 +354,7 @@
                     "minimum": 2010,
                     "maximum": 2100,
                     "title": "Année de référence",
-                    "order": 22
+                    "order": 21
                 }
             }
         },
@@ -383,7 +368,7 @@
                     "minimum": 2010,
                     "maximum": 2100,
                     "title": "Année cible",
-                    "order": 23
+                    "order": 22
                 }
             }
         },
@@ -398,7 +383,7 @@
                     "minimum": 0,
                     "maximum": 100,
                     "title": "Réduction visée par rapport à l'année de référence (%)",
-                    "order": 24
+                    "order": 23
                 }
             }
         },
@@ -411,7 +396,7 @@
                     "schemaType": "integer",
                     "minimum": 0,
                     "title": "Objectif en valeur absolue (kWh/m²/an)",
-                    "order": 25
+                    "order": 24
                 }
             }
         },
@@ -423,7 +408,7 @@
                 "value": {
                     "schemaType": "boolean",
                     "title": "Comparer à la consommation corrigée du climat (DJU)",
-                    "order": 26
+                    "order": 25
                 }
             }
         },

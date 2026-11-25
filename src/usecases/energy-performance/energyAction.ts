@@ -80,12 +80,6 @@ export const EnergyActionTemplate: StellioTemplate = {
     estimatedSaving: {
         ...getNumericProp({ title: 'Économie estimée (kWh/an)', minimum: 0 }, 'KWH'),
     },
-    estimatedSavingPercent: {
-        ...getNumericProp(
-            { title: 'Économie estimée (% de la consommation du bâtiment)', minimum: 0, maximum: 100 },
-            'P1'
-        ),
-    },
     jsonSchema: {
         type: 'Property',
         value: {
