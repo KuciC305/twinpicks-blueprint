@@ -15,7 +15,7 @@
         "irrigationUpdate:all": "npx tsc && node --env-file=.env ./dist/utils/updateUseCaseConfig.js --directoryName=smart-irrigation --useCaseConfigId=urn:ngsi-ld:UseCaseConfig:SmartIrrigation --realms=stellio-dev,egm-showcase,carf",
         "eaee": "npx tsc && cd ./dist/usecases/eaee && node index.js && cd ../../..",
         "urbaquantum": "npx tsc && cd ./dist/usecases/water-management-urbaquantum && node index.js && cd ../../..",
-        "urbaquantumUpdate": "npx tsc && node --env-file=.env ./dist/utils/updateUseCaseConfig.js --directoryName=water-management-urbaquantum --realms=urbaquantum",
+        "urbaquantumUpdate": "npx tsc && node --env-file=.env ./dist/utils/updateUseCaseConfig.js --directoryName=water-management-urbaquantum --useCaseConfigId=urn:ngsi-ld:UseCaseConfig:WaterManagement:Urbaquantum:UK --realms=urbaquantum",
         "marclaimed": "npx tsc && cd ./dist/usecases/water-management-marclaimed && node index.js && cd ../../..",
         "stl": "npx tsc && cd ./dist/usecases/street-lighting && node index.js && cd ../../..",
         "stlUpdate:all": "npx tsc && node --env-file=.env ./dist/utils/updateUseCaseConfig.js --directoryName=street-lighting --realms=stellio-dev,egm-showcase",

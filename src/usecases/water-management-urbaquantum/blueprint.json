@@ -36,8 +36,8 @@
                 "type": "Property",
                 "value": {
                     "schemaType": "object",
-                    "title": "Geographical location of the river",
-                    "order": 3
+                    "order": 3,
+                    "title": "Geographical location of the river"
                 }
             }
         },
@@ -47,7 +47,7 @@
             "jsonSchema": {
                 "type": "Property",
                 "value": {
-                    "schemaType": "string",
+                    "schemaType": "relationship",
                     "title": "River basin of the river",
                     "order": 4
                 }
@@ -219,8 +219,8 @@
                 "type": "Property",
                 "value": {
                     "schemaType": "object",
-                    "title": "Geographical location of the river basin",
-                    "order": 12
+                    "order": 12,
+                    "title": "Geographical location of the river basin"
                 }
             }
         },
@@ -234,8 +234,8 @@
                 "type": "Property",
                 "value": {
                     "schemaType": "object",
-                    "title": "Outlet of the river basin",
-                    "order": 13
+                    "order": 13,
+                    "title": "Outlet of the river basin"
                 }
             }
         },
@@ -278,8 +278,8 @@
                 "type": "Property",
                 "value": {
                     "schemaType": "object",
-                    "title": "Geographical representation of the combined sewer",
-                    "order": 15
+                    "order": 15,
+                    "title": "Geographical representation of the combined sewer"
                 }
             }
         },
@@ -391,8 +391,8 @@
                 "type": "Property",
                 "value": {
                     "schemaType": "object",
-                    "title": "Location of the water treatment plant",
-                    "order": 20
+                    "order": 20,
+                    "title": "Location of the water treatment plant"
                 }
             }
         },
@@ -402,7 +402,7 @@
             "jsonSchema": {
                 "type": "Property",
                 "value": {
-                    "schemaType": "string",
+                    "schemaType": "relationship",
                     "title": "Discharges to the water treatment plant",
                     "order": 21
                 }
@@ -447,8 +447,8 @@
                 "type": "Property",
                 "value": {
                     "schemaType": "object",
-                    "title": "Location of the storm tank",
-                    "order": 23
+                    "order": 23,
+                    "title": "Location of the storm tank"
                 }
             }
         },
@@ -491,8 +491,8 @@
                 "type": "Property",
                 "value": {
                     "schemaType": "object",
-                    "title": "Location of the control point",
-                    "order": 25
+                    "order": 25,
+                    "title": "Location of the control point"
                 }
             }
         },
@@ -649,8 +649,8 @@
                 "type": "Property",
                 "value": {
                     "schemaType": "object",
-                    "title": "Location of the sampling point",
-                    "order": 35
+                    "order": 35,
+                    "title": "Location of the sampling point"
                 }
             }
         },
@@ -715,6 +715,50 @@
                 ],
                 "description": "Digital twin of a sampling point",
                 "minimum": 0
+            }
+        }
+    },
+    {
+        "id": "urn:ngsi-ld:WeatherInformation:Template",
+        "type": "Template",
+        "name": {
+            "type": "Property",
+            "value": "Nom de la station",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "friendlyAttributeName": "Nom",
+                    "schemaType": "string",
+                    "title": "Nom de la station",
+                    "order": 39
+                }
+            }
+        },
+        "location": {
+            "type": "GeoProperty",
+            "value": {
+                "type": "Point",
+                "coordinates": []
+            },
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "object",
+                    "order": 40,
+                    "title": "Position de la station"
+                }
+            }
+        },
+        "jsonSchema": {
+            "type": "Property",
+            "value": {
+                "schemaType": "WeatherInformation",
+                "title": "Station météo",
+                "required": [
+                    "name"
+                ],
+                "minimum": 0,
+                "description": "Regroupe les informations météorologiques, pluviomètriques, etc."
             }
         }
     }

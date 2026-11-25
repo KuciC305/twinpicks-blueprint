@@ -7,6 +7,7 @@ import { WaterTreatmentPlantTemplate } from './waterTreatmentPlant';
 import { StormTankTemplate } from './stormTank';
 import { ControlPointTemplate } from './controlPoint';
 import { SamplingPointTemplate } from './samplingPoint';
+import { WeatherInformationTemplate } from './weatherInformation';
 
 const blueprint = [
     RiverTemplate,
@@ -16,6 +17,7 @@ const blueprint = [
     StormTankTemplate,
     ControlPointTemplate,
     SamplingPointTemplate,
+    WeatherInformationTemplate,
 ];
 
 const usecasePathName = __dirname.split(/dist[\\/]/)[1];
