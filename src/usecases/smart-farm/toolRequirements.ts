@@ -19,7 +19,7 @@ export const ToolRequirementsTemplate: StellioTemplate = {
         ...getMultiRelationshipProp({
             formLabel: 'What crops can the operation be performed on?',
             formLabelPerItem: 'Select a crop',
-            targetTemplateObjectId: 'urn:ngsi-ld:Crop:Template',
+            listOfAllowedRelationships: ['urn:ngsi-ld:Crop:Template'],
             minimum: 1,
         }),
     },

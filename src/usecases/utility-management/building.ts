@@ -38,7 +38,7 @@ export const BuildingTemplate: StellioTemplate = {
         ...getMultiRelationshipProp({
             formLabel: 'Usages du bâtiment',
             formLabelPerItem: 'Sélectionner un usage',
-            targetTemplateObjectId: 'urn:ngsi-ld:Usage:Template',
+            listOfAllowedRelationships: ['urn:ngsi-ld:Usage:Template'],
             minimum: 0,
         }),
     },
@@ -46,7 +46,7 @@ export const BuildingTemplate: StellioTemplate = {
         ...getMultiRelationshipProp({
             formLabel: 'Points de livraison',
             formLabelPerItem: 'Sélectionner un point de livraison',
-            targetTemplateObjectId: 'urn:ngsi-ld:DeliveryPoint:Template',
+            listOfAllowedRelationships: ['urn:ngsi-ld:DeliveryPoint:Template'],
             minimum: 0,
         }),
     },

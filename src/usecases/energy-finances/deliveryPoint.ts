@@ -46,7 +46,7 @@ export const DeliveryPointTemplate: StellioTemplate = {
         ...getMultiRelationshipProp({
             formLabel: 'Contrats de fourniture',
             formLabelPerItem: 'Sélectionner un contrat',
-            targetTemplateObjectId: 'urn:ngsi-ld:Contract:Template',
+            listOfAllowedRelationships: ['urn:ngsi-ld:Contract:Template'],
             minimum: 0,
         }),
     },

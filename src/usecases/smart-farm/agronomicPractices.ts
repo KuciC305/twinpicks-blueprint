@@ -62,7 +62,7 @@ export const AgronomicPracticesTemplate: StellioTemplate = {
         ...getMultiRelationshipProp({
             formLabel: 'What operation were donne in this area ?',
             formLabelPerItem: 'Select a operation',
-            targetTemplateObjectId: 'urn:ngsi-ld:Operation:Template',
+            listOfAllowedRelationships: ['urn:ngsi-ld:Operation:Template'],
             minimum: 1,
         }),
     },

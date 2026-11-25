@@ -13,7 +13,7 @@ export const OrganizationTemplate: StellioTemplate = {
     roles: {
         ...getEnumProp({
             title: 'Rôles',
-            enum: ['supplier', 'distributor', 'client', 'buyer'],
+            enum: ['supplier', 'distributor', 'client', 'buyer', 'rebillingCustomer'],
             allowMultiple: true,
         }),
     },
@@ -30,7 +30,7 @@ export const OrganizationTemplate: StellioTemplate = {
             title: 'Organisation',
             required: ['name', 'roles'],
             description:
-                'Fournisseur, distributeur, client ou acheteur (groupement de commandes). Une même organisation peut avoir plusieurs rôles.',
+                'Fournisseur, distributeur, client, acheteur (groupement de commandes) ou client refacturé. Une même organisation peut avoir plusieurs rôles.',
             minimum: 0,
         },
     },

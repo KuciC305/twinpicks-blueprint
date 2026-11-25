@@ -30,35 +30,35 @@ export const RiverTemplate: StellioTemplate = {
         ...getMultiRelationshipProp({
             formLabel: 'List of input rivers',
             formLabelPerItem: 'Select an input river',
-            targetTemplateObjectId: 'urn:ngsi-ld:River:Template',
+            listOfAllowedRelationships: ['urn:ngsi-ld:River:Template'],
         }),
     },
     flowsTo: {
         ...getMultiRelationshipProp({
             formLabel: 'List of output rivers',
             formLabelPerItem: 'Select an output river',
-            targetTemplateObjectId: 'urn:ngsi-ld:River:Template',
+            listOfAllowedRelationships: ['urn:ngsi-ld:River:Template'],
         }),
     },
     hasStormTank: {
         ...getMultiRelationshipProp({
             formLabel: 'List of Storm tanks of the river',
             formLabelPerItem: 'Storm tank',
-            targetTemplateObjectId: 'urn:ngsi-ld:StormTank:Template',
+            listOfAllowedRelationships: ['urn:ngsi-ld:StormTank:Template'],
         }),
     },
     refControlPoint: {
         ...getMultiRelationshipProp({
             formLabel: 'List of control points',
             formLabelPerItem: 'Select a control point',
-            targetTemplateObjectId: 'urn:ngsi-ld:ControlPoint:Template',
+            listOfAllowedRelationships: ['urn:ngsi-ld:ControlPoint:Template'],
         }),
     },
     refSamplingPoint: {
         ...getMultiRelationshipProp({
             formLabel: 'List of sampling points',
             formLabelPerItem: 'Select a sampling point',
-            targetTemplateObjectId: 'urn:ngsi-ld:SamplingPoint:Template',
+            listOfAllowedRelationships: ['urn:ngsi-ld:SamplingPoint:Template'],
         }),
     },
     jsonSchema: {

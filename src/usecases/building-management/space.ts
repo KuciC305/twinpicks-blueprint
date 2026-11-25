@@ -64,7 +64,7 @@ export const SpaceTemplate: StellioTemplate = {
         ...getMultiRelationshipProp({
             formLabel: "Niveaux de l'espace",
             formLabelPerItem: 'Choisir un niveau',
-            targetTemplateObjectId: 'urn:ngsi-ld:Storey:Template',
+            listOfAllowedRelationships: ['urn:ngsi-ld:Storey:Template'],
         }),
     },
     jsonSchema: {

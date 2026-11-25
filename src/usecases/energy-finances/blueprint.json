@@ -26,7 +26,8 @@
                         "supplier",
                         "distributor",
                         "client",
-                        "buyer"
+                        "buyer",
+                        "rebillingCustomer"
                     ],
                     "title": "Rôles",
                     "order": 2,
@@ -69,7 +70,7 @@
                     "name",
                     "roles"
                 ],
-                "description": "Fournisseur, distributeur, client ou acheteur (groupement de commandes). Une même organisation peut avoir plusieurs rôles.",
+                "description": "Fournisseur, distributeur, client, acheteur (groupement de commandes) ou client refacturé. Une même organisation peut avoir plusieurs rôles.",
                 "minimum": 0
             }
         }
@@ -246,7 +247,7 @@
         },
         "startDate": {
             "type": "Property",
-            "value": "2026-10-19T13:22:22.768Z",
+            "value": "2026-11-24T15:01:38.672Z",
             "jsonSchema": {
                 "type": "Property",
                 "value": {
@@ -259,7 +260,7 @@
         },
         "endDate": {
             "type": "Property",
-            "value": "2026-10-19T13:22:22.768Z",
+            "value": "2026-11-24T15:01:38.672Z",
             "jsonSchema": {
                 "type": "Property",
                 "value": {
@@ -342,7 +343,7 @@
         },
         "startDate": {
             "type": "Property",
-            "value": "2026-10-19T13:22:22.768Z",
+            "value": "2026-11-24T15:01:38.673Z",
             "jsonSchema": {
                 "type": "Property",
                 "value": {
@@ -355,7 +356,7 @@
         },
         "endDate": {
             "type": "Property",
-            "value": "2026-10-19T13:22:22.768Z",
+            "value": "2026-11-24T15:01:38.673Z",
             "jsonSchema": {
                 "type": "Property",
                 "value": {
@@ -456,7 +457,7 @@
             },
             "validFrom": {
                 "type": "Property",
-                "value": "2026-10-19T13:22:22.768Z",
+                "value": "2026-11-24T15:01:38.673Z",
                 "jsonSchema": {
                     "type": "Property",
                     "value": {
@@ -469,7 +470,7 @@
             },
             "validTo": {
                 "type": "Property",
-                "value": "2026-10-19T13:22:22.768Z",
+                "value": "2026-11-24T15:01:38.673Z",
                 "jsonSchema": {
                     "type": "Property",
                     "value": {
@@ -709,7 +710,7 @@
         },
         "startDate": {
             "type": "Property",
-            "value": "2026-10-19T13:22:22.769Z",
+            "value": "2026-11-24T15:01:38.675Z",
             "jsonSchema": {
                 "type": "Property",
                 "value": {
@@ -722,7 +723,7 @@
         },
         "endDate": {
             "type": "Property",
-            "value": "2026-10-19T13:22:22.769Z",
+            "value": "2026-11-24T15:01:38.675Z",
             "jsonSchema": {
                 "type": "Property",
                 "value": {
@@ -833,7 +834,7 @@
         },
         "issueDate": {
             "type": "Property",
-            "value": "2026-10-19T13:22:22.769Z",
+            "value": "2026-11-24T15:01:38.676Z",
             "jsonSchema": {
                 "type": "Property",
                 "value": {
@@ -846,7 +847,7 @@
         },
         "dueDate": {
             "type": "Property",
-            "value": "2026-10-19T13:22:22.769Z",
+            "value": "2026-11-24T15:01:38.676Z",
             "jsonSchema": {
                 "type": "Property",
                 "value": {
@@ -908,18 +909,6 @@
                 }
             }
         },
-        "marketReference": {
-            "type": "Property",
-            "value": "Référence du marché indiquée sur la facture",
-            "jsonSchema": {
-                "type": "Property",
-                "value": {
-                    "schemaType": "string",
-                    "title": "Référence du marché indiquée sur la facture",
-                    "order": 58
-                }
-            }
-        },
         "supplier": {
             "type": "Relationship",
             "object": "urn:ngsi-ld:Organization:Template",
@@ -928,7 +917,7 @@
                 "value": {
                     "schemaType": "relationship",
                     "title": "Fournisseur",
-                    "order": 59
+                    "order": 58
                 }
             }
         },
@@ -940,7 +929,7 @@
                 "value": {
                     "schemaType": "relationship",
                     "title": "Compte de facturation",
-                    "order": 60
+                    "order": 59
                 }
             }
         },
@@ -974,32 +963,32 @@
                     "friendlyAttributeName": "Nom",
                     "schemaType": "string",
                     "title": "Nom du détail de facture",
-                    "order": 61
+                    "order": 60
                 }
             }
         },
         "startDate": {
             "type": "Property",
-            "value": "2026-10-19T13:22:22.770Z",
+            "value": "2026-11-24T15:01:38.677Z",
             "jsonSchema": {
                 "type": "Property",
                 "value": {
                     "schemaType": "date",
                     "title": "Début de la période facturée",
-                    "order": 62,
+                    "order": 61,
                     "dateMode": "date"
                 }
             }
         },
         "endDate": {
             "type": "Property",
-            "value": "2026-10-19T13:22:22.770Z",
+            "value": "2026-11-24T15:01:38.677Z",
             "jsonSchema": {
                 "type": "Property",
                 "value": {
                     "schemaType": "date",
                     "title": "Fin de la période facturée",
-                    "order": 63,
+                    "order": 62,
                     "dateMode": "date"
                 }
             }
@@ -1007,26 +996,26 @@
         "amount": {
             "startDate": {
                 "type": "Property",
-                "value": "2026-10-19T13:22:22.770Z",
+                "value": "2026-11-24T15:01:38.677Z",
                 "jsonSchema": {
                     "type": "Property",
                     "value": {
                         "schemaType": "date",
                         "title": "Début de période",
-                        "order": 65,
+                        "order": 64,
                         "dateMode": "date"
                     }
                 }
             },
             "endDate": {
                 "type": "Property",
-                "value": "2026-10-19T13:22:22.770Z",
+                "value": "2026-11-24T15:01:38.677Z",
                 "jsonSchema": {
                     "type": "Property",
                     "value": {
                         "schemaType": "date",
                         "title": "Fin de période",
-                        "order": 66,
+                        "order": 65,
                         "dateMode": "date"
                     }
                 }
@@ -1045,7 +1034,7 @@
                             "services"
                         ],
                         "title": "Bloc de facture",
-                        "order": 67
+                        "order": 66
                     }
                 }
             },
@@ -1057,7 +1046,7 @@
                     "value": {
                         "schemaType": "string",
                         "title": "Catégorie de ligne",
-                        "order": 68
+                        "order": 67
                     }
                 }
             },
@@ -1073,7 +1062,7 @@
                             "regularisation"
                         ],
                         "title": "Type d'ajustement",
-                        "order": 69
+                        "order": 68
                     }
                 }
             },
@@ -1085,7 +1074,7 @@
                     "value": {
                         "schemaType": "string",
                         "title": "Facture annulée",
-                        "order": 70
+                        "order": 69
                     }
                 }
             },
@@ -1097,7 +1086,7 @@
                     "value": {
                         "schemaType": "string",
                         "title": "Libellé fournisseur",
-                        "order": 71
+                        "order": 70
                     }
                 }
             },
@@ -1110,7 +1099,7 @@
                         "canSetUnitCode": true,
                         "schemaType": "number",
                         "title": "Quantité",
-                        "order": 72
+                        "order": 71
                     }
                 }
             },
@@ -1124,7 +1113,7 @@
                         "schemaType": "number",
                         "minimum": 0,
                         "title": "Prix unitaire HT",
-                        "order": 73
+                        "order": 72
                     }
                 }
             },
@@ -1138,7 +1127,7 @@
                         "minimum": 0,
                         "maximum": 100,
                         "title": "Taux de TVA (%)",
-                        "order": 74
+                        "order": 73
                     }
                 }
             },
@@ -1149,7 +1138,7 @@
                 "value": {
                     "schemaType": "array",
                     "title": "Lignes de facture (montants HT)",
-                    "order": 75,
+                    "order": 74,
                     "items": {
                         "type": "Property",
                         "value": 0,
@@ -1160,7 +1149,7 @@
                                 "canSetObservedAt": true,
                                 "schemaType": "number",
                                 "title": "Montant HT",
-                                "order": 64
+                                "order": 63
                             }
                         }
                     }
@@ -1170,26 +1159,26 @@
         "consumption": {
             "startDate": {
                 "type": "Property",
-                "value": "2026-10-19T13:22:22.770Z",
+                "value": "2026-11-24T15:01:38.677Z",
                 "jsonSchema": {
                     "type": "Property",
                     "value": {
                         "schemaType": "date",
                         "title": "Début de période",
-                        "order": 77,
+                        "order": 76,
                         "dateMode": "date"
                     }
                 }
             },
             "endDate": {
                 "type": "Property",
-                "value": "2026-10-19T13:22:22.770Z",
+                "value": "2026-11-24T15:01:38.677Z",
                 "jsonSchema": {
                     "type": "Property",
                     "value": {
                         "schemaType": "date",
                         "title": "Fin de période",
-                        "order": 78,
+                        "order": 77,
                         "dateMode": "date"
                     }
                 }
@@ -1208,7 +1197,7 @@
                             "services"
                         ],
                         "title": "Bloc de facture",
-                        "order": 79
+                        "order": 78
                     }
                 }
             },
@@ -1220,7 +1209,7 @@
                     "value": {
                         "schemaType": "string",
                         "title": "Catégorie de ligne",
-                        "order": 80
+                        "order": 79
                     }
                 }
             },
@@ -1236,7 +1225,7 @@
                             "regularisation"
                         ],
                         "title": "Type d'ajustement",
-                        "order": 81
+                        "order": 80
                     }
                 }
             },
@@ -1248,7 +1237,7 @@
                     "value": {
                         "schemaType": "string",
                         "title": "Facture annulée",
-                        "order": 82
+                        "order": 81
                     }
                 }
             },
@@ -1260,7 +1249,7 @@
                     "value": {
                         "schemaType": "string",
                         "title": "Libellé fournisseur",
-                        "order": 83
+                        "order": 82
                     }
                 }
             },
@@ -1276,7 +1265,7 @@
                             "estimated"
                         ],
                         "title": "Type de relevé",
-                        "order": 84
+                        "order": 83
                     }
                 }
             },
@@ -1287,7 +1276,7 @@
                 "value": {
                     "schemaType": "array",
                     "title": "Consommations facturées",
-                    "order": 85,
+                    "order": 84,
                     "items": {
                         "type": "Property",
                         "value": 0,
@@ -1298,7 +1287,7 @@
                                 "canSetUnitCode": true,
                                 "schemaType": "number",
                                 "title": "Consommation",
-                                "order": 76
+                                "order": 75
                             }
                         }
                     }
@@ -1319,7 +1308,7 @@
                         "rejected"
                     ],
                     "title": "Statut de contrôle",
-                    "order": 86
+                    "order": 85
                 }
             },
             "reviewerId": {
@@ -1330,7 +1319,7 @@
                     "value": {
                         "schemaType": "string",
                         "title": "Identifiant du contrôleur (Keycloak)",
-                        "order": 87
+                        "order": 86
                     }
                 }
             },
@@ -1342,7 +1331,7 @@
                     "value": {
                         "schemaType": "string",
                         "title": "Nom du contrôleur",
-                        "order": 88
+                        "order": 87
                     }
                 }
             },
@@ -1354,7 +1343,7 @@
                     "value": {
                         "schemaType": "string",
                         "title": "Commentaire de contrôle (obligatoire en cas de rejet)",
-                        "order": 89
+                        "order": 88
                     }
                 }
             }
@@ -1367,7 +1356,7 @@
                 "value": {
                     "schemaType": "relationship",
                     "title": "Facture",
-                    "order": 90
+                    "order": 89
                 }
             }
         },
@@ -1379,7 +1368,7 @@
                 "value": {
                     "schemaType": "relationship",
                     "title": "Point de livraison",
-                    "order": 91
+                    "order": 90
                 }
             }
         },
@@ -1391,7 +1380,7 @@
                 "value": {
                     "schemaType": "relationship",
                     "title": "Contrat de fourniture",
-                    "order": 92
+                    "order": 91
                 }
             }
         },
@@ -1403,7 +1392,7 @@
                 "value": {
                     "schemaType": "relationship",
                     "title": "Facture corrigée (avoir)",
-                    "order": 93
+                    "order": 92
                 }
             },
             "correctionType": {
@@ -1418,7 +1407,7 @@
                             "partialCorrection"
                         ],
                         "title": "Type de correction",
-                        "order": 94
+                        "order": 93
                     }
                 }
             }
@@ -1436,6 +1425,328 @@
                     "endDate"
                 ],
                 "description": "Partie d'une facture qui concerne un point de livraison : période, lignes de montants et de consommations, statut de contrôle.",
+                "minimum": 0
+            }
+        }
+    },
+    {
+        "id": "urn:ngsi-ld:RebillingContract:Template",
+        "type": "Template",
+        "name": {
+            "type": "Property",
+            "value": "Nom du contrat",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "friendlyAttributeName": "Nom",
+                    "schemaType": "string",
+                    "title": "Nom du contrat",
+                    "order": 94
+                }
+            }
+        },
+        "reference": {
+            "type": "Property",
+            "value": "Référence du contrat",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "friendlyAttributeName": "Référence",
+                    "schemaType": "string",
+                    "title": "Référence du contrat",
+                    "order": 95
+                }
+            }
+        },
+        "customer": {
+            "type": "Relationship",
+            "object": "urn:ngsi-ld",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "relationship",
+                    "title": "Refacturé à",
+                    "order": 96,
+                    "listOfAllowedRelationships": [
+                        "urn:ngsi-ld:Organization:Template",
+                        "urn:ngsi-ld:Person:Template"
+                    ]
+                }
+            }
+        },
+        "startDate": {
+            "type": "Property",
+            "value": "2026-11-24T15:01:38.679Z",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "date",
+                    "title": "Date de début du contrat",
+                    "order": 97,
+                    "dateMode": "date"
+                }
+            }
+        },
+        "endDate": {
+            "type": "Property",
+            "value": "2026-11-24T15:01:38.679Z",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "date",
+                    "title": "Date de fin du contrat",
+                    "order": 98,
+                    "dateMode": "date"
+                }
+            }
+        },
+        "billingPeriodicity": {
+            "type": "Property",
+            "value": "monthly",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "enum",
+                    "enum": [
+                        "monthly",
+                        "quarterly",
+                        "yearly"
+                    ],
+                    "title": "Périodicité de facturation",
+                    "order": 99
+                }
+            }
+        },
+        "status": {
+            "type": "Property",
+            "value": "active",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "enum",
+                    "enum": [
+                        "active",
+                        "archived"
+                    ],
+                    "title": "Statut",
+                    "order": 100
+                }
+            }
+        },
+        "volumeSource": {
+            "product": {
+                "type": "Property",
+                "value": "electricity",
+                "jsonSchema": {
+                    "type": "Property",
+                    "value": {
+                        "schemaType": "enum",
+                        "enum": [
+                            "electricity",
+                            "gas",
+                            "water",
+                            "heat"
+                        ],
+                        "title": "Produit",
+                        "order": 101
+                    }
+                }
+            },
+            "measureType": {
+                "type": "Property",
+                "value": "index",
+                "jsonSchema": {
+                    "type": "Property",
+                    "value": {
+                        "schemaType": "enum",
+                        "enum": [
+                            "index",
+                            "consumption"
+                        ],
+                        "title": "Mesure lue",
+                        "order": 102
+                    }
+                }
+            },
+            "referenceSource": {
+                "type": "Property",
+                "value": "Source de référence",
+                "jsonSchema": {
+                    "type": "Property",
+                    "value": {
+                        "description": "Code de la source sur laquelle facturer quand plusieurs systèmes mesurent le point (ex. SubMeter, GTC). Vide : une seule source.",
+                        "schemaType": "string",
+                        "title": "Source de référence",
+                        "order": 103
+                    }
+                }
+            },
+            "validFrom": {
+                "type": "Property",
+                "value": "2026-11-24T15:01:38.679Z",
+                "jsonSchema": {
+                    "type": "Property",
+                    "value": {
+                        "schemaType": "date",
+                        "title": "Refacturé à partir du",
+                        "order": 104,
+                        "dateMode": "date"
+                    }
+                }
+            },
+            "validTo": {
+                "type": "Property",
+                "value": "2026-11-24T15:01:38.679Z",
+                "jsonSchema": {
+                    "type": "Property",
+                    "value": {
+                        "schemaType": "date",
+                        "title": "Refacturé jusqu'au",
+                        "order": 105,
+                        "dateMode": "date"
+                    }
+                }
+            },
+            "type": "Relationship",
+            "object": "urn:ngsi-ld:ConnectivityNode:Template",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "array",
+                    "order": 106,
+                    "title": "Produits refacturés et compteurs",
+                    "minimum": 1,
+                    "items": {
+                        "type": "Relationship",
+                        "object": "urn:ngsi-ld:ConnectivityNode:Template",
+                        "jsonSchema": {
+                            "type": "Property",
+                            "value": {
+                                "schemaType": "relationship",
+                                "title": "Sélectionner le point compté (ou le point de livraison)",
+                                "listOfAllowedRelationships": [
+                                    "urn:ngsi-ld:ConnectivityNode:Template",
+                                    "urn:ngsi-ld:DeliveryPoint:Template"
+                                ],
+                                "canSearchAllUseCases": true
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "unitPrice": {
+            "product": {
+                "type": "Property",
+                "value": "electricity",
+                "jsonSchema": {
+                    "type": "Property",
+                    "value": {
+                        "schemaType": "enum",
+                        "enum": [
+                            "electricity",
+                            "gas",
+                            "water",
+                            "heat"
+                        ],
+                        "title": "Produit",
+                        "order": 108
+                    }
+                }
+            },
+            "validFrom": {
+                "type": "Property",
+                "value": "2026-11-24T15:01:38.679Z",
+                "jsonSchema": {
+                    "type": "Property",
+                    "value": {
+                        "schemaType": "date",
+                        "title": "Valable à partir du",
+                        "order": 109,
+                        "dateMode": "date"
+                    }
+                }
+            },
+            "type": "Property",
+            "value": "placeholder",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "array",
+                    "title": "Tarifs unitaires HT (historique)",
+                    "order": 110,
+                    "items": {
+                        "type": "Property",
+                        "value": 0,
+                        "unitCode": "EUR",
+                        "jsonSchema": {
+                            "type": "Property",
+                            "value": {
+                                "schemaType": "integer",
+                                "minimum": 0,
+                                "title": "Prix HT par kWh ou m³",
+                                "order": 107
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "description": {
+            "type": "Property",
+            "value": "Description",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "string",
+                    "title": "Description",
+                    "order": 111
+                }
+            }
+        },
+        "jsonSchema": {
+            "type": "Property",
+            "value": {
+                "schemaType": "RebillingContract",
+                "title": "Contrat de refacturation",
+                "required": [
+                    "name",
+                    "customer",
+                    "startDate",
+                    "billingPeriodicity",
+                    "status",
+                    "volumeSource"
+                ],
+                "description": "Refacturation à un tiers d'une partie des consommations (électricité, eau…) mesurées par un sous-compteur.",
+                "minimum": 0
+            }
+        }
+    },
+    {
+        "id": "urn:ngsi-ld:Person:Template",
+        "type": "Template",
+        "name": {
+            "type": "Property",
+            "value": "Nom",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "friendlyAttributeName": "Nom",
+                    "schemaType": "string",
+                    "title": "Nom",
+                    "order": 112
+                }
+            }
+        },
+        "jsonSchema": {
+            "type": "Property",
+            "value": {
+                "schemaType": "Person",
+                "title": "Personne",
+                "required": [
+                    "name"
+                ],
+                "description": "Personne physique à qui des consommations sont refacturées.",
                 "minimum": 0
             }
         }

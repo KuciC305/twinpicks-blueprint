@@ -162,7 +162,7 @@ export const ActionTemplate: StellioTemplate = {
         ...getMultiRelationshipProp({
             formLabel: "Espèces liées à l'action",
             formLabelPerItem: 'Sélectionner une espèce',
-            targetTemplateObjectId: 'urn:ngsi-ld:Species:Template',
+            listOfAllowedRelationships: ['urn:ngsi-ld:Species:Template'],
         }),
         classification: getClassificationJsonProp(Structures.especesCibles),
         displayName: getDisplayNameProp("Espèces liées à l'action"),

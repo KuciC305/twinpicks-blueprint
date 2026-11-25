@@ -44,7 +44,7 @@ export const BuildingTemplate: StellioTemplate = {
         ...getMultiRelationshipProp({
             formLabel: 'Utilisation du bâtiment',
             formLabelPerItem: "Choisir un type d'usage",
-            targetTemplateObjectId: 'urn:ngsi-ld:Usage:Template',
+            listOfAllowedRelationships: ['urn:ngsi-ld:Usage:Template'],
         }),
     },
     isPartOf: {
