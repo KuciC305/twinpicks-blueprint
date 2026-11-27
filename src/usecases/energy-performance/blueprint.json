@@ -1,5 +1,58 @@
 [
     {
+        "id": "urn:ngsi-ld:Site:Template",
+        "type": "Template",
+        "name": {
+            "type": "Property",
+            "value": "Nom du site",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "friendlyAttributeName": "Nom",
+                    "schemaType": "string",
+                    "title": "Nom du site",
+                    "order": 1
+                }
+            }
+        },
+        "postalAddress": {
+            "postalCode": {
+                "type": "Property",
+                "value": "Code postal",
+                "jsonSchema": {
+                    "type": "Property",
+                    "value": {
+                        "schemaType": "string",
+                        "title": "Code postal",
+                        "order": 2
+                    }
+                }
+            },
+            "type": "Property",
+            "value": "Adresse postale",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "string",
+                    "title": "Adresse postale",
+                    "order": 3
+                }
+            }
+        },
+        "jsonSchema": {
+            "type": "Property",
+            "value": {
+                "schemaType": "Site",
+                "title": "Site",
+                "required": [
+                    "name"
+                ],
+                "description": "Site regroupant un ou plusieurs bâtiments.",
+                "minimum": 0
+            }
+        }
+    },
+    {
         "id": "urn:ngsi-ld:Building:Template",
         "type": "Template",
         "name": {
@@ -11,7 +64,7 @@
                     "friendlyAttributeName": "Nom",
                     "schemaType": "string",
                     "title": "Nom du bâtiment",
-                    "order": 1
+                    "order": 4
                 }
             }
         },
@@ -25,7 +78,21 @@
                     "schemaType": "integer",
                     "minimum": 0,
                     "title": "Surface de plancher (m²)",
-                    "order": 2
+                    "order": 5
+                }
+            }
+        },
+        "height": {
+            "type": "Property",
+            "value": 0,
+            "unitCode": "MTR",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "integer",
+                    "minimum": 0,
+                    "title": "Hauteur du bâtiment (m)",
+                    "order": 6
                 }
             }
         },
@@ -37,7 +104,70 @@
                 "value": {
                     "schemaType": "relationship",
                     "title": "Station météo (DJU)",
-                    "order": 3
+                    "order": 7
+                }
+            }
+        },
+        "hasUsage": {
+            "type": "Relationship",
+            "object": "urn:ngsi-ld:Usage:Template",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "array",
+                    "order": 8,
+                    "title": "Utilisation du bâtiment",
+                    "items": {
+                        "type": "Relationship",
+                        "object": "urn:ngsi-ld:Usage:Template",
+                        "jsonSchema": {
+                            "type": "Property",
+                            "value": {
+                                "schemaType": "string",
+                                "title": "Choisir un type d'usage"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "isPartOf": {
+            "type": "Relationship",
+            "object": "urn:ngsi-ld:Site:Template",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "relationship",
+                    "title": "Appartient au site",
+                    "order": 9
+                }
+            }
+        },
+        "location": {
+            "type": "GeoProperty",
+            "value": {
+                "type": "Polygon",
+                "coordinates": []
+            },
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "object",
+                    "order": 10,
+                    "title": "Sélectionner le bâtiment sur la carte"
+                }
+            }
+        },
+        "rnb": {
+            "type": "JsonProperty",
+            "json": "{}",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "json",
+                    "order": 11,
+                    "title": "Référentiel National des Bâtiments",
+                    "canSelfInit": true
                 }
             }
         },
@@ -47,10 +177,238 @@
                 "schemaType": "Building",
                 "title": "Bâtiment",
                 "required": [
-                    "name"
+                    "name",
+                    "location"
                 ],
                 "minimum": 0,
-                "description": "Bâtiment du patrimoine (créé dans la gestion du bâtiment). Surface et station météo servent à normaliser les consommations."
+                "description": "Bâtiment du patrimoine. Surface et station météo servent à normaliser les consommations, le contour à le placer sur la carte."
+            }
+        }
+    },
+    {
+        "id": "urn:ngsi-ld:Storey:Template",
+        "type": "Template",
+        "name": {
+            "type": "Property",
+            "value": "Nom",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "friendlyAttributeName": "Nom",
+                    "schemaType": "string",
+                    "title": "Nom",
+                    "order": 12
+                }
+            }
+        },
+        "elevation": {
+            "type": "Property",
+            "value": 0,
+            "unitCode": "MTR",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "integer",
+                    "title": "Altitude du sol (m, relative au rez-de-chaussée)",
+                    "order": 13
+                }
+            }
+        },
+        "height": {
+            "type": "Property",
+            "value": 0,
+            "unitCode": "MTR",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "integer",
+                    "title": "Hauteur sous plafond (m)",
+                    "order": 14
+                }
+            }
+        },
+        "isPartOf": {
+            "type": "Relationship",
+            "object": "urn:ngsi-ld:Building:Template",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "relationship",
+                    "title": "Appartient au bâtiment",
+                    "order": 15
+                }
+            }
+        },
+        "jsonSchema": {
+            "type": "Property",
+            "value": {
+                "schemaType": "Storey",
+                "title": "Niveau",
+                "required": [
+                    "name",
+                    "isPartOf"
+                ],
+                "minimum": 0,
+                "description": "Facultatif. Étage d'un bâtiment : donne sa hauteur sur la carte et rattache ses espaces."
+            }
+        }
+    },
+    {
+        "id": "urn:ngsi-ld:Space:Template",
+        "type": "Template",
+        "name": {
+            "type": "Property",
+            "value": "Nom de l'espace",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "friendlyAttributeName": "Nom",
+                    "schemaType": "string",
+                    "title": "Nom de l'espace",
+                    "order": 16
+                }
+            }
+        },
+        "floorArea": {
+            "type": "Property",
+            "value": 0,
+            "unitCode": "MTK",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "integer",
+                    "title": "Surface (m²)",
+                    "order": 17
+                }
+            }
+        },
+        "isPartOf": {
+            "type": "Relationship",
+            "object": "urn:ngsi-ld:Storey:Template",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "array",
+                    "order": 18,
+                    "title": "Niveaux de l'espace",
+                    "items": {
+                        "type": "Relationship",
+                        "object": "urn:ngsi-ld:Storey:Template",
+                        "jsonSchema": {
+                            "type": "Property",
+                            "value": {
+                                "schemaType": "string",
+                                "title": "Choisir un niveau"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "jsonSchema": {
+            "type": "Property",
+            "value": {
+                "schemaType": "Space",
+                "title": "Espace",
+                "minimum": 0,
+                "required": [
+                    "name",
+                    "isPartOf"
+                ],
+                "description": "Facultatif. Espace d’un bâtiment, dont un scénario peut changer la consigne de chauffage."
+            }
+        }
+    },
+    {
+        "id": "urn:ngsi-ld:Usage:Template",
+        "type": "Template",
+        "name": {
+            "type": "Property",
+            "value": "Nom de l'usage",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "friendlyAttributeName": "Nom",
+                    "schemaType": "string",
+                    "title": "Nom de l'usage",
+                    "order": 19
+                }
+            }
+        },
+        "jsonSchema": {
+            "type": "Property",
+            "value": {
+                "schemaType": "Usage",
+                "title": "Usage",
+                "required": [
+                    "name"
+                ],
+                "description": "Usage d'un bâtiment, issu d'une nomenclature de référence.",
+                "minimum": 0
+            }
+        }
+    },
+    {
+        "id": "urn:ngsi-ld:DeliveryPoint:Template",
+        "type": "Template",
+        "name": {
+            "type": "Property",
+            "value": "Nom du point de livraison",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "friendlyAttributeName": "Nom",
+                    "schemaType": "string",
+                    "title": "Nom du point de livraison",
+                    "order": 20
+                }
+            }
+        },
+        "fluidType": {
+            "type": "Property",
+            "value": "electricity",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "enum",
+                    "enum": [
+                        "electricity",
+                        "gas",
+                        "water"
+                    ],
+                    "title": "Type de fluide",
+                    "order": 21
+                }
+            }
+        },
+        "controlledAsset": {
+            "type": "Relationship",
+            "object": "urn:ngsi-ld",
+            "jsonSchema": {
+                "type": "Property",
+                "value": {
+                    "schemaType": "relationship",
+                    "title": "Actif contrôlé",
+                    "order": 22,
+                    "listOfAllowedRelationships": [
+                        "urn:ngsi-ld:Building:Template",
+                        "urn:ngsi-ld:Site:Template"
+                    ]
+                }
+            }
+        },
+        "jsonSchema": {
+            "type": "Property",
+            "value": {
+                "schemaType": "DeliveryPoint",
+                "title": "Point de livraison",
+                "required": [
+                    "name",
+                    "fluidType",
+                    "controlledAsset"
+                ],
+                "description": "Compteur d'un bâtiment, dont les consommations sont analysées.",
+                "minimum": 0
             }
         }
     },
@@ -66,7 +424,7 @@
                     "friendlyAttributeName": "Nom",
                     "schemaType": "string",
                     "title": "Nom de la station",
-                    "order": 4
+                    "order": 23
                 }
             }
         },
@@ -80,7 +438,7 @@
                 "type": "Property",
                 "value": {
                     "schemaType": "object",
-                    "order": 5,
+                    "order": 24,
                     "title": "Position de la station"
                 }
             }
@@ -110,7 +468,7 @@
                     "friendlyAttributeName": "Nom",
                     "schemaType": "string",
                     "title": "Nom de l'action",
-                    "order": 6
+                    "order": 25
                 }
             }
         },
@@ -122,7 +480,7 @@
                 "value": {
                     "schemaType": "string",
                     "title": "Description",
-                    "order": 7
+                    "order": 26
                 }
             }
         },
@@ -134,7 +492,7 @@
                 "value": {
                     "schemaType": "relationship",
                     "title": "Bâtiment concerné",
-                    "order": 8
+                    "order": 27
                 }
             }
         },
@@ -146,7 +504,7 @@
                 "value": {
                     "schemaType": "relationship",
                     "title": "Objectifs visés",
-                    "order": 9
+                    "order": 28
                 }
             }
         },
@@ -171,7 +529,7 @@
                         "other"
                     ],
                     "title": "Catégorie d'action",
-                    "order": 10
+                    "order": 29
                 }
             }
         },
@@ -190,7 +548,7 @@
                         "cancelled"
                     ],
                     "title": "Statut",
-                    "order": 11
+                    "order": 30
                 }
             }
         },
@@ -207,7 +565,7 @@
                         "low"
                     ],
                     "title": "Priorité",
-                    "order": 12
+                    "order": 31
                 }
             }
         },
@@ -225,33 +583,33 @@
                         "heat"
                     ],
                     "title": "Fluides concernés",
-                    "order": 13,
+                    "order": 32,
                     "allowMultiple": true
                 }
             }
         },
         "startDate": {
             "type": "Property",
-            "value": "2026-11-20T15:15:31.148Z",
+            "value": "2026-11-27T15:13:14.616Z",
             "jsonSchema": {
                 "type": "Property",
                 "value": {
                     "schemaType": "date",
                     "title": "Début des travaux ou de la mise en œuvre",
-                    "order": 14,
+                    "order": 33,
                     "dateMode": "date"
                 }
             }
         },
         "endDate": {
             "type": "Property",
-            "value": "2026-11-20T15:15:31.148Z",
+            "value": "2026-11-27T15:13:14.616Z",
             "jsonSchema": {
                 "type": "Property",
                 "value": {
                     "schemaType": "date",
                     "title": "Fin des travaux / mise en service",
-                    "order": 15,
+                    "order": 34,
                     "dateMode": "date"
                 }
             }
@@ -266,7 +624,7 @@
                     "schemaType": "integer",
                     "minimum": 0,
                     "title": "Coût (€ HT)",
-                    "order": 16
+                    "order": 35
                 }
             }
         },
@@ -280,7 +638,7 @@
                     "schemaType": "integer",
                     "minimum": 0,
                     "title": "Économie estimée (kWh/an)",
-                    "order": 17
+                    "order": 36
                 }
             }
         },
@@ -312,7 +670,7 @@
                     "friendlyAttributeName": "Nom",
                     "schemaType": "string",
                     "title": "Nom de l'objectif",
-                    "order": 18
+                    "order": 37
                 }
             }
         },
@@ -324,7 +682,7 @@
                 "value": {
                     "schemaType": "relationship",
                     "title": "Bâtiment concerné",
-                    "order": 19
+                    "order": 38
                 }
             }
         },
@@ -340,7 +698,7 @@
                         "tertiaryDecree"
                     ],
                     "title": "Origine de l'objectif",
-                    "order": 20
+                    "order": 39
                 }
             }
         },
@@ -354,7 +712,7 @@
                     "minimum": 2010,
                     "maximum": 2100,
                     "title": "Année de référence",
-                    "order": 21
+                    "order": 40
                 }
             }
         },
@@ -368,7 +726,7 @@
                     "minimum": 2010,
                     "maximum": 2100,
                     "title": "Année cible",
-                    "order": 22
+                    "order": 41
                 }
             }
         },
@@ -383,7 +741,7 @@
                     "minimum": 0,
                     "maximum": 100,
                     "title": "Réduction visée par rapport à l'année de référence (%)",
-                    "order": 23
+                    "order": 42
                 }
             }
         },
@@ -396,7 +754,7 @@
                     "schemaType": "integer",
                     "minimum": 0,
                     "title": "Objectif en valeur absolue (kWh/m²/an)",
-                    "order": 24
+                    "order": 43
                 }
             }
         },
@@ -408,7 +766,7 @@
                 "value": {
                     "schemaType": "boolean",
                     "title": "Comparer à la consommation corrigée du climat (DJU)",
-                    "order": 25
+                    "order": 44
                 }
             }
         },

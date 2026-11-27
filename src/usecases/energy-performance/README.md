@@ -2,44 +2,60 @@
 
 ## Overall Description
 
-This use case covers the "Piloter la performance (temps long)" journey of the energy and utilities offer: select a building or a portfolio, compare periods and similar buildings, normalise consumption (weather, surface), identify the buildings to improve, follow an action plan and measure its gains against targets.
+This use case covers the "Piloter la performance (temps long)" journey of the energy and utilities offer: select a building or a portfolio, compare periods and similar buildings, normalise consumption (weather, surface), identify the buildings to improve, simulate scenarios, turn them into an action plan, follow it and measure its gains against targets.
 
 It is one of the energy use cases, one per user journey. They share entities (`Building`, `DeliveryPoint`, `Usage`…) but each blueprint only declares what its journey needs.
 
 The blueprint has two purposes, in this order:
 
 1. Describe the entities and properties of the journey, so that the Performance dashboard knows what it deals with.
-2. Let a user create action plans and targets by hand, and complete the building data the indicators need.
+2. Let a user create action plans (by hand or from a scenario of the dashboard) and targets, and complete the building data the indicators need.
 
 The target model is `data_model_v2.md` (Energies - Fluides SharePoint folder).
 
 ## Model
 
 ```text
-EnergyAction ── refBuilding ──> Building ── hasWeatherInformation ──> WeatherInformation
-     │ refEnergyTarget (0..n)      ^         ── hasUsage ──> Usage, isPartOf ──> Site (building-management)
-     v                             │
-EnergyTarget ── refBuilding ───────┤
-                                   │
-                    DeliveryPoint ─┘ controlledAsset (measured consumption, utility-management)
+Site <── isPartOf ── Building ── hasWeatherInformation ──> WeatherInformation
+                      ^  ^  ^ ── hasUsage ──> Usage
+     Storey ─ isPartOf┘  │  │
+       ^                 │  └── controlledAsset ── DeliveryPoint (measured consumption)
+Space ─┘ isPartOf        │
+        EnergyAction ── refBuilding ┤── refEnergyTarget (0..n) ──> EnergyTarget
+        EnergyTarget ── refBuilding ┘
 ```
 
 | Entity | Role |
 |--------|------|
-| `Building` | Light version: name, `floorArea` (kWh/m²), `hasWeatherInformation` (degree days). Created with full detail in building-management, same attribute names. |
+| `Site` | `name` (portfolio filter), `postalAddress` (the postal code gives the climate zone of a scenario). |
+| `Building` | `floorArea` (kWh/m²), `hasWeatherInformation` (degree days), `hasUsage`, `isPartOf` (filters), `location` (map: the footprint is selected on it), `rnb` (filled by that selection, not read by this dashboard: keeps the RNB identifier of the building for the others), `height` (optional, map). |
+| `Storey` | Optional. `elevation` and `height`: height on the map when the building has none (else 6 m is drawn). Links the spaces to their building. |
+| `Space` | Optional. `floorArea`: heating setpoint of one space in a scenario. Without spaces, a scenario applies to the whole building. |
+| `Usage` | `name`: portfolio filter, comparison with similar buildings, sector suggested in a scenario. |
+| `DeliveryPoint` | `fluidType`, `controlledAsset`; its measured `consumption` comes from ingestion and feeds every indicator. |
 | `WeatherInformation` | Weather station. Daily `temperature` instances, one `datasetId` per statistic: `urn:ngsi-ld:Dataset:{source}:temperatureMin:P1D` and `…:temperatureMax:P1D`. The dashboard computes the degree days from them. |
-| `EnergyAction` | Improvement action on a building: category, status, priority, fluids, start and end dates, cost, estimated saving (kWh/year and/or %). The gain is measured by the dashboard (before `startDate` vs after `endDate`). `refEnergyTarget` (optional, several possible, one instance per target with its `datasetId`) names the targets the action is meant for: the target's action plan. The dashboard also shows, apart, the other actions of the target's building ending in its period. |
+| `EnergyAction` | Improvement action on a building: category, status, priority, fluids, start and end dates, cost, estimated saving (kWh/year). The gain is measured by the dashboard (before `startDate` vs after `endDate`). `refEnergyTarget` (optional, several possible, one instance per target with its `datasetId`) names the targets the action is meant for: the target's action plan. The dashboard also shows, apart, the other actions of the target's building ending in its period. |
 | `EnergyTarget` | Building target, all energies: reference year, target year, reduction in % and/or absolute intensity (kWh/m²/year), climate-adjusted or not. `targetSource` = `tertiaryDecree` marks the targets to connect with the Conformité use case later. |
 
-Read, not declared here: `DeliveryPoint` (measured `consumption`, `controlledAsset`), `Usage` and `Site` (portfolio filters). There is no portfolio entity: a portfolio is a filter on site and usage.
+`Site`, `Building`, `Storey`, `Space`, `Usage` and `DeliveryPoint` are light versions of the building-management ones, limited to what the dashboard reads, with the same attribute names: an entity created there is read here, provided it is in the scope of this use case. There is no portfolio entity: a portfolio is a filter on site and usage.
 
 Enum values are stable English codes (`lighting`, `inProgress`, `tertiaryDecree`…).
+
+## Action plan from a scenario
+
+The dashboard can create the `EnergyAction`s of a scenario, one per lever (each work, the heating setpoint, the occupied hours), with the status `proposed` and the scope of the use case. `estimatedSaving` is that of the lever applied alone, so the sum of the actions exceeds the saving of the scenario. `actionCategory`: `envelope` (insulation, windows), `controls` (programmer, building management system), `heating` (setpoint), `schedules` (occupied hours).
+
+The status, dates, cost and priority of an action can then be changed in the dashboard.
+
+## Rights
+
+Every user of the use case needs to create and write `EnergyAction` in its scope. A permission on the type `EnergyAction` **and** the scope of the use case gives just that. To check with a non-admin account: whether it is enough to *create* an entity.
 
 ## Identifiers
 
 | Entity | Id |
 |--------|----|
-| `EnergyAction` | `urn:ngsi-ld:EnergyAction:{uuid}` (typed in the form) |
+| `EnergyAction` | `urn:ngsi-ld:EnergyAction:{uuid}` (typed in the form, generated by the dashboard from a scenario) |
 | `EnergyTarget` | `urn:ngsi-ld:EnergyTarget:{uuid}` |
 
 ## Twin Picks limitations
@@ -51,4 +67,6 @@ Enum values are stable English codes (`lighting`, `inProgress`, `tertiaryDecree`
 - Which surface: `floorArea` (building-management) vs `tertiaryFloorArea` (Conformité `RegulatoryQualification`).
 - Attendance / activity normalisation: not modelled yet.
 - `EnergyTarget` vs `RegulatoryQualification.referenceYear` / `absoluteTarget2030`: to connect when the Conformité blueprint is published.
+- Scenarios are only kept in the browser: sharing them needs a new entity, one per scenario.
+- Nothing says which delivery point heats a building: electric heating is estimated from the weather. A usage on the delivery point (or a heating sub-meter) would replace the estimate.
 - Where computed results go (normalised consumption, performance score): data model §6.
